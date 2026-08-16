@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+title: "The signaling cost of finite-speed hidden influences"
+message: >-
+  This is an unrefereed research memorandum. It was produced by AI systems under
+  human direction and no claim in it has been verified by a human domain expert.
+  Please cite it as a preprint-stage memorandum, not as a reviewed result.
+type: software
+authors:
+  - given-names: Steven
+    name-particle: W.
+    family-names: Jones
+    email: stevenwarejones@gmail.com
+abstract: >-
+  Manuscript, exact-arithmetic certificates and independent verifiers for the
+  forced-signaling quantity Sigma_HIC: the minimum operational signaling that any
+  conditionally-local finite-speed hidden-influence model must exhibit while
+  reproducing the observable marginals of a quantum behavior in a blind-pair
+  scenario. For the four-qubit linear-cluster correlations of arXiv:2608.05271,
+  Sigma_HIC = (sqrt(2)-1)/4 exactly, with primal and dual certificates over
+  Q(sqrt(2)); the measurable tradeoff S4 <= 6 + 8*Delta_sig carries an exact
+  rational certificate with a provably optimal constant.
+keywords:
+  - quantum nonlocality
+  - Bell inequalities
+  - hidden influences
+  - finite-speed causal models
+  - superluminal signaling
+  - linear programming certificates
+  - cluster states
+license: MIT
+version: "1.10"
+date-released: 2026-08-16
