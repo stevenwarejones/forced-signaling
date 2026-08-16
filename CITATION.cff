@@ -6,8 +6,7 @@ message: >-
   Please cite it as a preprint-stage memorandum, not as a reviewed result.
 type: software
 authors:
-  - given-names: Steven
-    name-particle: W.
+  - given-names: Steven W.
     family-names: Jones
     email: stevenwarejones@gmail.com
 abstract: >-
@@ -30,3 +29,9 @@ keywords:
 license: MIT
 version: "1.10"
 date-released: 2026-08-16
+doi: 10.5281/zenodo.21962607
+repository-code: "https://github.com/stevenwarejones/forced-signaling"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21962607
+    description: Archived release v1.10

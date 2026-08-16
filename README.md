@@ -1,5 +1,8 @@
 # The signaling cost of finite-speed hidden influences
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21962607.svg)](https://doi.org/10.5281/zenodo.21962607)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Manuscript, exact-arithmetic certificates, and independent verifiers for the result
 that finite-speed hidden-influence models explaining the four-qubit linear-cluster
 correlations of Li, Hu, Deng and Scarani ([arXiv:2608.05271](https://arxiv.org/abs/2608.05271))
@@ -110,7 +113,8 @@ or *conjectured*, and the distinction is meant literally.
 ## Integrity
 
 ```bash
-sha256sum -c hashes.txt
+sha256sum -c hashes.txt          # Linux
+shasum -a 256 -c hashes.txt      # macOS (no sha256sum by default)
 ```
 
 `hashes.txt` covers the manuscript package — manuscript, scripts, figures, certificates
@@ -145,9 +149,12 @@ are released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Citation
 
-If you use the certificates or the Σ<sub>HIC</sub> linear program, please cite the manuscript; see
-[`CITATION.cff`](CITATION.cff). Note that it is an unrefereed research memorandum whose
-claims have not been checked by a human expert, and it should be cited as such.
+Archived on Zenodo: [**10.5281/zenodo.21962607**](https://doi.org/10.5281/zenodo.21962607) (v1.10).
+Machine-readable metadata is in [`CITATION.cff`](CITATION.cff); GitHub's "Cite this
+repository" button reads it.
+
+Note that this is an unrefereed research memorandum whose claims have not been checked
+by a human expert, and it should be cited as such.
 
 ## Contact
 
