@@ -1,4 +1,4 @@
-# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.10)
+# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.11)
 
 Every circulated copy of main.pdf must be accompanied by this package.
 Solver for all floating-point LPs: scipy linprog (HiGHS), feasibility tol ~1e-9.
