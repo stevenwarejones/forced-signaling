@@ -1,7 +1,15 @@
-# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.11)
+# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.12)
 
 Every circulated copy of main.pdf must be accompanied by this package.
-Solver for all floating-point LPs: scipy linprog (HiGHS), feasibility tol ~1e-9.
+
+Solver for all floating-point LPs: scipy linprog (HiGHS) with the primal and dual
+feasibility tolerances set EXPLICITLY to 1e-9 (the HiGHS defaults are 1e-7). Every
+solve is checked for success; a failed, missing or nonfinite result raises LPFailure
+rather than being read as a zero, and each solution's equality residual, inequality
+violation and bound violation are recomputed from the returned vector and reported in
+each script's closing diagnostics line. Decimal agreement reported anywhere in this
+package is OBSERVED agreement, not a certified error bound: the exact-arithmetic
+certificates for Theorems 1 and 2 are the only certified numbers here.
 
 ## Verify integrity (run from the package root)
     sha256sum -c hashes.txt
@@ -9,9 +17,12 @@ Hashes cover: main.tex, main.pdf, all scripts, figure source, figures, certifica
 
 ## Dependencies
 python3 (3.9+), numpy, scipy (HiGHS via linprog), sympy (verify_Sigma.py only).
-Typical runtimes: verify_K8.py < 1 s (expected: "CERTIFICATE VALID: S4^op <= 6 + 8*Delta_sig...");
-verify_Sigma.py seconds-to-minutes depending on machine, dominated by symbolic marginal
-computation (expected: "CERTIFICATES VALID: Sigma_HIC(Q_LC4) = (sqrt2-1)/4 exactly").
+Each reproduction script prints the exact python/numpy/scipy/sympy versions it ran under.
+Typical runtimes (machine-dependent; measured on python 3.11 / numpy 2.4 / scipy 1.17):
+verify_K8.py 0.1-0.3 s (expected: "CERTIFICATE VALID: S4^op <= 6 + 8*Delta_sig...");
+verify_Sigma.py 0.9-1.5 s (expected: "CERTIFICATES VALID: Sigma_HIC(Q_LC4) = (sqrt2-1)/4 exactly").
+Both verifiers EXIT NONZERO on any failed check or malformed certificate, so they may be
+used directly as automated gates.
 
 ## Reproduction commands
     # all commands run from the package root
@@ -22,20 +33,37 @@ computation (expected: "CERTIFICATES VALID: Sigma_HIC(Q_LC4) = (sqrt2-1)/4 exact
     python3 threadB/reproduce_extra.py      # 4 supersets, random+random; FULL=1 adds LC5, mixed-flavor
     python3 threadB/reproduce_theorem4.py   # 24-vertex check, 400 constrained distances, perturbations
     (cd paper && python3 figures.py)        # regenerates the three figures
+    python3 tests/regression_checks.py      # tamper/failure gates (see below)
+
+QUICK vs FULL: QUICK mode validates a documented subset. It does NOT exercise the
+512-completion spectrum or its multiplicities (it evaluates a 1/8 stride PLUS the K=8
+optimal completion explicitly, since the plain stride omits both K=8 and K=10). Claims
+marked (FULL) below are not reproduced by a QUICK run and must not be reported as such.
+
+## Failure-mode gates (tests/regression_checks.py)
+Verification is only meaningful if it fails when it should. This script checks, against
+temporary copies (never the shipped certificates), that: a 1e-30 perturbation survives
+certificate parsing rather than being snapped onto the nearby exact value; perturbed,
+equality-breaking, sign-violating and malformed certificates are all REJECTED with a
+nonzero exit, including under `python -O`; an unsuccessful, nonfinite-objective or
+nonfinite-solution LP raises LPFailure instead of yielding Sigma = 0; and no
+fallback-to-zero solver pattern remains anywhere in threadB/.
 
 ## Per-claim coverage inventory
 | claim | script | status |
 |---|---|---|
 | Thm 1 certificate (K=8) | verify_K8.py | independent exact verifier |
 | Thm 4: 24-vertex inequality | reproduce_theorem4.py | exhaustive (finite proof step) |
-| Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered |
+| Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered; compared against max{0,(S-2)/8} -- 376 of the 400 have S<2, where the max is what makes the claim true |
 | perturbation sweep near cluster point | reproduce_theorem4.py (seeds 13/17) | 100+50 in-package; the 300/150 sweep cited in the paper was an external audit (not regenerable here) |
 | Thm 2 certificates (Q(sqrt2)) | verify_Sigma.py | independent exact standalone verifier |
-| completion spectrum {8..16} | reproduce_core.py (FULL) | machine-numerical (K=8 optimality is EXACT via Corollary 1) |
-| LC4 numeric / tilt identity | reproduce_core.py | covered |
+| completion spectrum {8..16} | reproduce_core.py (FULL) | machine-numerical, asserted in FULL only (K=8 optimality is EXACT via Corollary 1); QUICK checks the optimal completion but not the multiplicities |
+| LC4 numeric | reproduce_core.py | covered |
+| tilt identity Sigma = max{0,(S4-6)/8} | reproduce_core.py | covered at 4 tested theta; S4 computed directly from the state and compared (max deviation ~1e-15). NOT a claim for all theta, and NOT a uniqueness claim for the S4 facet |
+| fixed cluster-point dual = (S4-6)/8 on tilted states | reproduce_core.py | covered at the same 4 theta (max deviation ~6e-16); the dual is extracted at the cluster point and applied to each tilted state's marginals, including the negative value at theta=0.85 |
 | GHZ/W/random = <1e-9 | reproduce_core.py (seed 7) | covered |
 | chained n=3,4 | chained.py / reproduce_core.py | covered |
-| parallel flatness | reproduce_core.py (FULL) | covered |
+| parallel flatness | reproduce_core.py (FULL) | covered; asserted, floating-point only (no exact certificate) |
 | MC delay cover | reproduce_core.py (seed 1) | covered (QUICK: 50k trials) |
 | event budgets | reproduce_core.py | covered (allocation follows Li et al.; counts are ours) |
 | CGLMP ladder d=2..8 | — | matches Brito et al. Fig.3; script OPEN ITEM |
@@ -61,3 +89,15 @@ at index 384. Dual: 'dual_lambda_nonzero' indexes the 272 inequality rows (256 a
 - v1.6 correction: the earlier flag-parity assemblage claim (0.9508/0.990) was WITHDRAWN;
   the assemblage has no joint no-signaling extension (audit finding). Its driver was removed.
 - Barnea transcription discrepancy.
+- The tilted-family identity is verified at four points only; neither the identity for
+  all theta nor uniqueness of the active constraint is established (the earlier
+  uniqueness wording was withdrawn in v1.12 -- it is false at theta=0.85, where
+  S4 = 5.9669 < 6 and the zero is enforced by nonnegativity, not by the S4 facet).
+- The experimental proposal of Sec. 6 is an architecture with the design obligations of
+  Sec. 6.3 open (confidence-bound construction, simultaneous comparisons, the continuous
+  candidate region, full budgets including the 8*Delta_sig term, setting randomization,
+  and non-i.i.d./memory-valid treatment). Nothing in this package establishes that the
+  experiment is ready to run.
+- Whether the encoded conditionally-local optimization fully captures the intended
+  finite-speed physical interpretation is a modelling question for specialist assessment,
+  not something any certificate here settles.

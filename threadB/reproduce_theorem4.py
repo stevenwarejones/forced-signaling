@@ -5,13 +5,15 @@
 (3) Perturbation sweep near the cluster point: perturbed states and measurement
     configurations never exceed (sqrt2-1)/4 (seeds 13/17; the larger 300/150 sweep
     reported in the manuscript was an external audit — this reproduces it in kind).
-Solver: HiGHS, tol ~1e-9."""
+Solver: HiGHS with primal/dual feasibility tolerances set explicitly to 1e-9;
+every solve is checked and its residuals recomputed from the returned solution."""
 import numpy as np
 from itertools import product
-from scipy.optimize import linprog
 from scipy import sparse
-from adversary import SigmaLP, cluster4, projs, PA, PB, PC, PD
+from adversary import (SigmaLP, cluster4, projs, PA, PB, PC, PD,
+                       solve_lp, LPFailure, dependency_report, diagnostics_report)
 ceil=(np.sqrt(2)-1)/4
+print(f"environment: {dependency_report()}")
 X=np.array([[0,1],[1,0]],dtype=complex); Z=np.diag([1,-1]).astype(complex)
 Y=np.array([[0,-1j],[1j,0]])
 
@@ -71,14 +73,14 @@ def constrained_distance(Q):
             if fC[z]==c: r[vi]=1
         eqr.append(r); eqb.append(sum(Q[0,z,b,c] for b in range(2)))
     cv=np.zeros(ncol); cv[-1]=1
-    res=linprog(cv,A_ub=A,b_ub=np.array(bub),A_eq=np.array(eqr),b_eq=np.array(eqb),
-                bounds=[(0,None)]*ncol,method='highs')
+    res=solve_lp(cv,A_ub=A,b_ub=np.array(bub),A_eq=np.array(eqr),b_eq=np.array(eqb),
+                 bounds=[(0,None)]*ncol,context="constrained_distance")
     return res.fun
 rng=np.random.default_rng(3)
 def rq(r):
     n=r.normal(size=3); n/=np.linalg.norm(n)
     return projs(n[0]*X+n[1]*Y+n[2]*Z)
-bad=0
+bad=0; maxdev=0.0
 for i in range(400):
     v=rng.normal(size=4)+1j*rng.normal(size=4); v/=np.linalg.norm(v)
     PBq=[rq(rng) for _ in range(2)]; PCq=[rq(rng) for _ in range(2)]
@@ -89,27 +91,30 @@ for i in range(400):
     for y,z,b,c in product(range(2),repeat=4): E[y,z]+=((-1)**(b^c))*Q[y,z,b,c]
     S=max(abs(s[0]*E[0,0]+s[1]*E[0,1]+s[2]*E[1,0]+s[3]*E[1,1]) for s in pats[:4])
     d=constrained_distance(Q)
-    if abs(d-max(0,(S-2)/8))>1e-7: bad+=1
-print(f"mismatches: {bad}/400")
+    dev=abs(d-max(0,(S-2)/8)); maxdev=max(maxdev,dev)
+    if dev>1e-9: bad+=1
+print(f"mismatches (threshold 1e-9): {bad}/400; max observed deviation {maxdev:.3e}")
 assert bad==0
 
 print("== (3) perturbation sweep near the cluster point (seeds 13/17) ==")
 lp22=SigmaLP(2,2,2,PA,PB,PC,PD)
 r13=np.random.default_rng(13); worst=0
-for _ in range(100):
+for i in range(100):
     psi=cluster4()+0.02*(r13.normal(size=16)+1j*r13.normal(size=16))
     psi/=np.linalg.norm(psi)
-    worst=max(worst, lp22.solve(psi) or 0)
+    worst=max(worst, lp22.solve(psi,context=f"perturbed state #{i} (seed 13)"))
 print(f"100 perturbed states (2% noise): max Sigma = {worst:.9f}")
 assert worst<ceil+1e-9
 r17=np.random.default_rng(17); worst2=0
 ang=lambda t: projs(np.cos(t)*Z+np.sin(t)*X)
 angA=lambda t: projs(np.cos(t)*X+np.sin(t)*Z)
-for _ in range(50):
+for i in range(50):
     e=lambda: r17.normal(scale=0.05)
     lp=SigmaLP(2,2,2,[angA(e()),angA(np.pi/2+e())],[ang(np.pi/4+e()),ang(-np.pi/4+e())],
                [ang(e()),ang(np.pi/2+e())],[angA(e()),angA(np.pi/2+e())])
-    worst2=max(worst2, lp.solve(cluster4()) or 0)
+    worst2=max(worst2, lp.solve(cluster4(),context=f"perturbed config #{i} (seed 17)"))
 print(f"50 perturbed measurement configs: max Sigma = {worst2:.9f}")
 assert worst2<ceil+1e-9
+print("== numerical diagnostics ==")
+print(f"  {diagnostics_report()}")
 print("all Theorem-4 / perturbation checks pass")

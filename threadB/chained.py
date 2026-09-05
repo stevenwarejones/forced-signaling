@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.optimize import linprog
+from adversary import solve_lp, LPFailure
 from itertools import product
 import sys
 
@@ -101,9 +101,9 @@ def sigma_hic(nA, nB, thetasA, phisB):
     for i,r in enumerate(eq_rows): Aeq[i,:N]=r
     beq=np.array(eq_rhs)
     cobj=np.zeros(total); cobj[delta]=1
-    res=linprog(cobj,A_ub=np.array(Aub),b_ub=np.array(bub),A_eq=Aeq,b_eq=beq,
-                bounds=[(0,None)]*total,method='highs')
-    return res.fun if res.success else None
+    res=solve_lp(cobj,A_ub=np.array(Aub),b_ub=np.array(bub),A_eq=Aeq,b_eq=beq,
+                 bounds=[(0,None)]*total,context=f"chained nA={nA},nB={nB}")
+    return res.fun
 
 if __name__=="__main__":
     ref=(np.sqrt(2)-1)/4

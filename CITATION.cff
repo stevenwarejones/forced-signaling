@@ -4,6 +4,10 @@ message: >-
   This is an unrefereed research memorandum. It was produced by AI systems under
   human direction and no claim in it has been verified by a human domain expert.
   Please cite it as a preprint-stage memorandum, not as a reviewed result.
+  The version, doi and date-released fields below describe the most recent
+  ARCHIVED release. The repository working tree may be ahead of it; the draft
+  version printed on the title page of paper/main.pdf is authoritative for the
+  manuscript you are actually reading. Cite the archived release you used.
 type: software
 authors:
   - given-names: Steven W.

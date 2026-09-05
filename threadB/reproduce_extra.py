@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Drivers for the Table-1 rows not covered by reproduce_core.py:
 setting supersets, random states + random measurements, LC5 (FULL),
-locked mixed-flavor (FULL). Seeds fixed. Solver: HiGHS, tol ~1e-9."""
+locked mixed-flavor (FULL). Seeds fixed. Solver: HiGHS with primal/dual
+feasibility tolerances set explicitly to 1e-9; every solve is checked and its
+residuals recomputed from the returned solution (reported at the end)."""
 import os, numpy as np
 from itertools import product
-from scipy.optimize import linprog
-from adversary import SigmaLP, cluster4, projs, kron, PA, PB, PC, PD
+from adversary import (SigmaLP, cluster4, projs, kron, PA, PB, PC, PD,
+                       solve_lp, LPFailure, dependency_report, diagnostics_report)
 FULL=os.environ.get("FULL")=="1"
+print(f"environment: {dependency_report()}")
 ceil=(np.sqrt(2)-1)/4
 X=np.array([[0,1],[1,0]],dtype=complex); Z=np.diag([1,-1]).astype(complex)
 Y=np.array([[0,-1j],[1j,0]])
@@ -21,20 +24,20 @@ tests=[("B superset",SigmaLP(2,3,2,PA,[ang(np.pi/4),ang(-np.pi/4),ang(0)],PC,PD)
        ("A+B superset",SigmaLP(3,3,2,[angA(0),angA(np.pi/2),angA(np.pi/4)],
                                [ang(np.pi/4),ang(-np.pi/4),ang(np.pi/2)],PC,PD))]
 for name,lp in tests:
-    s=lp.solve(psi); print(f"  {name}: {s:.9f}")
+    s=lp.solve(psi,context=name); print(f"  {name}: {s:.9f}")
     assert abs(s-ceil)<1e-8, name
 
 print("== random states + random measurements (claim <1e-9; seed 11) ==")
 rng=np.random.default_rng(11)
 worst=0
-for _ in range(5 if not FULL else 15):
+for i in range(5 if not FULL else 15):
     v=rng.normal(size=16)+1j*rng.normal(size=16); v/=np.linalg.norm(v)
     def rq(r):
         n=r.normal(size=3); n/=np.linalg.norm(n)
         return projs(n[0]*X+n[1]*Y+n[2]*Z)
     lp=SigmaLP(2,2,2,[rq(rng) for _ in range(2)],[rq(rng) for _ in range(2)],
                [rq(rng) for _ in range(2)],[rq(rng) for _ in range(2)])
-    worst=max(worst, lp.solve(v) or 0)
+    worst=max(worst, lp.solve(v,context=f"random state+measurements #{i} (seed 11)"))
 print(f"  worst: {worst:.2e}")
 assert worst<1e-9
 
@@ -114,8 +117,8 @@ if FULL:
     Aeq=np.zeros((len(eq),total))
     for i,r in enumerate(eq): Aeq[i,:N]=r
     c=np.zeros(total); c[delta]=1
-    res=linprog(c,A_ub=np.array(Aub),b_ub=np.zeros(len(Aub)),A_eq=Aeq,b_eq=np.array(rhs),
-                bounds=[(0,None)]*total,method='highs')
+    res=solve_lp(c,A_ub=np.array(Aub),b_ub=np.zeros(len(Aub)),A_eq=Aeq,b_eq=np.array(rhs),
+                 bounds=[(0,None)]*total,context="LC5")
     print(f"  LC5: {res.fun:.9f}")
     assert abs(res.fun-ceil)<1e-8
 
@@ -185,7 +188,12 @@ if FULL:
     Aeq=np.zeros((len(eq),total))
     for i,r in enumerate(eq): Aeq[i,:N2]=r
     c=np.zeros(total); c[delta]=1
-    res=linprog(c,A_ub=np.array(Aub),b_ub=np.zeros(len(Aub)),A_eq=Aeq,b_eq=np.array(rhs),
-                bounds=[(0,None)]*total,method='highs')
+    res=solve_lp(c,A_ub=np.array(Aub),b_ub=np.zeros(len(Aub)),A_eq=Aeq,b_eq=np.array(rhs),
+                 bounds=[(0,None)]*total,context="locked mixed-flavor")
     print(f"  locked mixed-flavor: {res.fun:.9f}")
     assert abs(res.fun-ceil)<1e-8
+
+print("== numerical diagnostics ==")
+print(f"  {diagnostics_report()}")
+print(f"  mode: {'FULL' if FULL else 'QUICK'}")
+print("reproduce_extra.py: all assertions passed")
