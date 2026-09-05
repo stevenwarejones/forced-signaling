@@ -194,11 +194,14 @@ if FULL:
     assert abs(res.fun-ceil)<1e-8
 
 if FULL:
-    print("== recipient-subset pinning (Lemma 2 of the manuscript) ==")
+    print("== recipient-subset pinning (Lemma 2) -- MAX SINGLE-OUTCOME DIFFERENCE, not TV ==")
     # Analytic claim: any recipient set omitting B or omitting C has its distribution
     # fixed by the reproduced ABD/ACD families, which are no-signaling, so it cannot
     # depend on the sender's setting. Only {B,C} and {B,C,D} are live for sender A.
-    # This maximises the signal into each subset by LP and confirms exactly that.
+    # This maximises a SINGLE OUTCOME PROBABILITY DIFFERENCE by LP -- not the total
+    # variation distance, which is not a linear objective. It suffices for the lemma:
+    # a nonzero max certifies TV > 0 (TV >= half the largest single-outcome difference),
+    # and an exactly zero max certifies the subset is pinned.
     from itertools import combinations
     lpP = SigmaLP(2,2,2,PA,PB,PC,PD)
     idxP, fBp, fCp = lpP.idx, lpP.fB, lpP.fC
@@ -225,8 +228,8 @@ if FULL:
                     best = max(best, -r.fun)
             label = ''.join(names[i] for i in R)
             (live if best > 1e-7 else pinned)[label] = best
-            print(f"  sender A -> {label:4s}: max component {best:.9f}"
-                  f"  {'CAN signal' if best > 1e-7 else 'pinned'}")
+            print(f"  sender A -> {label:4s}: max |dp(o)| = {best:.9f}"
+                  f"  {'CAN signal (TV >= %.4f)' % (best/2) if best > 1e-7 else 'pinned'}")
     assert set(pinned) == {'B','C','D','BD','CD'}, f"unexpected pinned set: {sorted(pinned)}"
     assert set(live) == {'BC','BCD'}, f"unexpected live set: {sorted(live)}"
     assert max(pinned.values()) < 1e-7, f"a pinned subset signaled: {pinned}"

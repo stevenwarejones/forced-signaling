@@ -59,7 +59,7 @@ fallback-to-zero solver pattern remains anywhere in threadB/.
 | Prop 1: dual split (2 per direction) | verify_directional.py | exact; read off K8_certificate.json, so it presupposes verify_K8.py passes |
 | Prop 1: one-sided attainment (dA,dD)=(s,0),(0,s) | verify_directional.py | exact primal certificates over Q(sqrt2); these are NEW proof obligations, not consequences of the Thm 1 dual |
 | Prop 2: optimum attainable with all singles/pairs blind | verify_invisibility.py | exact; three models (A_only, D_only, balanced), each reproducing every ABD/ACD marginal exactly, with all one- and two-party recipient marginals non-signaling and the triple difference a pure parity shift |
-| Lemma 2: only {B,C} and {B,C,D} can carry a signal | (analytic) + reproduce_extra.py (FULL) | proof is one line -- any recipient set omitting B or C is fixed by the reproduced ABD/ACD families, which are no-signaling; the FULL script confirms it by LP (five subsets give exactly 0; {B,C} reaches 0.323, {B,C,D} 0.213) |
+| Lemma 2: only {B,C} and {B,C,D} can carry a signal | (analytic) + reproduce_extra.py (FULL) | proof is one line -- any recipient set omitting B or C is fixed by the reproduced ABD/ACD families, which are no-signaling; the FULL script confirms it by LP, maximising a SINGLE-OUTCOME probability difference (not TV, which is not linear): five subsets give exactly 0; {B,C} reaches 0.323 and {B,C,D} 0.213, certifying TV >= 0.162 and 0.107 |
 | Prop 2: co-located layout has zero accessible signaling FOR EVERY compatible model | (analytic) | needs BOTH conditions to fail: C_full from J_c^+(K_D) subset J_c^+(K_A); C_BC from the early parties lying on segment BC, which makes the two "closer to B/C than to the sender" half-spaces disjoint. The second is an explicit geometric HYPOTHESIS, not a consequence of co-location alone |
 | Prop 2: separated 4-site example is collectible both ways | (analytic, exact rationals) | margins 1/20 and 3/5 at c=1, v=4; arithmetic stated in the text |
 | Prop 2: realistic four-site restoration (12 km line) | (analytic) | early parties outboard at +/-6 km, blind pair inboard at +/-5 km, 100 ns stagger; all pairs c-spacelike, v-cones 25-300x margin, both records collectible with ~3 us margin. Collectibility is a LIGHT-cone condition, hence Lorentz invariant, so it adds no burden to the delay cover and is ~70x larger than the +/-42 ns delay span |
@@ -111,6 +111,12 @@ delta_A + delta_D = (sqrt(2)-1)/2 with the other direction exactly zero.
   achievable bounds are, and it requires SIMULTANEOUS valid confidence bounds on
   delta_A and delta_D where the scalar test needs one bound on their maximum; that
   statistical cost is not priced here.
+- The four-site restoration is an example AT v=1e4 c, valid down to v ~ 8.6e2 c
+  (kappa > 400.28 in the laboratory frame, kappa > 863.35 under the worst aligned
+  boost). It does NOT inherit Theorem 7's coverage of the whole c < v <= 1e4 c region:
+  collectibility forces tau < L/c while the v-inclusion forces tau > L/(kappa c), so a
+  fixed early geometry covers only kappa > L/(c tau). Programming the early stagger to
+  cover the full range is NOT worked out here.
 - Proposition 2's universal (every-model) branch requires the early parties to lie between
   the two blind stations. Move them off that segment and {B,C} can become collectible, at
   which point only the weaker existential statement survives.

@@ -89,9 +89,12 @@ the Theorem 1 certificate, so run `verify_K8.py` first — or just run them all 
 
 ```bash
 for v in K8 Sigma directional invisibility; do
-  python3 paper/verify_$v.py || echo "FAILED: verify_$v.py"
+  python3 paper/verify_$v.py || { echo "FAILED: verify_$v.py"; exit 1; }
 done
 ```
+
+(run that in a subshell or script so the `exit 1` is meaningful — a bare `|| echo`
+would report success even when a verifier fails).
 
 Expected output, verbatim:
 
