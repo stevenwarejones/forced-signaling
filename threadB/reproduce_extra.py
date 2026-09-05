@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Drivers for the Table-1 rows not covered by reproduce_core.py:
 setting supersets, random states + random measurements, LC5 (FULL),
-locked mixed-flavor (FULL). Seeds fixed. Solver: HiGHS with primal/dual
+locked mixed-flavor (FULL), recipient-subset pinning for Lemma 2 (FULL). Seeds fixed. Solver: HiGHS with primal/dual
 feasibility tolerances set explicitly to 1e-9; every solve is checked and its
 residuals recomputed from the returned solution (reported at the end)."""
 import os, numpy as np
@@ -192,6 +192,48 @@ if FULL:
                  bounds=[(0,None)]*total,context="locked mixed-flavor")
     print(f"  locked mixed-flavor: {res.fun:.9f}")
     assert abs(res.fun-ceil)<1e-8
+
+if FULL:
+    print("== recipient-subset pinning (Lemma 2) -- MAX SINGLE-OUTCOME DIFFERENCE, not TV ==")
+    # Analytic claim: any recipient set omitting B or omitting C has its distribution
+    # fixed by the reproduced ABD/ACD families, which are no-signaling, so it cannot
+    # depend on the sender's setting. Only {B,C} and {B,C,D} are live for sender A.
+    # This maximises a SINGLE OUTCOME PROBABILITY DIFFERENCE by LP -- not the total
+    # variation distance, which is not a linear objective. It suffices for the lemma:
+    # a nonzero max certifies TV > 0 -- a singleton is an event and TV = max_S |p(S)-q(S)|,
+    # and an exactly zero max certifies the subset is pinned.
+    from itertools import combinations
+    lpP = SigmaLP(2,2,2,PA,PB,PC,PD)
+    idxP, fBp, fCp = lpP.idx, lpP.fB, lpP.fC
+    def colsP(x,y,z,w,a,b,c,d):
+        return [idxP[(x,w,a,d,fb,fg)] for fb in range(4) if fBp(fb,y)==b
+                for fg in range(4) if fCp(fg,z)==c]
+    beqP = lpP.marginals(psi)
+    names = {1:'B', 2:'C', 3:'D'}
+    live, pinned = {}, {}
+    for size in (1,2,3):
+        for R in combinations((1,2,3), size):
+            best = 0.0
+            for outs in product(range(2), repeat=size):
+                for y,z,w in product(range(2), repeat=3):
+                    obj = np.zeros(lpP.total)
+                    for a,b,c,d in product(range(2), repeat=4):
+                        vals = {0:a, 1:b, 2:c, 3:d}
+                        if tuple(vals[i] for i in R) != outs: continue
+                        for col in colsP(0,y,z,w,a,b,c,d): obj[col] += 1
+                        for col in colsP(1,y,z,w,a,b,c,d): obj[col] -= 1
+                    r = solve_lp(-obj, A_ub=lpP.Aub, b_ub=lpP.bub, A_eq=lpP.Aeq, b_eq=beqP,
+                                 bounds=[(0,None)]*lpP.total,
+                                 context=f"max signal A -> {R}")
+                    best = max(best, -r.fun)
+            label = ''.join(names[i] for i in R)
+            (live if best > 1e-7 else pinned)[label] = best
+            print(f"  sender A -> {label:4s}: max |dp(o)| = {best:.9f}"
+                  f"  {'CAN signal (TV >= %.4f)' % best if best > 1e-7 else 'pinned'}")
+    assert set(pinned) == {'B','C','D','BD','CD'}, f"unexpected pinned set: {sorted(pinned)}"
+    assert set(live) == {'BC','BCD'}, f"unexpected live set: {sorted(live)}"
+    assert max(pinned.values()) < 1e-7, f"a pinned subset signaled: {pinned}"
+    print("  only {B,C} and {B,C,D} are live, as Lemma 2 states")
 
 print("== numerical diagnostics ==")
 print(f"  {diagnostics_report()}")

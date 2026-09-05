@@ -47,28 +47,54 @@ no-blind-pair marginal of *Q*. Principal results:
   gives 16, a factor of two in sensitivity lost for free.
 - A universal bound Σ<sub>HIC</sub> ≤ (√2−1)/2, a reduction of Σ<sub>HIC</sub> to steering assemblages, and a
   conjectured tight ceiling (√2−1)/4 with its full adversarial record.
+- **Directional refinement:** the same certificate resolves by sender, giving
+  S₄<sup>op</sup> ≤ 6 + 4δ<sub>A</sub> + 4δ<sub>D</sub> — tighter than 6 + 8Δ<sub>sig</sub> whenever the two
+  directions differ — and either party alone can carry the whole minimum budget
+  (√2−1)/2, so bounding the signaling out of one early party can never exclude the class.
+- **What the experiment does and does not show:** the forced signaling can be carried
+  entirely by the three-party joint record, with every one- and two-party recipient
+  marginal exactly non-signaling. Whether it is *usable* then depends on the layout —
+  and in the co-located three-site arrangement below *no* compatible model gives an
+  accessible signal, because only recipient sets containing the whole blind pair can
+  carry one and none of those is collectible there. The statistical exclusion is
+  unaffected either way. A four-site variant
+  (early parties outboard at ±6 km, blind pair inboard at ±5 km) restores it, with
+  ~3 µs collectibility margins; collectibility is a light-cone condition and so is
+  frame-independent, adding nothing to the delay-cover problem.
 - An experimental architecture: three sites, one ~10 km baseline, ~16 programmed delays
   covering every preferred frame with |β| ≤ 1.34×10⁻³ and every hidden speed *v* ≤ 10⁴*c*.
 
 ## Verify the central claims in a couple of seconds
 
-Both verifiers rebuild the linear programs **from first principles** — integer and exact
+The verifiers rebuild the linear programs **from first principles** — integer and exact
 symbolic arithmetic — and validate the stored certificates independently of the code that
 generated them. Certificate entries are read by a restricted parser that accepts only
 exact integer/rational literals and the token `sqrt(2)`: there is no floating-point atom,
 no approximate number recognition, and no general expression evaluation anywhere in the
 certificate path, so a supplied value cannot be silently replaced by a nearby simpler one.
-Both scripts **exit nonzero** if any check fails or the certificate is malformed, so they
+All four **exit nonzero** if any check fails or the certificate is malformed, so they
 can be used as automated gates. The audit surface is a few hundred lines of standalone
 Python, not the whole package.
 
 ```bash
-python3 paper/verify_K8.py      # Theorem 1
-python3 paper/verify_Sigma.py   # Theorem 2
+python3 paper/verify_K8.py           # Theorem 1
+python3 paper/verify_Sigma.py        # Theorem 2
+python3 paper/verify_directional.py  # Proposition 1 (directional refinement)
+python3 paper/verify_invisibility.py # Proposition 2 (pairwise-invisible attaining models)
 ```
 
-Both complete in roughly one second on an ordinary laptop (measured: 0.1–0.3 s and
-0.9–1.5 s respectively); timings are machine-dependent.
+Each completes in a few seconds on an ordinary laptop (measured: 0.1–0.3 s, 0.9–1.5 s,
+~3 s and ~1 s respectively); timings are machine-dependent. `verify_directional.py` reads
+the Theorem 1 certificate, so run `verify_K8.py` first — or just run them all in order:
+
+```bash
+for v in K8 Sigma directional invisibility; do
+  python3 paper/verify_$v.py || { echo "FAILED: verify_$v.py"; exit 1; }
+done
+```
+
+(run that in a subshell or script so the `exit 1` is meaningful — a bare `|| echo`
+would report success even when a verifier fails).
 
 Expected output, verbatim:
 
@@ -98,7 +124,7 @@ All commands run from the repository root.
 ```bash
 python3 threadB/reproduce_core.py          # QUICK: core numerical claims, minutes
 FULL=1 python3 threadB/reproduce_core.py   # complete: 512-completion spectrum, parallel 2-copy, 500k MC
-python3 threadB/reproduce_extra.py         # 4 setting supersets, random+random; FULL=1 adds LC5, mixed-flavor
+python3 threadB/reproduce_extra.py         # 4 setting supersets, random+random; FULL=1 adds LC5, mixed-flavor, subset pinning
 python3 threadB/reproduce_theorem4.py      # 24-vertex check, 400 constrained distances, perturbation sweep
 (cd paper && python3 figures.py)           # regenerates the three figures
 ```
@@ -133,6 +159,8 @@ or *conjectured*, and the distinction is meant literally.
 | `paper/verify_Sigma.py` | standalone exact verifier, Theorem 2 (sympy over ℚ(√2)) |
 | `paper/K8_certificate.json` | rational dual vector, Theorem 1 |
 | `paper/Sigma_LC4_certificates.json` | primal and dual certificates over ℚ(√2), Theorem 2 |
+| `paper/verify_directional.py`, `paper/directional_certificates.json` | standalone exact verifier and the two one-sided certificates, Proposition 1 |
+| `paper/verify_invisibility.py`, `paper/invisible_certificates.json` | standalone exact verifier and the three pairwise-invisible models, Proposition 2 |
 | `paper/MANIFEST.md` | reproduction commands, per-claim coverage inventory, certificate schema, open items |
 | `paper/figures.py`, `paper/fig_*.pdf` | figure source and output |
 | `threadB/reproduce_*.py` | reproduction drivers for the numerical record |
