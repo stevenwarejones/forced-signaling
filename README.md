@@ -54,8 +54,10 @@ no-blind-pair marginal of *Q*. Principal results:
 - **What the experiment does and does not show:** the forced signaling can be carried
   entirely by the three-party joint record, with every one- and two-party recipient
   marginal exactly non-signaling. Whether it is *usable* then depends on the layout —
-  and the co-located three-site arrangement below provably admits no superluminal
-  channel at all, though the statistical exclusion is unaffected. A four-site variant
+  and in the co-located three-site arrangement below *no* compatible model gives an
+  accessible signal, because only recipient sets containing the whole blind pair can
+  carry one and none of those is collectible there. The statistical exclusion is
+  unaffected either way. A four-site variant
   (early parties outboard at ±6 km, blind pair inboard at ±5 km) restores it, with
   ~3 µs collectibility margins; collectibility is a light-cone condition and so is
   frame-independent, adding nothing to the delay-cover problem.
@@ -70,7 +72,7 @@ generated them. Certificate entries are read by a restricted parser that accepts
 exact integer/rational literals and the token `sqrt(2)`: there is no floating-point atom,
 no approximate number recognition, and no general expression evaluation anywhere in the
 certificate path, so a supplied value cannot be silently replaced by a nearby simpler one.
-All three **exit nonzero** if any check fails or the certificate is malformed, so they
+All four **exit nonzero** if any check fails or the certificate is malformed, so they
 can be used as automated gates. The audit surface is a few hundred lines of standalone
 Python, not the whole package.
 
@@ -81,9 +83,15 @@ python3 paper/verify_directional.py  # Proposition 1 (directional refinement)
 python3 paper/verify_invisibility.py # Proposition 2 (pairwise-invisible attaining models)
 ```
 
-Each completes in a few seconds on an ordinary laptop (measured: 0.1–0.3 s, 0.9–1.5 s and
-~3 s respectively); timings are machine-dependent. `verify_directional.py` reads the
-Theorem 1 certificate, so run `verify_K8.py` first.
+Each completes in a few seconds on an ordinary laptop (measured: 0.1–0.3 s, 0.9–1.5 s,
+~3 s and ~1 s respectively); timings are machine-dependent. `verify_directional.py` reads
+the Theorem 1 certificate, so run `verify_K8.py` first — or just run them all in order:
+
+```bash
+for v in K8 Sigma directional invisibility; do
+  python3 paper/verify_$v.py || echo "FAILED: verify_$v.py"
+done
+```
 
 Expected output, verbatim:
 
@@ -113,7 +121,7 @@ All commands run from the repository root.
 ```bash
 python3 threadB/reproduce_core.py          # QUICK: core numerical claims, minutes
 FULL=1 python3 threadB/reproduce_core.py   # complete: 512-completion spectrum, parallel 2-copy, 500k MC
-python3 threadB/reproduce_extra.py         # 4 setting supersets, random+random; FULL=1 adds LC5, mixed-flavor
+python3 threadB/reproduce_extra.py         # 4 setting supersets, random+random; FULL=1 adds LC5, mixed-flavor, subset pinning
 python3 threadB/reproduce_theorem4.py      # 24-vertex check, 400 constrained distances, perturbation sweep
 (cd paper && python3 figures.py)           # regenerates the three figures
 ```
