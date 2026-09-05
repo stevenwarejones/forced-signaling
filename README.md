@@ -55,7 +55,10 @@ no-blind-pair marginal of *Q*. Principal results:
   entirely by the three-party joint record, with every one- and two-party recipient
   marginal exactly non-signaling. Whether it is *usable* then depends on the layout —
   and the co-located three-site arrangement below provably admits no superluminal
-  channel at all, though the statistical exclusion is unaffected.
+  channel at all, though the statistical exclusion is unaffected. A four-site variant
+  (early parties outboard at ±6 km, blind pair inboard at ±5 km) restores it, with
+  ~3 µs collectibility margins; collectibility is a light-cone condition and so is
+  frame-independent, adding nothing to the delay-cover problem.
 - An experimental architecture: three sites, one ~10 km baseline, ~16 programmed delays
   covering every preferred frame with |β| ≤ 1.34×10⁻³ and every hidden speed *v* ≤ 10⁴*c*.
 

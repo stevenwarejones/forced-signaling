@@ -60,6 +60,7 @@ fallback-to-zero solver pattern remains anywhere in threadB/.
 | Prop 2: optimum attainable with all singles/pairs blind | verify_invisibility.py | exact; three models (A_only, D_only, balanced), each reproducing every ABD/ACD marginal exactly, with all one- and two-party recipient marginals non-signaling and the triple difference a pure parity shift |
 | Prop 2: co-located layout has zero accessible signaling | (analytic) | immediate from J_c^+(K_D) subset J_c^+(K_A) when A,D are co-located with D later; no script needed |
 | Prop 2: separated 4-site example is collectible both ways | (analytic, exact rationals) | margins 1/20 and 3/5 at c=1, v=4; arithmetic stated in the text |
+| Prop 2: realistic four-site restoration (12 km line) | (analytic) | early parties outboard at +/-6 km, blind pair inboard at +/-5 km, 100 ns stagger; all pairs c-spacelike, v-cones 25-300x margin, both records collectible with ~3 us margin. Collectibility is a LIGHT-cone condition, hence Lorentz invariant, so it adds no burden to the delay cover and is ~70x larger than the +/-42 ns delay span |
 | Thm 4: 24-vertex inequality | reproduce_theorem4.py | exhaustive (finite proof step) |
 | Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered; compared against max{0,(S-2)/8} -- 376 of the 400 have S<2, where the max is what makes the claim true |
 | perturbation sweep near cluster point | reproduce_theorem4.py (seeds 13/17) | 100+50 in-package; the 300/150 sweep cited in the paper was an external audit (not regenerable here) |
