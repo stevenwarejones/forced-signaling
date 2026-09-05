@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.optimize import linprog
+from adversary import solve_lp, LPFailure
 from itertools import product
 
 I2=np.eye(2); X=np.array([[0,1],[1,0]]); Z=np.array([[1,0],[0,-1]])
@@ -80,9 +80,9 @@ class BarneaLP:
             else:
                 _,y,z,b,c=spec
                 beq.append(sum(PQ[(0,y,z,a,b,c)] for a in range(2)))
-        res=linprog(self.c,A_ub=self.Aub,b_ub=self.bub,A_eq=self.Aeq,b_eq=np.array(beq),
-                    bounds=[(0,None)]*self.total,method='highs')
-        return res.fun if res.success else None
+        res=solve_lp(self.c,A_ub=self.Aub,b_ub=self.bub,A_eq=self.Aeq,b_eq=np.array(beq),
+                     bounds=[(0,None)]*self.total,context="barnea tripartite")
+        return res.fun
 
 def bell_measurement_coarse(u_local=None):
     """3-outcome coarse-grained Bell measurement on b1,b2: {Phi+}, {Phi-}, {Psi+ or Psi-}.

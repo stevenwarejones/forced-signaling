@@ -4,9 +4,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Manuscript, exact-arithmetic certificates, and independent verifiers for the result
-that finite-speed hidden-influence models explaining the four-qubit linear-cluster
-correlations of Li, Hu, Deng and Scarani ([arXiv:2608.05271](https://arxiv.org/abs/2608.05271))
-must exhibit **exactly (√2−1)/4 ≈ 0.1036** of operational signaling.
+that any finite-speed hidden-influence model reproducing the observable no-blind-pair
+marginals of the four-qubit linear-cluster correlations of Li, Hu, Deng and Scarani
+([arXiv:2608.05271](https://arxiv.org/abs/2608.05271)) must exhibit **at least
+(√2−1)/4 ≈ 0.1036** of operational signaling — and that this minimum is attained
+within the specified conditionally-local model class, so the bound is tight rather
+than merely valid. Admissible models may signal more; what is fixed is the floor.
+The data a model must reproduce are those marginals, not the entire quantum behavior.
 
 > ### Status: research memorandum, not a submission
 >
@@ -14,8 +18,10 @@ must exhibit **exactly (√2−1)/4 ≈ 0.1036** of operational signaling.
 > iterative, human-directed session with adversarial cross-checking between them. The
 > listed author is not a physicist. No claim in it has been verified by a human domain
 > expert.** Its two central results carry exact-arithmetic certificates with standalone
-> verifiers (below), and every numerical claim has a reproduction script; that is a
-> different and weaker thing than expert review. The manuscript states this on its title
+> verifiers (below), and most numerical claims have a reproduction script — the
+> per-claim inventory in `paper/MANIFEST.md` states exactly which do not, and every
+> such gap is listed there rather than implied away. Even for the covered claims, that
+> is a different and weaker thing than expert review. The manuscript states this on its title
 > page and in a dedicated Statement on AI use, and is explicitly **not for submission in
 > its current form**. It is circulated to invite exactly the scrutiny it has not yet had.
 >
@@ -44,17 +50,25 @@ no-blind-pair marginal of *Q*. Principal results:
 - An experimental architecture: three sites, one ~10 km baseline, ~16 programmed delays
   covering every preferred frame with |β| ≤ 1.34×10⁻³ and every hidden speed *v* ≤ 10⁴*c*.
 
-## Verify the central claims in about two seconds
+## Verify the central claims in a couple of seconds
 
 Both verifiers rebuild the linear programs **from first principles** — integer and exact
 symbolic arithmetic — and validate the stored certificates independently of the code that
-generated them. The audit surface is ~180 lines of standalone Python, not the whole
-package.
+generated them. Certificate entries are read by a restricted parser that accepts only
+exact integer/rational literals and the token `sqrt(2)`: there is no floating-point atom,
+no approximate number recognition, and no general expression evaluation anywhere in the
+certificate path, so a supplied value cannot be silently replaced by a nearby simpler one.
+Both scripts **exit nonzero** if any check fails or the certificate is malformed, so they
+can be used as automated gates. The audit surface is a few hundred lines of standalone
+Python, not the whole package.
 
 ```bash
-python3 paper/verify_K8.py      # Theorem 1  (~0.1 s)
-python3 paper/verify_Sigma.py   # Theorem 2  (~2 s)
+python3 paper/verify_K8.py      # Theorem 1
+python3 paper/verify_Sigma.py   # Theorem 2
 ```
+
+Both complete in roughly one second on an ordinary laptop (measured: 0.1–0.3 s and
+0.9–1.5 s respectively); timings are machine-dependent.
 
 Expected output, verbatim:
 
@@ -89,6 +103,22 @@ python3 threadB/reproduce_theorem4.py      # 24-vertex check, 400 constrained di
 (cd paper && python3 figures.py)           # regenerates the three figures
 ```
 
+Every LP is solved with the HiGHS primal and dual feasibility tolerances set explicitly to
+`1e-9` (the library defaults are `1e-7`), a failed or nonfinite solve raises rather than
+being read as a zero, and each run ends with a diagnostics line reporting the worst
+equality residual, inequality violation and bound violation actually recomputed from the
+returned solutions. Observed decimal agreement is reported as such; it is not a certified
+error bound.
+
+QUICK mode validates a documented subset — it does **not** exercise the full 512-completion
+spectrum or its multiplicities (it does check the optimal completion explicitly). Claims
+that need `FULL=1` are labelled in the manifest; do not report a FULL claim as reproduced
+from a QUICK run.
+
+```bash
+python3 tests/regression_checks.py         # certificate-tamper and solver-failure gates
+```
+
 `paper/MANIFEST.md` carries a **per-claim coverage inventory** stating, for every numerical
 claim in the manuscript, which script regenerates it and which claims are not yet covered.
 Claims are labelled throughout as *proven*, *machine-verified*, *numerically established*,
@@ -108,6 +138,7 @@ or *conjectured*, and the distinction is meant literally.
 | `threadB/reproduce_*.py` | reproduction drivers for the numerical record |
 | `threadB/adversary.py` | the Σ<sub>HIC</sub> linear program used by the adversarial constructions |
 | `threadB/chained.py`, `qutrit.py`, `barnea.py` | scenario-specific libraries |
+| `tests/regression_checks.py` | gates that the verifiers reject tampered certificates and that failed solves raise |
 | `hashes.txt` | sha256 over the manuscript package |
 
 ## Integrity
@@ -117,8 +148,9 @@ sha256sum -c hashes.txt          # Linux
 shasum -a 256 -c hashes.txt      # macOS (no sha256sum by default)
 ```
 
-`hashes.txt` covers the manuscript package — manuscript, scripts, figures, certificates
-and manifest. It does not cover this README, the license, or other repository scaffolding.
+`hashes.txt` covers the manuscript package — manuscript, scripts, figures, certificates,
+the manifest and the regression gates. It does not cover this README, the license, the
+citation metadata, or other repository scaffolding.
 The manuscript requires that any circulated copy of `main.pdf` be accompanied by this
 package, without which its certificate claims cannot be assessed; a link to a tagged
 release of this repository satisfies that.
@@ -139,7 +171,12 @@ Carried in full in the manuscript's Statement on AI use and in `paper/MANIFEST.m
 - Literature priority of the parallel-flatness observation: a targeted sweep found nothing,
   but a systematic citation-graph pass is recommended before any posting.
 - The statistical protocol of §6.3 is a sound outline, not a complete specification; the
-  five remaining design obligations are listed explicitly rather than assumed away.
+  remaining design obligations — including confidence-bound construction, the continuous
+  candidate region, full event budgets, setting randomization, and the non-i.i.d./memory
+  structure induced by the timestamped protocol — are enumerated there explicitly rather
+  than assumed away.
+- The experiment is a proposed architecture with those obligations open. Nothing in this
+  repository establishes that it is ready to run.
 
 ## License
 
@@ -152,6 +189,11 @@ are released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 Archived on Zenodo: [**10.5281/zenodo.21962607**](https://doi.org/10.5281/zenodo.21962607) (v1.10).
 Machine-readable metadata is in [`CITATION.cff`](CITATION.cff); GitHub's "Cite this
 repository" button reads it.
+
+**The working tree is ahead of the last archived release.** The DOI above pins a specific
+earlier snapshot; the draft version on the title page of `paper/main.pdf` is authoritative
+for the manuscript in this tree. Cite the archived release you actually used, and check
+the Zenodo record's "versions" list for the newest one.
 
 Note that this is an unrefereed research memorandum whose claims have not been checked
 by a human expert, and it should be cited as such.

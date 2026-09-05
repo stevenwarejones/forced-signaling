@@ -3,10 +3,30 @@
 Rebuilds the LP constraint matrix from first principles (integers only),
 loads K8_certificate.json, and verifies dual feasibility in exact fraction
 arithmetic. Depends only on the Python standard library + numpy for indexing.
+
+Certificate entries must be exact integer or rational string literals; floats,
+non-string values and out-of-range indices are rejected rather than coerced.
+Exit status: 0 if every check passes, 1 otherwise (including malformed input).
 Run: python3 verify_K8.py"""
-import json, numpy as np
+import json, sys, re
+import numpy as np
 from fractions import Fraction
 from itertools import product
+
+_RAT = re.compile(r'^[+-]?\d+(/\d+)?$')
+
+
+def fail(msg):
+    print(f"VERIFICATION ERROR: {msg}")
+    print("VERDICT: FAILED")
+    sys.exit(1)
+
+
+def exact_rational(v, label):
+    """Parse an exact rational literal. Rejects floats and float-shaped strings."""
+    if not isinstance(v, str) or not _RAT.match(v.replace(' ', '')):
+        fail(f"{label}: {v!r} is not an exact integer/rational string literal")
+    return Fraction(v.replace(' ', ''))
 
 idx={}; n=0
 for x,w,a,d,fb,fg in product(range(2),range(2),range(2),range(2),range(4),range(4)):
@@ -53,11 +73,28 @@ for ci,_ in enumerate(contexts):
     rows.append(r)
 Aub=np.array(rows)
 import os
-cert=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'K8_certificate.json')))
-y=[Fraction(0)]*Aub.shape[0]
-for i,v in cert['nonzero_dual_entries'].items(): y[int(i)]=Fraction(v)
-mu=[Fraction(v) for v in cert['normalization_duals']]
-assert all(v>=0 for v in y), "dual sign violation"
+path=os.path.join(os.path.dirname(os.path.abspath(__file__)),'K8_certificate.json')
+try:
+    cert=json.load(open(path))
+except (OSError,ValueError) as e:
+    fail(f"cannot read K8_certificate.json: {e}")
+for key in ('nonzero_dual_entries','normalization_duals'):
+    if key not in cert: fail(f"certificate is missing required key {key!r}")
+if not isinstance(cert['nonzero_dual_entries'],dict):
+    fail("nonzero_dual_entries: expected an object of index -> value")
+nrows=Aub.shape[0]
+y=[Fraction(0)]*nrows
+for i,v in cert['nonzero_dual_entries'].items():
+    if not (isinstance(i,str) and i.lstrip('-').isdigit()):
+        fail(f"nonzero_dual_entries: index key {i!r} is not an integer literal")
+    j=int(i)
+    if not 0<=j<nrows:
+        fail(f"nonzero_dual_entries: index {j} out of range [0,{nrows})")
+    y[j]=exact_rational(v,f"nonzero_dual_entries[{j}]")
+if not isinstance(cert['normalization_duals'],list) or len(cert['normalization_duals'])!=4:
+    fail("normalization_duals: expected a list of 4 entries")
+mu=[exact_rational(v,f"normalization_duals[{i}]") for i,v in enumerate(cert['normalization_duals'])]
+if not all(v>=0 for v in y): fail("dual sign violation: a dual entry is negative")
 ok=True; minslack=None
 for j in range(total):
     s=sum(Fraction(int(Aub[i,j]))*y[i] for i in np.nonzero(Aub[:,j])[0])
@@ -70,5 +107,7 @@ tvsum=sum(y[tv_start+i] for i in range(len(contexts)))
 musum=sum(mu)
 print("dual feasible:",ok,"| min slack:",minslack)
 print("sum TV duals:",tvsum,"(need 4) | sum normalization duals:",musum,"(need 6)")
+valid = ok and tvsum==4 and musum==6
 print("VERDICT:", "CERTIFICATE VALID: S4^op <= 6 + 8*Delta_sig for all Delta_sig >= 0"
-      if ok and tvsum==4 and musum==6 else "FAILED")
+      if valid else "FAILED")
+sys.exit(0 if valid else 1)

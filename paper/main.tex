@@ -17,7 +17,7 @@
 \newcommand{\ceil}{\tfrac{\sqrt2-1}{4}}
 
 \title{\textbf{The signaling cost of finite-speed hidden influences}}
-\author{Steven W. Jones\thanks{stevenwarejones@gmail.com. Drafted with substantial assistance from Claude (Anthropic) and Codex (OpenAI); see the Statement on AI use. \textbf{Draft v1.11 --- machine-verified but not yet independently checked by a domain expert. Not for submission in current form.}}}
+\author{Steven W. Jones\thanks{stevenwarejones@gmail.com. Drafted with substantial assistance from Claude (Anthropic) and Codex (OpenAI); see the Statement on AI use. \textbf{Draft v1.12 --- machine-verified but not yet independently checked by a domain expert. Not for submission in current form.}}}
 \date{August 15, 2026}
 
 \begin{document}
@@ -133,7 +133,7 @@ Write $S_4 = R_4 + 2L_4$ with $R_4 = \langle A_0(B_0{+}B_1)\rangle + \langle A_1
 
 \begin{observation}[Mechanism identity]
 \label{obs:mech}
-Along the tilted-cluster family (controlled-phase $\theta\pi$), the identity $\Sig = \max\{0,(S_4-6)/8\}$ holds to $9$ digits at $\theta \in \{0.85, 0.9, 0.95, 1\}$, including the zero crossing; and the optimal LP dual at the cluster point, evaluated as an affine functional on independent tilted states, reproduces $(S_4-6)/8$ exactly. The $S_4$ facet with slope $8$ is the unique active constraint on this family.
+At the four tested points of the tilted-cluster family (controlled phase $\theta\pi$), $\theta \in \{0.85, 0.9, 0.95, 1\}$, numerical optimization agrees with $\Sig = \max\{0,(S_4-6)/8\}$ within the reported solver tolerance, with $S_4$ evaluated directly from the state rather than inferred from the LP. At the three tested points with $S_4>6$ the witness lower bound is attained; at $\theta=0.85$ one has $S_4 = 5.9669 < 6$ and $\Sig = 0$, so there the tradeoff inequality is strict and the zero is enforced by nonnegativity, not by the $S_4$ facet. The optimal LP dual at the cluster point, evaluated as an affine functional on independent tilted states, numerically reproduces $(S_4-6)/8$ at the tested points. These checks establish neither the identity for all $\theta$ nor that the $S_4$ facet is the unique active constraint on the family.
 \end{observation}
 
 \section{Universal bounds}
@@ -153,7 +153,7 @@ Let $Q$ be any \emph{no-signaling} $2{\times}2$-setting binary behavior with max
 If $S\le2$, all eight CHSH hold and Fine's theorem gives $L=Q$; assume henceforth $S>2$. With fixed marginals the per-context TV reduces to $|\Delta E(y,z)|/2$. By Lemma~\ref{lem:onechsh} exactly one CHSH pattern $s$ is violated; set $\delta=(S-2)/4$ and $E' = E - \delta s$. This restores $\langle s,E'\rangle = 2$ and leaves every other non-antipodal CHSH unchanged (distinct patterns are orthogonal) and the antipodal one at $-\langle s,E'\rangle=-2\le2$. Positivity: the linear inequality $S \le 2 + 4\,q(a,b|x,y)$, for every context $(x,y)$ and every outcome with parity matching $s_{xy}$, holds at all $24$ vertices of the no-signaling polytope---at the $16$ local vertices because $S\le2$ there, and at the $8$ PR-box vertices because the aligned PR box gives equality on its support while the remaining PR boxes satisfy it strictly---and hence, by linearity, on the polytope. Thus every parity-matched probability obeys $q \ge \delta$, and the correction changes probabilities by $\mp\delta/4$, leaving $q' \ge 3\delta/4 > 0$. Fine's theorem then certifies $q'$ local, since all eight CHSH hold. Matching lower bound: any marginal-preserving $L$ satisfies $\langle s, E_L\rangle \le 2$, so some context moves by at least $(S-2)/4$.
 \end{proof}
 
-The vertex check is exhaustive and finite, hence a proof; the statement holds for all no-signaling behaviors, not merely quantum ones. (The positivity argument was contributed in an automated referee round; see the Statement on AI use. Independent numerical confirmation: on $400$ random quantum behaviors the LP-computed constrained distance equals $(S-2)/8$ to $9$ digits.)
+The vertex check is exhaustive and finite, hence a proof; the statement holds for all no-signaling behaviors, not merely quantum ones. (The positivity argument was contributed in an automated referee round; see the Statement on AI use. Independent numerical confirmation: on $400$ random quantum behaviors the LP-computed constrained distance agrees with $(S-2)/8$ to a maximum observed deviation of $2.5\times10^{-16}$; this is observed agreement of a floating-point solve, not a certified error bound.)
 
 \begin{theorem}[Weak universal ceiling]
 \label{thm:weak}
@@ -199,7 +199,7 @@ Table~\ref{tab:attacks} lists every adversarial construction the conjecture has 
 
 \begin{table}[t]
 \centering
-\caption{Adversarial record of Conjecture~\ref{conj:tight}. All values are floating-point LP results; ``saturates'' means numerical agreement with $(\sqrt2-1)/4=0.103553390593\ldots$ to at least $9$ digits ($12$ for the parallel-composition row). Only the LC4 row carries an exact certificate (Theorem~\ref{thm:exact}); solver feasibility tolerance is $10^{-9}$.}
+\caption{Adversarial record of Conjecture~\ref{conj:tight}. All values are floating-point LP results; ``saturates'' means \emph{observed} decimal agreement with $(\sqrt2-1)/4=0.103553390593\ldots$ to at least $9$ digits ($12$ for the parallel-composition row). Observed agreement is not a certified error bound: the reproduction scripts set the HiGHS primal and dual feasibility tolerances to $10^{-9}$ and recompute each solution's equality, inequality and bound residuals, but the digits themselves carry no accompanying interval certificate. Only the LC4 row carries an exact certificate (Theorem~\ref{thm:exact}).}
 \label{tab:attacks}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lc@{}}

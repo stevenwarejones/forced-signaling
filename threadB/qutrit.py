@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.optimize import linprog
+from adversary import solve_lp, LPFailure
 from itertools import product
 
 w3 = np.exp(2j*np.pi/3)
@@ -83,6 +83,6 @@ def sigma_hic_qutrit(basesA,basesB,basesC,basesD,psi):
     Aeq=np.zeros((len(eq_rows),total))
     for i,r in enumerate(eq_rows): Aeq[i,:N]=r
     cobj=np.zeros(total); cobj[delta]=1
-    res=linprog(cobj,A_ub=np.array(Aub),b_ub=np.array(bub),A_eq=Aeq,b_eq=np.array(eq_rhs),
-                bounds=[(0,None)]*total,method='highs')
-    return res.fun if res.success else None
+    res=solve_lp(cobj,A_ub=np.array(Aub),b_ub=np.array(bub),A_eq=Aeq,b_eq=np.array(eq_rhs),
+                 bounds=[(0,None)]*total,context="qutrit CGLMP")
+    return res.fun

@@ -1,39 +1,66 @@
 #!/usr/bin/env python3
 """Reproduce the core floating-point numerical claims of the manuscript.
 Modes: QUICK (default) validates a documented subset; FULL=1 runs everything.
-Solver: scipy linprog (HiGHS), feasibility tolerance ~1e-9. Seeds fixed below.
-Claims covered here: LC4 numeric, tilt identity, GHZ/W/random states, chained
-n=3(,4 FULL), single-copy Tsirelson distance, parallel flatness (FULL),
-completion spectrum (1/8 subset; FULL for complete), Monte-Carlo cover, budgets.
+Solver: scipy linprog (HiGHS) with primal/dual feasibility tolerances set
+explicitly to 1e-9 (HiGHS defaults are 1e-7); every solve is checked for success
+and its residuals are recomputed from the returned solution and reported at the
+end of the run.  Agreement in printed digits is observed agreement, not a
+certified error bound -- see MANIFEST.md.  Seeds fixed below.
+Claims covered here: LC4 numeric, tilt identity (with S_4 computed directly from
+the state), GHZ/W/random states, chained n=3(,4 FULL), single-copy Tsirelson
+distance, parallel flatness (FULL), completion spectrum (1/8 subset plus the
+known optimal completion; FULL for complete), Monte-Carlo cover, budgets.
 See reproduce_extra.py for: setting supersets, random states + random
 measurements, LC5 (FULL), locked mixed-flavor (FULL).
 NOT covered (open items, see MANIFEST): CGLMP ladder script, qutrit/Barnea evaluations."""
 import os, numpy as np
 from itertools import product
-from scipy.optimize import linprog
 from scipy import sparse
-from adversary import SigmaLP, cluster4, PA, PB, PC, PD, projs, kron
+from adversary import (SigmaLP, cluster4, PA, PB, PC, PD, projs, kron,
+                       solve_lp, LPFailure, dependency_report, diagnostics_report)
 FULL = os.environ.get("FULL") == "1"
 ceil = (np.sqrt(2)-1)/4
 rng = np.random.default_rng(7)
 lp22 = SigmaLP(2,2,2,PA,PB,PC,PD)
+print(f"environment: {dependency_report()}")
+
+I2=np.eye(2); Xm=np.array([[0,1],[1,0]],dtype=complex); Zm=np.diag([1,-1]).astype(complex)
+_A=[Xm,Zm]; _B=[(Zm+Xm)/np.sqrt(2),(Zm-Xm)/np.sqrt(2)]; _C=[Zm,Xm]; _D=[Xm,Zm]
+def _ev(psi,*ops): return float(np.real(psi.conj()@kron(*ops)@psi))
+def S4_of(psi):
+    """The LC4 witness S_4 = R_4 + 2 L_4 evaluated directly from the state."""
+    return (_ev(psi,_A[0],_B[0],I2,I2) + _ev(psi,_A[0],_B[1],I2,I2)
+            + _ev(psi,_A[1],_B[0],I2,_D[0]) - _ev(psi,_A[1],_B[1],I2,_D[0])
+            + 2*_ev(psi,I2,I2,_C[0],_D[0]) + 2*_ev(psi,_A[0],I2,_C[1],_D[1]))
 
 print("== Table 1 rows (Sigma_HIC via LP) ==")
-s_lc4=lp22.solve(cluster4())
+s_lc4=lp22.solve(cluster4(),context="LC4 cluster")
 print(f"LC4 cluster:            {s_lc4:.9f}  (claim: saturates {ceil:.9f})")
 assert abs(s_lc4-ceil)<1e-8
-for th in (0.85,0.90,0.95):
-    s = lp22.solve(cluster4(np.pi*th))
-    print(f"tilted theta={th}: Sigma={s:.9f}")
+print("-- tilted family: Sigma_HIC vs max{0,(S4-6)/8}, S4 computed from the state --")
+tilt_dev=0.0
+for th in (0.85,0.90,0.95,1.00):
+    psi_t=cluster4(np.pi*th)
+    s = lp22.solve(psi_t,context=f"tilted theta={th}")
+    s4 = S4_of(psi_t); pred = max(0.0,(s4-6)/8)
+    tilt_dev=max(tilt_dev,abs(s-pred))
+    print(f"  theta={th:.2f}: S4={s4:.12f}  Sigma={s:.12f}  max(0,(S4-6)/8)={pred:.12f}"
+          f"  |diff|={abs(s-pred):.2e}")
+assert tilt_dev<1e-8, f"tilted identity deviates by {tilt_dev:.3e}"
+print(f"  identity holds at the 4 tested points; max deviation {tilt_dev:.2e}"
+      "  (tested points only -- not a claim for all theta)")
 ghz=np.zeros(16,dtype=complex); ghz[0]=ghz[15]=1/np.sqrt(2)
 w4=np.zeros(16,dtype=complex)
 for i in (1,2,4,8): w4[i]=0.5
-print(f"GHZ4: {lp22.solve(ghz):.2e}   W4: {lp22.solve(w4):.2e}  (claim: <1e-9)")
+s_ghz=lp22.solve(ghz,context="GHZ4"); s_w4=lp22.solve(w4,context="W4")
+print(f"GHZ4: {s_ghz:.2e}   W4: {s_w4:.2e}  (claim: <1e-9)")
+assert s_ghz<1e-9 and s_w4<1e-9, f"GHZ4={s_ghz:.3e}, W4={s_w4:.3e}"
 worst=0.0
-for _ in range(10 if not FULL else 40):
+for i in range(10 if not FULL else 40):
     v=rng.normal(size=16)+1j*rng.normal(size=16); v/=np.linalg.norm(v)
-    worst=max(worst, lp22.solve(v) or 0)
+    worst=max(worst, lp22.solve(v,context=f"random state #{i} (seed 7)"))
 print(f"random states, worst: {worst:.2e}  (claim: <1e-9; seed 7)")
+assert worst<1e-9
 
 print("== chained values (imports chained.sigma_hic) ==")
 from chained import sigma_hic
@@ -59,7 +86,8 @@ def local_distance(nset,nout,Q):
     A=sparse.csr_matrix((Av,(Ar,Ac)),shape=(rc,ncol))
     Ae=sparse.csr_matrix((np.ones(nV),(np.zeros(nV),np.arange(nV))),shape=(1,ncol))
     c=np.zeros(ncol); c[-1]=1
-    r=linprog(c,A_ub=A,b_ub=np.array(bub),A_eq=Ae,b_eq=[1.],bounds=[(0,None)]*ncol,method='highs')
+    r=solve_lp(c,A_ub=A,b_ub=np.array(bub),A_eq=Ae,b_eq=np.array([1.]),
+               bounds=[(0,None)]*ncol,context=f"local_distance(nset={nset},nout={nout})")
     return r.fun
 r2v=1/np.sqrt(2); E={(0,0):r2v,(0,1):r2v,(1,0):r2v,(1,1):-r2v}
 Q1=np.zeros((2,2,2,2))
@@ -70,7 +98,10 @@ if FULL:
     Q2=np.zeros((4,4,4,4))
     for y,z,b,c in product(range(4),repeat=4):
         Q2[y,z,b,c]=Q1[y//2,z//2,b//2,c//2]*Q1[y%2,z%2,b%2,c%2]
-    print(f"parallel two-copy: {local_distance(4,4,Q2):.12f}  (claim: equals single to 12 digits)")
+    d2=local_distance(4,4,Q2)
+    print(f"parallel two-copy: {d2:.12f}  vs single {d1:.12f}  |diff|={abs(d2-d1):.2e}")
+    print("  (observed agreement of two floating-point LPs; no exact certificate)")
+    assert abs(d2-d1)<1e-9, f"parallel flatness deviates by {abs(d2-d1):.3e}"
 
 print("== completion spectrum (Theorem 1 context) ==")
 idx={}; n=0
@@ -116,14 +147,32 @@ def K_of(comp):
     add(1,1,0,z3,0,lambda a,b,c,d:(-1)**(a^b^d)); add(-1,1,1,z4,0,lambda a,b,c,d:(-1)**(a^b^d))
     add(2,x5,y5,0,0,lambda a,b,c,d:(-1)**(c^d)); add(2,0,y6,1,1,lambda a,b,c,d:(-1)**(a^c^d))
     bub=np.concatenate([np.zeros(len(rows)),2*eps*np.ones(len(tv))])
-    r=linprog(-obj,A_ub=Aub,b_ub=bub,A_eq=AeqT,b_eq=np.ones(4),bounds=[(0,None)]*total,method='highs')
+    r=solve_lp(-obj,A_ub=Aub,b_ub=bub,A_eq=AeqT,b_eq=np.ones(4),
+               bounds=[(0,None)]*total,context=f"completion {comp}")
     return round((-r.fun-6)/eps,6)
 comps=list(product(product(range(2),range(2)),product(range(2),range(2)),range(2),range(2),product(range(2),range(2)),range(2)))
-subset = comps if FULL else comps[::8]  # documented QUICK subset: every 8th completion
+OPT_COMP=((0,1),(0,1),0,0,(1,0),0)   # the K=8 completion certified in Theorem 1
 from collections import Counter
+if FULL:
+    subset=comps
+else:
+    # The plain 1/8 stride omits both K=8 and K=10, so the optimal completion --
+    # the one the manuscript's sensitivity claim rests on -- is added explicitly.
+    subset=comps[::8]+[OPT_COMP]
 cnt=Counter(K_of(c) for c in subset)
-print(f"completions evaluated: {len(subset)} ({'FULL' if FULL else 'QUICK 1/8 subset'}); spectrum: {dict(sorted(cnt.items()))}")
-print("(FULL claim: {8:64, 10:128, 12:128, 14:128, 16:64})")
+print(f"completions evaluated: {len(subset)} "
+      f"({'FULL (all 512)' if FULL else 'QUICK: 1/8 stride + the optimal completion'}); "
+      f"spectrum: {dict(sorted(cnt.items()))}")
+k_opt=K_of(OPT_COMP)
+print(f"optimal completion {OPT_COMP}: K={k_opt} (exact optimality is Corollary 1, not this LP)")
+assert k_opt==8, f"optimal completion gave K={k_opt}, expected 8"
+assert max(cnt)<=16 and min(cnt)>=8, f"K outside the claimed range: {dict(cnt)}"
+if FULL:
+    expected={8:64,10:128,12:128,14:128,16:64}
+    assert dict(sorted(cnt.items()))==expected, f"spectrum {dict(sorted(cnt.items()))} != {expected}"
+    print("  FULL spectrum matches the claimed {8:64, 10:128, 12:128, 14:128, 16:64}")
+else:
+    print("  (QUICK mode: multiplicities are NOT exercised; run FULL=1 for the full spectrum)")
 
 print("== Monte-Carlo delay cover (seed 1) ==")
 B,Kv=1.34e-3,1e4
@@ -144,3 +193,8 @@ import math
 for nu in (0.95,0.90):
     m=nu*(4+2*math.sqrt(2))-6
     print(f"nu={nu}: N >= {(8*5/m)**2:,.0f} (claims ~6,746 / ~75,490)")
+
+print("== numerical diagnostics ==")
+print(f"  {diagnostics_report()}")
+print(f"  mode: {'FULL' if FULL else 'QUICK'}; {dependency_report()}")
+print("reproduce_core.py: all assertions passed")
