@@ -30,7 +30,10 @@ used directly as automated gates.
     python3 paper/verify_Sigma.py           # Theorem 2 exact certificates (independent verifier; sympy)
     python3 paper/verify_directional.py     # Proposition 1: dual split + two one-sided certificates
     python3 paper/verify_invisibility.py    # Proposition 2: pairwise-invisible attaining models
-    # or all four in order:  for v in K8 Sigma directional invisibility; do python3 paper/verify_$v.py; done
+    # or all four in dependency order, failing loudly (run in a subshell/script):
+    #   for v in K8 Sigma directional invisibility; do
+    #     python3 paper/verify_$v.py || { echo "FAILED: verify_$v.py"; exit 1; }
+    #   done
     python3 threadB/reproduce_core.py       # QUICK: core numerical claims, minutes
     FULL=1 python3 threadB/reproduce_core.py  # complete: 512-spectrum, parallel 2-copy, 500k MC
     python3 threadB/reproduce_extra.py      # 4 supersets, random+random; FULL=1 adds LC5, mixed-flavor
@@ -59,10 +62,10 @@ fallback-to-zero solver pattern remains anywhere in threadB/.
 | Prop 1: dual split (2 per direction) | verify_directional.py | exact; read off K8_certificate.json, so it presupposes verify_K8.py passes |
 | Prop 1: one-sided attainment (dA,dD)=(s,0),(0,s) | verify_directional.py | exact primal certificates over Q(sqrt2); these are NEW proof obligations, not consequences of the Thm 1 dual |
 | Prop 2: optimum attainable with all singles/pairs blind | verify_invisibility.py | exact; three models (A_only, D_only, balanced), each reproducing every ABD/ACD marginal exactly, with all one- and two-party recipient marginals non-signaling and the triple difference a pure parity shift |
-| Lemma 2: only {B,C} and {B,C,D} can carry a signal | (analytic) + reproduce_extra.py (FULL) | proof is one line -- any recipient set omitting B or C is fixed by the reproduced ABD/ACD families, which are no-signaling; the FULL script confirms it by LP, maximising a SINGLE-OUTCOME probability difference (not TV, which is not linear): five subsets give exactly 0; {B,C} reaches 0.323 and {B,C,D} 0.213, certifying TV >= 0.162 and 0.107 |
+| Lemma 2: only {B,C} and {B,C,D} can carry a signal | (analytic) + reproduce_extra.py (FULL) | proof is one line -- any recipient set omitting B or C is fixed by the reproduced ABD/ACD families, which are no-signaling; the FULL script confirms it by LP, maximising a SINGLE-OUTCOME probability difference (not TV, which is not linear): five subsets give exactly 0; {B,C} reaches 0.323 and {B,C,D} 0.213, certifying compatible models with TV >= 0.323 and 0.213 (a singleton is an event, so TV >= max_o |dp(o)|) |
 | Prop 2: co-located layout has zero accessible signaling FOR EVERY compatible model | (analytic) | needs BOTH conditions to fail: C_full from J_c^+(K_D) subset J_c^+(K_A); C_BC from the early parties lying on segment BC, which makes the two "closer to B/C than to the sender" half-spaces disjoint. The second is an explicit geometric HYPOTHESIS, not a consequence of co-location alone |
 | Prop 2: separated 4-site example is collectible both ways | (analytic, exact rationals) | margins 1/20 and 3/5 at c=1, v=4; arithmetic stated in the text |
-| Prop 2: realistic four-site restoration (12 km line) | (analytic) | early parties outboard at +/-6 km, blind pair inboard at +/-5 km, 100 ns stagger; all pairs c-spacelike, v-cones 25-300x margin, both records collectible with ~3 us margin. Collectibility is a LIGHT-cone condition, hence Lorentz invariant, so it adds no burden to the delay cover and is ~70x larger than the +/-42 ns delay span |
+| Prop 2: four-site restoration (12 km line) | (analytic) | early parties outboard at +/-6 km, blind pair inboard at +/-5 km, 100 ns stagger; all pairs c-spacelike, both records collectible with ~3 us margin. AN EXAMPLE AT v=1e4 c (where the inclusions hold with 12-300x margin), valid down to kappa > 400.28 in the laboratory frame and kappa > 863.35 under the worst aligned boost -- it does NOT cover the whole c < v <= 1e4 c region; see the open item below. Collectibility is a LIGHT-cone condition, hence Lorentz invariant, so it adds no burden to the delay cover and its margin is ~70x the +/-42 ns delay span |
 | Thm 4: 24-vertex inequality | reproduce_theorem4.py | exhaustive (finite proof step) |
 | Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered; compared against max{0,(S-2)/8} -- 376 of the 400 have S<2, where the max is what makes the claim true |
 | perturbation sweep near cluster point | reproduce_theorem4.py (seeds 13/17) | 100+50 in-package; the 300/150 sweep cited in the paper was an external audit (not regenerable here) |

@@ -200,7 +200,7 @@ if FULL:
     # depend on the sender's setting. Only {B,C} and {B,C,D} are live for sender A.
     # This maximises a SINGLE OUTCOME PROBABILITY DIFFERENCE by LP -- not the total
     # variation distance, which is not a linear objective. It suffices for the lemma:
-    # a nonzero max certifies TV > 0 (TV >= half the largest single-outcome difference),
+    # a nonzero max certifies TV > 0 -- a singleton is an event and TV = max_S |p(S)-q(S)|,
     # and an exactly zero max certifies the subset is pinned.
     from itertools import combinations
     lpP = SigmaLP(2,2,2,PA,PB,PC,PD)
@@ -229,7 +229,7 @@ if FULL:
             label = ''.join(names[i] for i in R)
             (live if best > 1e-7 else pinned)[label] = best
             print(f"  sender A -> {label:4s}: max |dp(o)| = {best:.9f}"
-                  f"  {'CAN signal (TV >= %.4f)' % (best/2) if best > 1e-7 else 'pinned'}")
+                  f"  {'CAN signal (TV >= %.4f)' % best if best > 1e-7 else 'pinned'}")
     assert set(pinned) == {'B','C','D','BD','CD'}, f"unexpected pinned set: {sorted(pinned)}"
     assert set(live) == {'BC','BCD'}, f"unexpected live set: {sorted(live)}"
     assert max(pinned.values()) < 1e-7, f"a pinned subset signaled: {pinned}"
