@@ -54,12 +54,13 @@ fallback-to-zero solver pattern remains anywhere in threadB/.
 |---|---|---|
 | Thm 1 certificate (K=8) | verify_K8.py | independent exact verifier |
 | Thm 4: 24-vertex inequality | reproduce_theorem4.py | exhaustive (finite proof step) |
-| Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered |
+| Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered; compared against max{0,(S-2)/8} -- 376 of the 400 have S<2, where the max is what makes the claim true |
 | perturbation sweep near cluster point | reproduce_theorem4.py (seeds 13/17) | 100+50 in-package; the 300/150 sweep cited in the paper was an external audit (not regenerable here) |
 | Thm 2 certificates (Q(sqrt2)) | verify_Sigma.py | independent exact standalone verifier |
 | completion spectrum {8..16} | reproduce_core.py (FULL) | machine-numerical, asserted in FULL only (K=8 optimality is EXACT via Corollary 1); QUICK checks the optimal completion but not the multiplicities |
 | LC4 numeric | reproduce_core.py | covered |
 | tilt identity Sigma = max{0,(S4-6)/8} | reproduce_core.py | covered at 4 tested theta; S4 computed directly from the state and compared (max deviation ~1e-15). NOT a claim for all theta, and NOT a uniqueness claim for the S4 facet |
+| fixed cluster-point dual = (S4-6)/8 on tilted states | reproduce_core.py | covered at the same 4 theta (max deviation ~6e-16); the dual is extracted at the cluster point and applied to each tilted state's marginals, including the negative value at theta=0.85 |
 | GHZ/W/random = <1e-9 | reproduce_core.py (seed 7) | covered |
 | chained n=3,4 | chained.py / reproduce_core.py | covered |
 | parallel flatness | reproduce_core.py (FULL) | covered; asserted, floating-point only (no exact certificate) |

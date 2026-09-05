@@ -49,6 +49,24 @@ for th in (0.85,0.90,0.95,1.00):
 assert tilt_dev<1e-8, f"tilted identity deviates by {tilt_dev:.3e}"
 print(f"  identity holds at the 4 tested points; max deviation {tilt_dev:.2e}"
       "  (tested points only -- not a claim for all theta)")
+
+print("-- fixed cluster-point dual applied to the tilted states' marginals --")
+# The dual of the marginal-reproduction equalities is feasible independently of
+# the right-hand side, so the dual obtained AT THE CLUSTER POINT is an affine
+# functional of any other state's marginals, and a valid lower bound on its
+# Sigma. The claim checked here is the stronger one: on this family that fixed
+# functional equals the raw witness expression (S4-6)/8, including where it goes
+# negative -- which is exactly why Sigma = max{0,(S4-6)/8} rather than (S4-6)/8.
+mu_cluster,_ = lp22.equality_duals(cluster4(),context="cluster-point dual")
+dual_dev=0.0
+for th in (0.85,0.90,0.95,1.00):
+    psi_t=cluster4(np.pi*th)
+    val=float(mu_cluster@lp22.marginals(psi_t)); raw=(S4_of(psi_t)-6)/8
+    dual_dev=max(dual_dev,abs(val-raw))
+    print(f"  theta={th:.2f}: fixed dual={val:+.12f}  (S4-6)/8={raw:+.12f}"
+          f"  |diff|={abs(val-raw):.2e}")
+assert dual_dev<1e-8, f"fixed-dual functional deviates by {dual_dev:.3e}"
+print(f"  fixed dual reproduces (S4-6)/8 at the tested points; max deviation {dual_dev:.2e}")
 ghz=np.zeros(16,dtype=complex); ghz[0]=ghz[15]=1/np.sqrt(2)
 w4=np.zeros(16,dtype=complex)
 for i in (1,2,4,8): w4[i]=0.5

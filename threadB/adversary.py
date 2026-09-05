@@ -164,9 +164,10 @@ class SigmaLP:
         for i,r in enumerate(eq_rows): Aeq[i,:self.N]=r
         self.Aeq=Aeq; self.total=total
         self.cobj=np.zeros(total); self.cobj[delta]=1
-    def solve(self, psi, context=''):
-        """Returns Sigma_HIC for the state psi.  Raises LPFailure if the solve
-        does not succeed -- callers must not substitute 0 for a failure."""
+    def marginals(self, psi):
+        """The no-blind-pair marginal vector b_eq that the model must reproduce.
+        Exposed separately so a dual vector obtained at one state can be applied
+        as an affine functional to another state's marginals."""
         PQ={}
         for x in range(self.nA):
             for y in range(self.nB):
@@ -184,10 +185,27 @@ class SigmaLP:
             else:
                 _,x,z,w,a,c,d=spec
                 beq.append(sum(PQ[(x,0,z,w,a,b,c,d)] for b in range(2)))
-        res=solve_lp(self.cobj,A_ub=self.Aub,b_ub=self.bub,A_eq=self.Aeq,b_eq=np.array(beq),
-                     bounds=[(0,None)]*self.total,
-                     context=context or f"SigmaLP({self.nA},{self.nB},{self.nC})")
-        return res.fun
+        return np.array(beq)
+
+    def solve_res(self, psi, context=''):
+        """As solve(), but returns the full OptimizeResult (dual values included)."""
+        return solve_lp(self.cobj,A_ub=self.Aub,b_ub=self.bub,A_eq=self.Aeq,
+                        b_eq=self.marginals(psi),bounds=[(0,None)]*self.total,
+                        context=context or f"SigmaLP({self.nA},{self.nB},{self.nC})")
+
+    def equality_duals(self, psi, context=''):
+        """Optimal duals of the marginal-reproduction equalities at psi."""
+        res=self.solve_res(psi,context=context)
+        marg=getattr(getattr(res,'eqlin',None),'marginals',None)
+        if marg is None:
+            raise LPFailure("solver returned no equality duals (needs scipy>=1.9 "
+                            "with method='highs')")
+        return np.asarray(marg,dtype=float), res.fun
+
+    def solve(self, psi, context=''):
+        """Returns Sigma_HIC for the state psi.  Raises LPFailure if the solve
+        does not succeed -- callers must not substitute 0 for a failure."""
+        return self.solve_res(psi,context=context).fun
 
 def cluster4(phase=np.pi):
     plus=np.array([1,1])/np.sqrt(2); psi=plus
