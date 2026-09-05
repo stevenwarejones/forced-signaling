@@ -47,28 +47,34 @@ no-blind-pair marginal of *Q*. Principal results:
   gives 16, a factor of two in sensitivity lost for free.
 - A universal bound Σ<sub>HIC</sub> ≤ (√2−1)/2, a reduction of Σ<sub>HIC</sub> to steering assemblages, and a
   conjectured tight ceiling (√2−1)/4 with its full adversarial record.
+- **Directional refinement:** the same certificate resolves by sender, giving
+  S₄<sup>op</sup> ≤ 6 + 4δ<sub>A</sub> + 4δ<sub>D</sub> — tighter than 6 + 8Δ<sub>sig</sub> whenever the two
+  directions differ — and either party alone can carry the whole minimum budget
+  (√2−1)/2, so bounding the signaling out of one early party can never exclude the class.
 - An experimental architecture: three sites, one ~10 km baseline, ~16 programmed delays
   covering every preferred frame with |β| ≤ 1.34×10⁻³ and every hidden speed *v* ≤ 10⁴*c*.
 
 ## Verify the central claims in a couple of seconds
 
-Both verifiers rebuild the linear programs **from first principles** — integer and exact
+The verifiers rebuild the linear programs **from first principles** — integer and exact
 symbolic arithmetic — and validate the stored certificates independently of the code that
 generated them. Certificate entries are read by a restricted parser that accepts only
 exact integer/rational literals and the token `sqrt(2)`: there is no floating-point atom,
 no approximate number recognition, and no general expression evaluation anywhere in the
 certificate path, so a supplied value cannot be silently replaced by a nearby simpler one.
-Both scripts **exit nonzero** if any check fails or the certificate is malformed, so they
+All three **exit nonzero** if any check fails or the certificate is malformed, so they
 can be used as automated gates. The audit surface is a few hundred lines of standalone
 Python, not the whole package.
 
 ```bash
-python3 paper/verify_K8.py      # Theorem 1
-python3 paper/verify_Sigma.py   # Theorem 2
+python3 paper/verify_K8.py           # Theorem 1
+python3 paper/verify_Sigma.py        # Theorem 2
+python3 paper/verify_directional.py  # Proposition 1 (directional refinement)
 ```
 
-Both complete in roughly one second on an ordinary laptop (measured: 0.1–0.3 s and
-0.9–1.5 s respectively); timings are machine-dependent.
+Each completes in a few seconds on an ordinary laptop (measured: 0.1–0.3 s, 0.9–1.5 s and
+~3 s respectively); timings are machine-dependent. `verify_directional.py` reads the
+Theorem 1 certificate, so run `verify_K8.py` first.
 
 Expected output, verbatim:
 
@@ -133,6 +139,7 @@ or *conjectured*, and the distinction is meant literally.
 | `paper/verify_Sigma.py` | standalone exact verifier, Theorem 2 (sympy over ℚ(√2)) |
 | `paper/K8_certificate.json` | rational dual vector, Theorem 1 |
 | `paper/Sigma_LC4_certificates.json` | primal and dual certificates over ℚ(√2), Theorem 2 |
+| `paper/verify_directional.py`, `paper/directional_certificates.json` | standalone exact verifier and the two one-sided certificates, Proposition 1 |
 | `paper/MANIFEST.md` | reproduction commands, per-claim coverage inventory, certificate schema, open items |
 | `paper/figures.py`, `paper/fig_*.pdf` | figure source and output |
 | `threadB/reproduce_*.py` | reproduction drivers for the numerical record |
