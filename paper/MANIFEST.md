@@ -1,4 +1,4 @@
-# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.13)
+# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.14)
 
 Every circulated copy of main.pdf must be accompanied by this package.
 
@@ -29,6 +29,7 @@ used directly as automated gates.
     python3 paper/verify_K8.py              # Theorem 1 exact certificate (independent verifier)
     python3 paper/verify_Sigma.py           # Theorem 2 exact certificates (independent verifier; sympy)
     python3 paper/verify_directional.py     # Proposition 1: dual split + two one-sided certificates
+    python3 paper/verify_invisibility.py    # Proposition 2: pairwise-invisible attaining models
     python3 threadB/reproduce_core.py       # QUICK: core numerical claims, minutes
     FULL=1 python3 threadB/reproduce_core.py  # complete: 512-spectrum, parallel 2-copy, 500k MC
     python3 threadB/reproduce_extra.py      # 4 supersets, random+random; FULL=1 adds LC5, mixed-flavor
@@ -56,6 +57,9 @@ fallback-to-zero solver pattern remains anywhere in threadB/.
 | Thm 1 certificate (K=8) | verify_K8.py | independent exact verifier |
 | Prop 1: dual split (2 per direction) | verify_directional.py | exact; read off K8_certificate.json, so it presupposes verify_K8.py passes |
 | Prop 1: one-sided attainment (dA,dD)=(s,0),(0,s) | verify_directional.py | exact primal certificates over Q(sqrt2); these are NEW proof obligations, not consequences of the Thm 1 dual |
+| Prop 2: optimum attainable with all singles/pairs blind | verify_invisibility.py | exact; three models (A_only, D_only, balanced), each reproducing every ABD/ACD marginal exactly, with all one- and two-party recipient marginals non-signaling and the triple difference a pure parity shift |
+| Prop 2: co-located layout has zero accessible signaling | (analytic) | immediate from J_c^+(K_D) subset J_c^+(K_A) when A,D are co-located with D later; no script needed |
+| Prop 2: separated 4-site example is collectible both ways | (analytic, exact rationals) | margins 1/20 and 3/5 at c=1, v=4; arithmetic stated in the text |
 | Thm 4: 24-vertex inequality | reproduce_theorem4.py | exhaustive (finite proof step) |
 | Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered; compared against max{0,(S-2)/8} -- 376 of the 400 have S<2, where the max is what makes the claim true |
 | perturbation sweep near cluster point | reproduce_theorem4.py (seeds 13/17) | 100+50 in-package; the 300/150 sweep cited in the paper was an external audit (not regenerable here) |
@@ -104,6 +108,11 @@ delta_A + delta_D = (sqrt(2)-1)/2 with the other direction exactly zero.
   achievable bounds are, and it requires SIMULTANEOUS valid confidence bounds on
   delta_A and delta_D where the scalar test needs one bound on their maximum; that
   statistical cost is not priced here.
+- Proposition 2 concerns a SINGLE-TRIAL, single-sender record-collection task with the
+  other settings fixed in advance, no ancillas, no adaptivity and no repetition. It does
+  not show that a finite-v theory evades the Bancal theorem, which asserts a channel in
+  SOME suitable arrangement; it shows that the arrangement proposed here is not one of
+  them, and that the statistical exclusion does not depend on that reading.
 - The error-relaxed extension of Proposition 1 (a three-parameter budget region
   admitting marginal deviations) is deliberately NOT included: its error parameter
   is mathematically defined but has no established operational reading, and it is

@@ -47,8 +47,9 @@ def sandbox():
     """A temp copy of paper/ so tampering never touches the shipped files."""
     d = tempfile.mkdtemp(prefix='fs-regress-')
     for f in ('verify_Sigma.py', 'verify_K8.py', 'verify_directional.py',
-              'Sigma_LC4_certificates.json', 'K8_certificate.json',
-              'directional_certificates.json'):
+              'verify_invisibility.py', 'Sigma_LC4_certificates.json',
+              'K8_certificate.json', 'directional_certificates.json',
+              'invisible_certificates.json'):
         shutil.copy(os.path.join(PAPER, f), d)
     return d
 
@@ -156,6 +157,30 @@ for label, cf, mut in [
 ]:
     d = sandbox(); tamper(d, cf, mut)
     rc, out = run_verifier('verify_directional.py', d)
+    check(f"{label} is REJECTED", rc != 0, f"exit={rc}")
+    shutil.rmtree(d)
+
+print("== F3. pairwise-invisibility certificates (Proposition 2) ==")
+rc, out = run_verifier('verify_invisibility.py', PAPER)
+check("verify_invisibility.py exits 0 on the shipped certificates", rc == 0, f"exit={rc}")
+check("verify_invisibility.py reports INVISIBILITY CERTIFICATES VALID",
+      'INVISIBILITY CERTIFICATES VALID' in out)
+for label, mut in [
+    # break a weight: the ABD/ACD marginals no longer match the quantum target exactly
+    ("perturbed weight (epsilon no longer 0)",
+     lambda c: c['balanced'].__setitem__('0', ['1/4', '0'])),
+    # move weight between response functions so a PAIR marginal starts to signal
+    ("pair marginal made to signal",
+     lambda c: c['A_only'].__setitem__('1', ['1/16', '0'])),
+    # zero out a weight so normalization fails
+    ("broken normalization",
+     lambda c: c['D_only'].__setitem__('0', ['0', '0'])),
+    # negative weight
+    ("negative weight", lambda c: c['balanced'].__setitem__('2', ['-1/8', '0'])),
+    ("malformed entry shape", lambda c: c['balanced'].__setitem__('0', '1/8')),
+]:
+    d = sandbox(); tamper(d, 'invisible_certificates.json', mut)
+    rc, out = run_verifier('verify_invisibility.py', d)
     check(f"{label} is REJECTED", rc != 0, f"exit={rc}")
     shutil.rmtree(d)
 

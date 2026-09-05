@@ -51,6 +51,11 @@ no-blind-pair marginal of *Q*. Principal results:
   S₄<sup>op</sup> ≤ 6 + 4δ<sub>A</sub> + 4δ<sub>D</sub> — tighter than 6 + 8Δ<sub>sig</sub> whenever the two
   directions differ — and either party alone can carry the whole minimum budget
   (√2−1)/2, so bounding the signaling out of one early party can never exclude the class.
+- **What the experiment does and does not show:** the forced signaling can be carried
+  entirely by the three-party joint record, with every one- and two-party recipient
+  marginal exactly non-signaling. Whether it is *usable* then depends on the layout —
+  and the co-located three-site arrangement below provably admits no superluminal
+  channel at all, though the statistical exclusion is unaffected.
 - An experimental architecture: three sites, one ~10 km baseline, ~16 programmed delays
   covering every preferred frame with |β| ≤ 1.34×10⁻³ and every hidden speed *v* ≤ 10⁴*c*.
 
@@ -70,6 +75,7 @@ Python, not the whole package.
 python3 paper/verify_K8.py           # Theorem 1
 python3 paper/verify_Sigma.py        # Theorem 2
 python3 paper/verify_directional.py  # Proposition 1 (directional refinement)
+python3 paper/verify_invisibility.py # Proposition 2 (pairwise-invisible attaining models)
 ```
 
 Each completes in a few seconds on an ordinary laptop (measured: 0.1–0.3 s, 0.9–1.5 s and
@@ -140,6 +146,7 @@ or *conjectured*, and the distinction is meant literally.
 | `paper/K8_certificate.json` | rational dual vector, Theorem 1 |
 | `paper/Sigma_LC4_certificates.json` | primal and dual certificates over ℚ(√2), Theorem 2 |
 | `paper/verify_directional.py`, `paper/directional_certificates.json` | standalone exact verifier and the two one-sided certificates, Proposition 1 |
+| `paper/verify_invisibility.py`, `paper/invisible_certificates.json` | standalone exact verifier and the three pairwise-invisible models, Proposition 2 |
 | `paper/MANIFEST.md` | reproduction commands, per-claim coverage inventory, certificate schema, open items |
 | `paper/figures.py`, `paper/fig_*.pdf` | figure source and output |
 | `threadB/reproduce_*.py` | reproduction drivers for the numerical record |
