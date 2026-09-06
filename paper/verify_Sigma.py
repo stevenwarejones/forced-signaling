@@ -349,7 +349,75 @@ def main():
     okDv = (sum((mu[i] * rhs[i] for i in range(132)), ZERO) - target).is_zero()
     print(f"DUAL: sign {okDl}, feasibility {okDf}, value=(sqrt2-1)/4 {okDv}")
 
-    ok = okPn and okPe and okPu and okPv and okDl and okDf and okDv
+    # Support of the optimal dual.  A_ub row r belongs to signaling comparison
+    # r // 17; local row 16 is that comparison's total-variation constraint.  The
+    # certified dual is supported on exactly four of the sixteen comparisons --
+    # A-setting changes at w=1 with z=1 (both y), D-setting changes at x=1 with
+    # z=0 (both y) -- and carries all four of their total-variation rows.  An
+    # optimal dual supported on a subset of the constraints stays feasible with
+    # the same objective value when the complement is deleted, so this is what
+    # licenses the reduced statement in Observation "Support of the optimal dual".
+    # NOTE the restriction follows from OPTIMALITY, not from feasibility alone: the dual
+    # with all equality multipliers zero and 1/8 on a single non-core total-variation row
+    # is feasible, with objective 0.  What is true, and checked just below, is that every
+    # OPTIMAL dual is supported within these four comparisons.
+    CORE = {5, 7, 12, 14}
+    carried = {i // 17 for i in range(272) if not lam[i].is_zero()}
+    tv_rows = {i // 17 for i in range(272) if i % 17 == 16 and not lam[i].is_zero()}
+    EIGHTH = Q2(Fraction(1, 8))
+    uniform = all(lam[i].is_zero() or (lam[i] - EIGHTH).is_zero() for i in range(272))
+    okDs = (carried == CORE) and (tv_rows == CORE) and uniform
+    print(f"DUAL SUPPORT: comparisons carrying weight {sorted(carried)}, "
+          f"total-variation rows {sorted(tv_rows)}, equals the core "
+          f"{carried == CORE and tv_rows == CORE}; every nonzero entry is exactly 1/8 "
+          f"{uniform}")
+    # Every OPTIMAL dual -- not merely the exhibited one -- is supported within the four
+    # comparisons, exactly and with no optimisation:
+    #   (i)   in the certified primal each of the twelve non-core total-variation rows is
+    #         slack by exactly (sqrt2-1)/2 > 0, while the four core rows are tight;
+    #   (ii)  complementary slackness therefore zeroes those twelve multipliers in EVERY
+    #         optimal dual;
+    #   (iii) each slack column couples as lam[r1] + lam[r2] - lam[TV] <= 0, so a vanishing
+    #         TV multiplier zeroes both absolute-value multipliers for every outcome too.
+    # This does NOT say every optimal dual has the same support or the same coefficients,
+    # and it does not extend to other behaviours.
+    SLACK = Q2(Fraction(1, 2), Fraction(-1, 2))          # = -(sqrt(2)-1)/2
+    okSl = True
+    for c in range(16):
+        i = c * 17 + 16
+        s_row = sum((Q2(int(Aub[i, j])) * tF[j] for j in np.nonzero(Aub[i])[0]), ZERO)
+        if not (s_row - (ZERO if c in CORE else SLACK)).is_zero():
+            okSl = False
+    okCp = True
+    for c in range(16):
+        tv = c * 17 + 16
+        for o in range(8):
+            r1, r2 = c * 17 + 2 * o, c * 17 + 2 * o + 1
+            cols = [j for j in range(total)
+                    if Aub[r1, j] == -1 and Aub[r2, j] == -1 and Aub[tv, j] == 1]
+            if len(cols) != 1 or set(np.nonzero(Aub[:, cols[0]])[0]) != {r1, r2, tv}:
+                okCp = False
+    # Diagnostic only.  These two checks alone do NOT establish the conclusion: a corrupted
+    # primal can leave both true while failing feasibility, and the complementary-slackness
+    # argument needs the primal to be feasible and optimal.  The conclusion is announced
+    # below, inside the full conjunction.
+    print(f"OPTIMAL-SUPPORT CHECKS: twelve non-core rows slack by exactly (sqrt2-1)/2 and "
+          f"four core rows tight {okSl}; slack-column coupling "
+          f"lam[r1]+lam[r2]<=lam[TV] holds {okCp}")
+
+    ok = (okPn and okPe and okPu and okPv and okDl and okDf and okDv and okDs
+          and okSl and okCp)
+    if ok:
+        # Announced only after EVERY check has passed.  Deleting the twelve non-core
+        # total-variation constraints ENLARGES the primal feasible set, so the verified
+        # primal certificate stays feasible there and bounds the restricted optimum above;
+        # the verified dual carries no weight on those rows, so it stays dual feasible for
+        # the reduced program with the same objective and bounds it below.
+        print("EVERY OPTIMAL DUAL: supported within those four comparisons, by "
+              "complementary slackness against the verified optimal primal")
+        print("REDUCED PROGRAM: Sigma restricted to those four comparisons is also "
+              "exactly (sqrt2-1)/4 (primal stays feasible when constraints are dropped; "
+              "dual support avoids them)")
     print("VERDICT:", "CERTIFICATES VALID: Sigma_HIC(Q_LC4) = (sqrt2-1)/4 exactly" if ok else "FAILED")
     sys.exit(0 if ok else 1)
 
