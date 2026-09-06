@@ -397,9 +397,13 @@ def main():
                     if Aub[r1, j] == -1 and Aub[r2, j] == -1 and Aub[tv, j] == 1]
             if len(cols) != 1 or set(np.nonzero(Aub[:, cols[0]])[0]) != {r1, r2, tv}:
                 okCp = False
-    print(f"EVERY OPTIMAL DUAL: twelve non-core rows slack by exactly (sqrt2-1)/2, four "
-          f"core rows tight {okSl}; slack-column coupling lam[r1]+lam[r2]<=lam[TV] holds "
-          f"{okCp}; so every optimal dual is supported within the core")
+    # Diagnostic only.  These two checks alone do NOT establish the conclusion: a corrupted
+    # primal can leave both true while failing feasibility, and the complementary-slackness
+    # argument needs the primal to be feasible and optimal.  The conclusion is announced
+    # below, inside the full conjunction.
+    print(f"OPTIMAL-SUPPORT CHECKS: twelve non-core rows slack by exactly (sqrt2-1)/2 and "
+          f"four core rows tight {okSl}; slack-column coupling "
+          f"lam[r1]+lam[r2]<=lam[TV] holds {okCp}")
 
     ok = (okPn and okPe and okPu and okPv and okDl and okDf and okDv and okDs
           and okSl and okCp)
@@ -409,6 +413,8 @@ def main():
         # primal certificate stays feasible there and bounds the restricted optimum above;
         # the verified dual carries no weight on those rows, so it stays dual feasible for
         # the reduced program with the same objective and bounds it below.
+        print("EVERY OPTIMAL DUAL: supported within those four comparisons, by "
+              "complementary slackness against the verified optimal primal")
         print("REDUCED PROGRAM: Sigma restricted to those four comparisons is also "
               "exactly (sqrt2-1)/4 (primal stays feasible when constraints are dropped; "
               "dual support avoids them)")

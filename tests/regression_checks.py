@@ -105,10 +105,12 @@ check("negative dual entry is REJECTED", rc != 0, f"exit={rc}")
 shutil.rmtree(d)
 
 print("== D2. the support/coefficient validator is live, load-bearing, and honest ==")
-# The earlier mutations here were vacuous: every one is caught by dual feasibility, so they
-# passed even with okDs removed from the acceptance condition.  The reason is worth stating
-# -- adding dual weight on ANY row outside the four comparisons breaks dual feasibility, so
-# the support is FORCED, not merely observed.  These gates test the validator itself.
+# The earlier mutations here were vacuous: they were already rejected by the existing
+# feasibility checks on the modified shipped dual, so they did not independently exercise
+# the structural validator.  Feasibility alone does NOT exclude non-core support -- the dual
+# with all equality multipliers zero and 1/8 on one non-core total-variation row is feasible,
+# with objective 0.  The every-optimal-dual statement follows instead from complementary
+# slackness.  These gates therefore test the validators themselves.
 rc, out = run_verifier('verify_Sigma.py', PAPER)
 check("shipped certificate reports support == core AND every entry 1/8",
       rc == 0 and 'equals the core True' in out and 'exactly 1/8 True' in out)
@@ -119,8 +121,9 @@ d = sandbox()
 tamper(d, 'Sigma_LC4_certificates.json',
        lambda c: c['primal_t_nonzero'].__setitem__('0', '1/3'))
 rc, out = run_verifier('verify_Sigma.py', d)
-check("a broken primal SUPPRESSES the REDUCED PROGRAM conclusion",
-      rc != 0 and 'REDUCED PROGRAM' not in out, f"exit={rc}")
+check("a broken primal SUPPRESSES BOTH affirmative conclusions",
+      rc != 0 and 'REDUCED PROGRAM' not in out and 'EVERY OPTIMAL DUAL' not in out,
+      f"exit={rc}")
 shutil.rmtree(d)
 
 # okDs must CONTRIBUTE to acceptance.  Point the check at the wrong comparisons: the
@@ -145,12 +148,13 @@ check("mis-stating the coefficient REJECTS the shipped certificate",
       rc != 0 and 'exactly 1/8 False' in out, f"exit={rc}")
 shutil.rmtree(d)
 
-# And record what makes the support robust, with the honest attribution.
+# A mutation of the shipped dual, correctly attributed: it says nothing about all feasible
+# duals, only about this one with its other coordinates held fixed.
 d = sandbox()
 tamper(d, 'Sigma_LC4_certificates.json',
        lambda c: c['dual_lambda_nonzero'].__setitem__(str(0 * 17 + 16), '1/8'))
 rc, out = run_verifier('verify_Sigma.py', d)
-check("dual weight outside the core breaks DUAL FEASIBILITY (support is forced)",
+check("adding this non-core weight to the shipped dual breaks dual feasibility",
       rc != 0 and 'feasibility False' in out, f"exit={rc}")
 shutil.rmtree(d)
 
@@ -159,7 +163,8 @@ shutil.rmtree(d)
 # equality multipliers zero and 1/8 on one non-core TV row is feasible with objective 0.
 rc, out = run_verifier('verify_Sigma.py', PAPER)
 check("shipped certificate reports the twelve exact slacks and the coupling",
-      rc == 0 and 'EVERY OPTIMAL DUAL' in out and 'tight True' in out and 'holds True' in out)
+      rc == 0 and 'OPTIMAL-SUPPORT CHECKS' in out and 'tight True' in out
+      and 'holds True' in out and 'EVERY OPTIMAL DUAL' in out)
 d = sandbox()
 vp = os.path.join(d, 'verify_Sigma.py')
 src = open(vp).read()                       # read BEFORE opening for write

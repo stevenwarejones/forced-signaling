@@ -53,7 +53,7 @@ certificate parsing rather than being snapped onto the nearby exact value; pertu
 equality-breaking, sign-violating and malformed certificates are all REJECTED with a
 nonzero exit, including under `python -O`; an unsuccessful, nonfinite-objective or
 nonfinite-solution LP raises LPFailure instead of yielding Sigma = 0; and no
-fallback-to-zero solver pattern remains anywhere in threadB/; and that the certified
+fallback-to-zero solver pattern remains anywhere in threadB/; and that
 the support/coefficient validator is itself live and load-bearing (gate block D2): the
 shipped certificate must report both structural facts; a broken primal must SUPPRESS the
 reduced-program conclusion rather than merely exit nonzero; and mis-stating either the core
