@@ -154,6 +154,22 @@ check("dual weight outside the core breaks DUAL FEASIBILITY (support is forced)"
       rc != 0 and 'feasibility False' in out, f"exit={rc}")
 shutil.rmtree(d)
 
+# The optimality argument -- twelve exact slacks plus the slack-column coupling -- must be
+# load-bearing too.  Feasibility alone does NOT force the support: the dual with all
+# equality multipliers zero and 1/8 on one non-core TV row is feasible with objective 0.
+rc, out = run_verifier('verify_Sigma.py', PAPER)
+check("shipped certificate reports the twelve exact slacks and the coupling",
+      rc == 0 and 'EVERY OPTIMAL DUAL' in out and 'tight True' in out and 'holds True' in out)
+d = sandbox()
+vp = os.path.join(d, 'verify_Sigma.py')
+src = open(vp).read()                       # read BEFORE opening for write
+open(vp, 'w').write(src.replace('SLACK = Q2(Fraction(1, 2), Fraction(-1, 2))',
+                                'SLACK = Q2(Fraction(1, 3), Fraction(-1, 3))'))
+rc, out = run_verifier('verify_Sigma.py', d)
+check("mis-stating the non-core slack REJECTS the shipped certificate",
+      rc != 0 and 'tight False' in out, f"exit={rc}")
+shutil.rmtree(d)
+
 print("== E. malformed certificate data is rejected, not coerced ==")
 for label, cf, mut in [
     ("float atom in a Sigma entry", 'Sigma_LC4_certificates.json',
