@@ -104,34 +104,55 @@ rc, out = run_verifier('verify_Sigma.py', d)
 check("negative dual entry is REJECTED", rc != 0, f"exit={rc}")
 shutil.rmtree(d)
 
-print("== D2. the certified dual's support is pinned to the four active comparisons ==")
-# Observation obs:dualsupport rests on WHERE the dual weight sits, not only on its
-# feasibility.  Moving weight onto a comparison outside {5,7,12,14} must be caught
-# even when the moved entry is individually harmless (positive, same magnitude).
-for label, row in [("an A-change comparison outside the core", 0 * 17 + 16),
-                   ("a D-change comparison outside the core", 9 * 17 + 16)]:
-    d = sandbox()
-    tamper(d, 'Sigma_LC4_certificates.json',
-           lambda c, r=row: c['dual_lambda_nonzero'].__setitem__(str(r), '1/8'))
-    rc, out = run_verifier('verify_Sigma.py', d)
-    check(f"dual weight added on {label} is REJECTED", rc != 0, f"exit={rc}")
-    shutil.rmtree(d)
+print("== D2. the support/coefficient validator is live, load-bearing, and honest ==")
+# The earlier mutations here were vacuous: every one is caught by dual feasibility, so they
+# passed even with okDs removed from the acceptance condition.  The reason is worth stating
+# -- adding dual weight on ANY row outside the four comparisons breaks dual feasibility, so
+# the support is FORCED, not merely observed.  These gates test the validator itself.
+rc, out = run_verifier('verify_Sigma.py', PAPER)
+check("shipped certificate reports support == core AND every entry 1/8",
+      rc == 0 and 'equals the core True' in out and 'exactly 1/8 True' in out)
+check("the REDUCED PROGRAM conclusion is printed on the shipped certificate",
+      'REDUCED PROGRAM' in out)
+
 d = sandbox()
 tamper(d, 'Sigma_LC4_certificates.json',
-       lambda c: c['dual_lambda_nonzero'].pop('101'))
+       lambda c: c['primal_t_nonzero'].__setitem__('0', '1/3'))
 rc, out = run_verifier('verify_Sigma.py', d)
-check("removing a core total-variation row is REJECTED", rc != 0, f"exit={rc}")
+check("a broken primal SUPPRESSES the REDUCED PROGRAM conclusion",
+      rc != 0 and 'REDUCED PROGRAM' not in out, f"exit={rc}")
 shutil.rmtree(d)
-# The observation also states the COEFFICIENTS: every nonzero dual entry is exactly 1/8.
-# Rescaling one of them keeps the support intact, so only the coefficient check catches it.
-for label, row, val in [("a core total-variation row", '101', '1/4'),
-                        ("a core non-TV row", '85', '1/16')]:
-    d = sandbox()
-    tamper(d, 'Sigma_LC4_certificates.json',
-           lambda c, r=row, v=val: c['dual_lambda_nonzero'].__setitem__(r, v))
-    rc, out = run_verifier('verify_Sigma.py', d)
-    check(f"rescaling {label} away from 1/8 is REJECTED", rc != 0, f"exit={rc}")
-    shutil.rmtree(d)
+
+# okDs must CONTRIBUTE to acceptance.  Point the check at the wrong comparisons: the
+# shipped, mathematically valid certificate must then be REJECTED.  Without this the whole
+# validator could be deleted and no test would notice.
+d = sandbox()
+vp = os.path.join(d, 'verify_Sigma.py')
+src = open(vp).read()                       # read BEFORE opening for write
+open(vp, 'w').write(src.replace('CORE = {5, 7, 12, 14}', 'CORE = {5, 7, 12, 13}'))
+rc, out = run_verifier('verify_Sigma.py', d)
+check("mis-stating the core REJECTS the shipped certificate (validator is load-bearing)",
+      rc != 0 and 'equals the core False' in out, f"exit={rc}")
+shutil.rmtree(d)
+
+# The coefficient half must be load-bearing independently of the support half.
+d = sandbox()
+vp = os.path.join(d, 'verify_Sigma.py')
+src = open(vp).read()
+open(vp, 'w').write(src.replace('EIGHTH = Q2(Fraction(1, 8))', 'EIGHTH = Q2(Fraction(1, 7))'))
+rc, out = run_verifier('verify_Sigma.py', d)
+check("mis-stating the coefficient REJECTS the shipped certificate",
+      rc != 0 and 'exactly 1/8 False' in out, f"exit={rc}")
+shutil.rmtree(d)
+
+# And record what makes the support robust, with the honest attribution.
+d = sandbox()
+tamper(d, 'Sigma_LC4_certificates.json',
+       lambda c: c['dual_lambda_nonzero'].__setitem__(str(0 * 17 + 16), '1/8'))
+rc, out = run_verifier('verify_Sigma.py', d)
+check("dual weight outside the core breaks DUAL FEASIBILITY (support is forced)",
+      rc != 0 and 'feasibility False' in out, f"exit={rc}")
+shutil.rmtree(d)
 
 print("== E. malformed certificate data is rejected, not coerced ==")
 for label, cf, mut in [

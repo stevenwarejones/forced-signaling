@@ -357,6 +357,9 @@ def main():
     # optimal dual supported on a subset of the constraints stays feasible with
     # the same objective value when the complement is deleted, so this is what
     # licenses the reduced statement in Observation "Support of the optimal dual".
+    # NOTE this is a CLAIM check, not an independent validity check: adding dual weight on
+    # any row outside these four breaks dual FEASIBILITY, so the support is forced rather
+    # than merely observed.  It is checked here because the manuscript asserts it.
     CORE = {5, 7, 12, 14}
     carried = {i // 17 for i in range(272) if not lam[i].is_zero()}
     tv_rows = {i // 17 for i in range(272) if i % 17 == 16 and not lam[i].is_zero()}
@@ -367,17 +370,16 @@ def main():
           f"total-variation rows {sorted(tv_rows)}, equals the core "
           f"{carried == CORE and tv_rows == CORE}; every nonzero entry is exactly 1/8 "
           f"{uniform}")
-    if okDs:
-        # Two-sided, and both sides are already certified above.  Deleting the twelve
-        # non-core total-variation constraints ENLARGES the primal feasible set, so the
-        # primal certificate stays feasible there and gives Sigma_core <= (sqrt2-1)/4.
-        # The dual carries no weight on those rows, so it stays dual feasible for the
-        # reduced program with the same objective, giving Sigma_core >= (sqrt2-1)/4.
+    ok = okPn and okPe and okPu and okPv and okDl and okDf and okDv and okDs
+    if ok:
+        # Announced only after EVERY check has passed.  Deleting the twelve non-core
+        # total-variation constraints ENLARGES the primal feasible set, so the verified
+        # primal certificate stays feasible there and bounds the restricted optimum above;
+        # the verified dual carries no weight on those rows, so it stays dual feasible for
+        # the reduced program with the same objective and bounds it below.
         print("REDUCED PROGRAM: Sigma restricted to those four comparisons is also "
               "exactly (sqrt2-1)/4 (primal stays feasible when constraints are dropped; "
               "dual support avoids them)")
-
-    ok = okPn and okPe and okPu and okPv and okDl and okDf and okDv and okDs
     print("VERDICT:", "CERTIFICATES VALID: Sigma_HIC(Q_LC4) = (sqrt2-1)/4 exactly" if ok else "FAILED")
     sys.exit(0 if ok else 1)
 
