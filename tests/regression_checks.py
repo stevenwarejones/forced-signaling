@@ -104,6 +104,35 @@ rc, out = run_verifier('verify_Sigma.py', d)
 check("negative dual entry is REJECTED", rc != 0, f"exit={rc}")
 shutil.rmtree(d)
 
+print("== D2. the certified dual's support is pinned to the four active comparisons ==")
+# Observation obs:dualsupport rests on WHERE the dual weight sits, not only on its
+# feasibility.  Moving weight onto a comparison outside {5,7,12,14} must be caught
+# even when the moved entry is individually harmless (positive, same magnitude).
+for label, row in [("an A-change comparison outside the core", 0 * 17 + 16),
+                   ("a D-change comparison outside the core", 9 * 17 + 16)]:
+    d = sandbox()
+    tamper(d, 'Sigma_LC4_certificates.json',
+           lambda c, r=row: c['dual_lambda_nonzero'].__setitem__(str(r), '1/8'))
+    rc, out = run_verifier('verify_Sigma.py', d)
+    check(f"dual weight added on {label} is REJECTED", rc != 0, f"exit={rc}")
+    shutil.rmtree(d)
+d = sandbox()
+tamper(d, 'Sigma_LC4_certificates.json',
+       lambda c: c['dual_lambda_nonzero'].pop('101'))
+rc, out = run_verifier('verify_Sigma.py', d)
+check("removing a core total-variation row is REJECTED", rc != 0, f"exit={rc}")
+shutil.rmtree(d)
+# The observation also states the COEFFICIENTS: every nonzero dual entry is exactly 1/8.
+# Rescaling one of them keeps the support intact, so only the coefficient check catches it.
+for label, row, val in [("a core total-variation row", '101', '1/4'),
+                        ("a core non-TV row", '85', '1/16')]:
+    d = sandbox()
+    tamper(d, 'Sigma_LC4_certificates.json',
+           lambda c, r=row, v=val: c['dual_lambda_nonzero'].__setitem__(r, v))
+    rc, out = run_verifier('verify_Sigma.py', d)
+    check(f"rescaling {label} away from 1/8 is REJECTED", rc != 0, f"exit={rc}")
+    shutil.rmtree(d)
+
 print("== E. malformed certificate data is rejected, not coerced ==")
 for label, cf, mut in [
     ("float atom in a Sigma entry", 'Sigma_LC4_certificates.json',

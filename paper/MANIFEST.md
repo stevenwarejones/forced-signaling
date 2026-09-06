@@ -53,7 +53,11 @@ certificate parsing rather than being snapped onto the nearby exact value; pertu
 equality-breaking, sign-violating and malformed certificates are all REJECTED with a
 nonzero exit, including under `python -O`; an unsuccessful, nonfinite-objective or
 nonfinite-solution LP raises LPFailure instead of yielding Sigma = 0; and no
-fallback-to-zero solver pattern remains anywhere in threadB/.
+fallback-to-zero solver pattern remains anywhere in threadB/; and that the certified
+dual's SUPPORT AND COEFFICIENTS are pinned, so that adding individually-harmless positive
+weight on a fifth comparison, dropping one of the four total-variation rows, or rescaling
+any entry away from 1/8 (which leaves the support intact) is rejected
+(Observation "Support of the optimal dual").
 
 ## Per-claim coverage inventory
 | claim | script | status |
@@ -66,6 +70,7 @@ fallback-to-zero solver pattern remains anywhere in threadB/.
 | Prop 2: co-located layout has zero accessible signaling FOR EVERY compatible model | (analytic) | needs BOTH conditions to fail: C_full from J_c^+(K_D) subset J_c^+(K_A); C_BC from the early parties lying on segment BC, which makes the two "closer to B/C than to the sender" half-spaces disjoint. The second is an explicit geometric HYPOTHESIS, not a consequence of co-location alone |
 | Prop 2: separated 4-site example is collectible both ways | (analytic, exact rationals) | margins 1/20 and 3/5 at c=1, v=4; arithmetic stated in the text |
 | Prop 2: four-site restoration (12 km line) | (analytic) | early parties outboard at +/-6 km, blind pair inboard at +/-5 km, 100 ns stagger; all pairs c-spacelike, both records collectible with ~3 us margin. AN EXAMPLE AT v=1e4 c (where the inclusions hold with 12-300x margin), valid down to kappa > 400.28 in the laboratory frame and kappa > 863.35 under the worst aligned boost -- it does NOT cover the whole c < v <= 1e4 c region; see the open item below. Collectibility is a LIGHT-cone condition, hence Lorentz invariant, so it adds no burden to the delay cover and its margin is ~70x the +/-42 ns delay span |
+| Obs: support of the optimal dual | verify_Sigma.py | exact; all nonzero dual entries lie in comparisons {5,7,12,14} (A-changes at w=1 with z=1, D-changes at x=1 with z=0, both y), including all four of their total-variation rows, and all 36 nonzero entries equal 1/8 (the inequality dual is 1/8 times a 0/1 vector). The reduced statement is two-sided and both sides come from objects already certified here: dropping the twelve other TV constraints enlarges the primal feasible set (so the exhibited model still applies) and the dual carries no weight on them (so it stays dual feasible), giving Sigma over the four comparisons = (sqrt2-1)/4 exactly. This is complementary slackness at Q_LC4, NOT a bound: deleting constraints can only DECREASE Sigma, so a bound proved for the four-comparison restriction does not transfer to the full program. Whether the support has this shape at other behaviors is not established here |
 | Thm 4: 24-vertex inequality | reproduce_theorem4.py | exhaustive (finite proof step) |
 | Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered; compared against max{0,(S-2)/8} -- 376 of the 400 have S<2, where the max is what makes the claim true |
 | perturbation sweep near cluster point | reproduce_theorem4.py (seeds 13/17) | 100+50 in-package; the 300/150 sweep cited in the paper was an external audit (not regenerable here) |
