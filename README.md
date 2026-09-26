@@ -17,8 +17,12 @@ The data a model must reproduce are those marginals, not the entire quantum beha
 > **This work was produced by AI systems — Claude (Anthropic) and Codex (OpenAI) — in an
 > iterative, human-directed session with adversarial cross-checking between them. The
 > listed author is not a physicist. No claim in it has been verified by a human domain
-> expert.** Its two central results carry exact-arithmetic certificates with standalone
-> verifiers (below), and most numerical claims have a reproduction script — the
+> expert.** Its central results carry exact-arithmetic certificates with standalone
+> Python verifiers. Theorems 1–2, Corollary 1 over all 512 completions, Proposition 1,
+> the pairwise-invisible attaining models used in Proposition 2, and the white-noise
+> curve are also proved in Lean 4 from explicit model definitions (see below).
+> Proposition 2's layout/collectibility criterion remains analytic. Most numerical
+> claims have a reproduction script — the
 > per-claim inventory in `paper/MANIFEST.md` states exactly which do not, and every
 > such gap is listed there rather than implied away. Even for the covered claims, that
 > is a different and weaker thing than expert review. The manuscript states this on its title
@@ -116,6 +120,86 @@ VERDICT: CERTIFICATES VALID: Sigma_HIC(Q_LC4) = (sqrt2-1)/4 exactly
 ```bash
 pip install numpy scipy sympy
 ```
+
+## Formal verification in Lean
+
+The proofs live in [`ontology-separation` at `c10474e9b45cca2ea260eec2d9f348a12cf62677`](https://github.com/stevenwarejones/ontology-separation/tree/c10474e9b45cca2ea260eec2d9f348a12cf62677)
+(the merged main commit containing PRs #77–#81). All links in this section use
+that one immutable revision. The theorem names below have the common prefix
+`OntologySeparation.`; the [claim-by-claim inventory](paper/MANIFEST.md) separates
+complete claims from checked subclaims.
+
+| Result | Kernel-checked declarations | Pinned source |
+|---|---|---|
+| Theorem 1: sharp fixed-completion tradeoff | `HiddenInfluence.sharp_tradeoff`, `HiddenInfluence.coefficient_optimal` | [SignalingTradeoff.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/SignalingTradeoff.lean) |
+| Corollary 1: slope 8 optimal over all 512 completions | `HiddenInfluenceCompletion.completion_count`, `coefficient_lower_bound_all_completions`, `optimal_completion_globally_sharp`, `stochastic_completion_globally_sharp` (same namespace) | [ForcedSignalingCompletions.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingCompletions.lean) |
+| Theorem 2: exact LC4 minimum, deterministic and finite stochastic | `ForcedSignalingTheorem2.exact_forced_signaling`, `exact_forced_signaling_stochastic_value` (same namespace) | [ForcedSignalingTheorem2.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingTheorem2.lean) |
+| Proposition 1: directional bound and both one-sided attainments | `ForcedSignalingPropositions.proposition1`, `proposition1_A_attains`, `proposition1_D_attains`, `stochastic_directional_bound`, `stochastic_lc4_directional_lower_bound` (same namespace) | [ForcedSignalingPropositions.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingPropositions.lean) |
+| Proposition 2: three invisible attaining models, **not its layout theorem** | `ForcedSignalingPropositions.proposition2_A`, `proposition2_D`, `proposition2_balanced`, `pairwise_invisible_optimum` (same namespace) | [ForcedSignalingPropositions.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingPropositions.lean) |
+| Exact white-noise curve for every visibility | `NoisyLC4.exact_curve`, `NoisyLC4.exact_curve_stochastic` | [NoisyLC4ForcedSignaling.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/NoisyLC4ForcedSignaling.lean) |
+
+The LC4 target is computed from the cluster state in exact arithmetic; the
+directional and invisible models port this repository's certificates from
+`bae83b865ea60b1fbc4b808e66dc9bbaf7da2d4b` without changing their entries.
+The [finite stochastic representation bridge](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Operational/HiddenInfluenceStochastic.lean)
+proves `HiddenInfluence.StochasticModel.behavior_prob_eq_factorized` and
+preserves observable behavior and signaling under determinization.
+
+With `elan` installed, reproduce the pinned Lean checks using:
+
+```bash
+git clone https://github.com/stevenwarejones/ontology-separation.git
+cd ontology-separation
+git checkout c10474e9b45cca2ea260eec2d9f348a12cf62677
+lake exe cache get
+lake build
+lake build Tests
+lake env lean Tests/Audit.lean
+python3 scripts/audit.py
+git diff --exit-code -- docs/AXIOM_AUDIT.txt
+```
+
+`lean-toolchain` pins Lean 4.30.0; `lake-manifest.json` pins the dependencies.
+The [audit](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/Tests/Audit.lean) checks transitive dependencies against
+`propext`, `Classical.choice`, and `Quot.sound`; the proof policy excludes
+`sorry`, `admit`, added axioms, `unsafe`, and `native_decide` in project proofs.
+
+**Physical scope and proof scope.** The formal class consists of finite
+stochastic conditional-local hidden-influence models: the hidden-state
+distribution may depend on the early settings, and each blind party's response
+depends only on its own setting and the hidden state. The standard convex-hull
+extension to infinite or measure-theoretic hidden spaces is not formalized.
+Whether this class captures the intended finite-speed mechanisms is an
+interpretive question for expert review. These are expectation-level minima,
+not finite-sample confidence bounds. Lemma 2, collectibility, Proposition 2's
+geometric criterion, and experimental accessibility are not covered by Lean.
+No human domain expert has reviewed these results; no novelty or priority claim
+is made by this verification update.
+
+### Noise robustness
+
+For the LC4 measurement family on
+$\rho_p=p\lvert LC_4\rangle\!\langle LC_4\rvert+(1-p)I/16$, $0\le p\le1$,
+the exact minimum over matching finite stochastic conditional-local models is
+
+$$
+\Sigma(p)=\max\left\{0,\frac{p(4+2\sqrt2)-6}{8}\right\}.
+$$
+
+Its onset is $p_*=3-3\sqrt2/2\approx0.8786797$, the already known white-noise
+threshold of the $S_4$ witness. The checked result supplies an attaining model at
+every visibility, establishing exact tightness above that threshold as well as
+zero signaling below it.
+
+| Visibility | Exact minimum | Approximate TV |
+|---:|---:|---:|
+| 0.90 | $(9\sqrt2-12)/40$ | 0.0181981 |
+| 0.95 | $(19\sqrt2-22)/80$ | 0.0608757 |
+
+At 90% visibility the floor is only about 1.8% signaling. Exclusion therefore
+requires an operational-signaling upper bound below that floor, roughly at the
+1% level, together with a valid witness lower bound. The finite-sample analysis
+and experimental design obligations remain open.
 
 ## Reproducing the numerical record
 
@@ -222,6 +306,11 @@ repository" button reads it.
 earlier snapshot; the draft version on the title page of `paper/main.pdf` is authoritative
 for the manuscript in this tree. Cite the archived release you actually used, and check
 the Zenodo record's "versions" list for the newest one.
+
+At the v1.15 release, update `CITATION.cff`'s version, release date, DOI and
+archived-release identifier, and replace the README's DOI badge and citation
+above with the new Zenodo version record. Remove the working-tree notice once
+the tagged snapshot has been archived; until then, retain the v1.10 metadata.
 
 Note that this is an unrefereed research memorandum whose claims have not been checked
 by a human expert, and it should be cited as such.

@@ -1,4 +1,4 @@
-# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.14)
+# Manifest — "The signaling cost of finite-speed hidden influences" (draft v1.15)
 
 Every circulated copy of main.pdf must be accompanied by this package.
 
@@ -9,7 +9,10 @@ rather than being read as a zero, and each solution's equality residual, inequal
 violation and bound violation are recomputed from the returned vector and reported in
 each script's closing diagnostics line. Decimal agreement reported anywhere in this
 package is OBSERVED agreement, not a certified error bound: the exact-arithmetic
-certificates for Theorems 1 and 2 are the only certified numbers here.
+certificates for Theorems 1–2 and the attaining models for Propositions 1–2 are
+checked exactly. The pinned Lean development additionally checks the results
+listed below, including the entire white-noise curve. Numerical reproduction
+rows do not inherit that proof status.
 
 ## Verify integrity (run from the package root)
     sha256sum -c hashes.txt
@@ -60,7 +63,65 @@ reduced-program conclusion rather than merely exit nonzero; and mis-stating eith
 set or the 1/8 coefficient must REJECT the shipped, mathematically valid certificate, so the
 gates fail if that validation is disabled.
 
-## Per-claim coverage inventory
+## Numbered claims and formal verification scope
+
+Lean revision: [`c10474e9b45cca2ea260eec2d9f348a12cf62677`](https://github.com/stevenwarejones/ontology-separation/tree/c10474e9b45cca2ea260eec2d9f348a12cf62677).
+This is the merged main revision containing PRs #77–#81. All Lean references
+below are pinned to it, and declaration names have the prefix
+`OntologySeparation.`. The model class is finite stochastic conditional-local;
+the extension to infinite hidden spaces and its finite-speed physical
+interpretation are not kernel-checked. Values are expectation-level minima,
+not finite-sample confidence bounds. No human expert has reviewed them.
+Verification alone establishes no novelty or priority; the manuscript's
+contributions remain subject to expert assessment.
+
+Each numbered assertion has **one** primary verification label. Where a proof
+has a checked ingredient but an analytic conclusion, the overall assertion
+keeps its analytic label; the ingredient appears separately below. Definitions
+1–2 specify quantities, rather than assertions needing proof.
+
+| Numbered claim | Verification label | Evidence and boundary |
+|---|---|---|
+| Theorem 1: measured-signaling tradeoff | Lean | `HiddenInfluence.sharp_tradeoff`, `HiddenInfluence.coefficient_optimal` in [SignalingTradeoff.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/SignalingTradeoff.lean); independent `verify_K8.py` also retained. |
+| Corollary 1: optimal slope over all completions | Lean | `HiddenInfluenceCompletion.coefficient_lower_bound_all_completions`, `optimal_completion_globally_sharp`, `stochastic_completion_globally_sharp`, `completion_count` in [ForcedSignalingCompletions.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingCompletions.lean); 512 completions, including the stochastic lift. |
+| Theorem 2: exact LC4 minimum | Lean | `ForcedSignalingTheorem2.exact_forced_signaling`, `exact_forced_signaling_stochastic_value` in [ForcedSignalingTheorem2.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingTheorem2.lean); exact cluster-state target and finite stochastic bridge, plus `verify_Sigma.py`. |
+| Theorem 3: quantum bound through the S4 facet | analytic (not machine-checked) | CHSH decomposition and Tsirelson's bound in the paper; not a bound on the full forced-signaling optimum. |
+| Theorem 4: marginal-preserving local approximation | analytic (not machine-checked) | The paper supplies the construction and reduction; `reproduce_theorem4.py` exhaustively checks its 24-vertex inequality. That finite ingredient is not a machine proof of the full theorem. |
+| Theorem 5: weak universal ceiling | analytic (not machine-checked) | Conditional application of Theorem 4 plus the triangle inequality; not a universal Lean theorem. |
+| Theorem 6: sliced marginal-assemblage reduction | analytic (not machine-checked) | Model/selection equivalence and sliced-TV calculation in the paper. |
+| Theorem 7: optimal delay cover | analytic (not machine-checked) | Arc-cover argument; `reproduce_core.py` supplies numerical/Monte Carlo checks, not a proof of the continuous statement. |
+| Proposition 1: directional refinement and tightness | Lean | `ForcedSignalingPropositions.proposition1`, `proposition1_A_attains`, `proposition1_D_attains`, `stochastic_directional_bound`, `stochastic_lc4_directional_lower_bound` in [ForcedSignalingPropositions.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingPropositions.lean); both exact directional certificates also checked by `verify_directional.py`. |
+| Proposition 2: accessible signaling as a property of the layout | analytic (not machine-checked) | The geometric criterion and every-model branch use collectibility and Lemma 2. Lean checks its invisible attaining models only, as detailed below. |
+| Lemma 1: one CHSH violation at a time | analytic (not machine-checked) | Elementary sign-pattern argument in the paper. |
+| Lemma 2: only recipient sets containing the blind pair can carry signal | analytic (not machine-checked) | Marginalization of the fixed ABD/ACD families; FULL subset LPs are supporting numerical checks only. |
+| Observation 1: support of every optimal dual | analytic (not machine-checked) | `verify_Sigma.py` checks the exhibited primal/dual support, coefficients and slack exactly; the extension to every optimal dual is the paper's complementary-slackness argument. |
+| Observation 2: mechanism identity at four tilted points | numerical only | `reproduce_core.py`, QUICK or FULL; four specified theta values, not an all-theta theorem. |
+| Conjecture 1: tight universal ceiling | conjecture | Adversarial numerical record below; the certified LC4 value does not prove the universal ceiling. |
+
+### Checked ingredients and additional results
+
+| Claim or ingredient | Verification label | Evidence and boundary |
+|---|---|---|
+| Proposition 2: all three pairwise-invisible attaining models and parity shift | Lean | `ForcedSignalingPropositions.proposition2_A`, `proposition2_D`, `proposition2_balanced`, `pairwise_invisible_optimum` in [ForcedSignalingPropositions.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/ForcedSignalingPropositions.lean); `PairwiseInvisible` includes all six proper recipient projections in both early directions, B/C silence, and pure parity. No spacetime conclusion is included. |
+| White-noise LC4 curve, all visibilities in [0,1] | Lean | `NoisyLC4.exact_curve`, `exact_curve_stochastic`, `sigma_ninety_percent`, `sigma_ninetyfive_percent` in [NoisyLC4ForcedSignaling.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/OntologySeparation/Experiments/NoisyLC4ForcedSignaling.lean); explicit zero/threshold/LC4 models and convex interpolation. The threshold is the known S4 noise tolerance. |
+| Theorem 4: finite 24-vertex inequality | Python exact verifier | Part (1) of `reproduce_theorem4.py`: exhaustive over local and PR vertices and CHSH sign patterns. Although stored as NumPy floats, all inputs and intermediate sums in this finite part are exactly representable small dyadic numbers; no LP is used here. Parts (2)–(3) are floating-point numerical checks, not exact verifiers. The extension from vertices and the theorem's construction remain analytic. |
+| Observation 1: exhibited certificate, row slack and reduced-program optimum | Python exact verifier | `verify_Sigma.py`, exact arithmetic in Q(sqrt2); does not mechanize the universal complementary-slackness argument. |
+| Per-completion slope spectrum and multiplicities | numerical only | `reproduce_core.py (FULL)`; distinct from the Lean proof that the minimum possible slope is 8. |
+| Collectibility and the explicit four-site geometries | analytic (not machine-checked) | Light-cone arguments in Section 6; not formalized by the invisible-model certificates. |
+
+Section 6's experiment is a **proposal, not verified**. It is not an additional
+theorem: confidence construction, the continuous candidate region, complete
+event budgets, measurement-setting randomization, and memory-valid inference
+remain open. A proof of Theorem 7 alone does not make the architecture ready.
+
+The pinned [Tests/Audit.lean](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/Tests/Audit.lean) and
+[docs/AXIOM_AUDIT.txt](https://github.com/stevenwarejones/ontology-separation/blob/c10474e9b45cca2ea260eec2d9f348a12cf62677/docs/AXIOM_AUDIT.txt) register the public proof roots.
+See the README's **Formal verification in Lean** section for exact reproduction
+commands and the allowed-axiom policy. The certificate inputs for the
+Propositions 1–2 Lean port are this repository's
+`bae83b865ea60b1fbc4b808e66dc9bbaf7da2d4b` revision; values were not altered.
+
+## Per-claim numerical and certificate coverage inventory
 | claim | script | status |
 |---|---|---|
 | Thm 1 certificate (K=8) | verify_K8.py | independent exact verifier |
