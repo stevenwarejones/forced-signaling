@@ -9,4 +9,5 @@ for verifier in K8 Sigma directional invisibility; do
 done
 "$PYTHON" tests/regression_checks.py
 "$PYTHON" threadB/reproduce_theorem4.py
+"$PYTHON" threadB/shot_budget.py --check
 sha256sum -c hashes.txt

@@ -1,0 +1,5250 @@
+{
+  "method": "i.i.d. Hoeffding + Weissman; half error budget per family",
+  "seed": 260926,
+  "search_trials": 5000,
+  "validation_trials": 20000,
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0"
+  },
+  "born_cross_check": {
+    "all_256_lean_entries_equal_exactly": true,
+    "all_sender_marginals_equal_exactly": true,
+    "package_max_absolute_error": 2.7755575615628914e-16,
+    "score_exact": "4+2*sqrt(2)"
+  },
+  "rows": [
+    {
+      "visibility": 0.9,
+      "alpha": 0.05,
+      "beta": 0.05,
+      "rigorous_scalar_N": 14134528,
+      "rigorous_directional_N": 14134528,
+      "monte_carlo": {
+        "scalar": {
+          "n": 393392,
+          "N": 6294272,
+          "search_bracket_N": [
+            6266656,
+            6294272
+          ],
+          "power": 0.94915,
+          "cp95": [
+            0.9460143652809526,
+            0.9521542362447573
+          ],
+          "validation": {
+            "n": 393392,
+            "N": 6294272,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 18983,
+            "directional_successes": 19746,
+            "scalar_power": 0.94915,
+            "directional_power": 0.9873,
+            "scalar_cp95": [
+              0.9460143652809526,
+              0.9521542362447573
+            ],
+            "directional_cp95": [
+              0.9856502512174221,
+              0.9888057324117456
+            ]
+          }
+        },
+        "directional": {
+          "n": 377863,
+          "N": 6045808,
+          "search_bracket_N": [
+            6018208,
+            6045808
+          ],
+          "power": 0.95005,
+          "cp95": [
+            0.9469398552160542,
+            0.9530284710778032
+          ],
+          "validation": {
+            "n": 377863,
+            "N": 6045808,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17287,
+            "directional_successes": 19001,
+            "scalar_power": 0.86435,
+            "directional_power": 0.95005,
+            "scalar_cp95": [
+              0.8595264619211889,
+              0.8690673564688616
+            ],
+            "directional_cp95": [
+              0.9469398552160542,
+              0.9530284710778032
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 220852,
+          "N": 3533632,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 331278,
+          "N": 5300448,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 1182,
+          "directional_successes": 1837,
+          "scalar_power": 0.2364,
+          "directional_power": 0.3674,
+          "scalar_cp95": [
+            0.22467997890795854,
+            0.24842853116294053
+          ],
+          "directional_cp95": [
+            0.3540178613908135,
+            0.38093712653208694
+          ]
+        },
+        {
+          "n": 358884,
+          "N": 5742144,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3260,
+          "directional_successes": 3997,
+          "scalar_power": 0.652,
+          "directional_power": 0.7994,
+          "scalar_cp95": [
+            0.6386111187721325,
+            0.6652111968993191
+          ],
+          "directional_cp95": [
+            0.7880269325757709,
+            0.8104224222923404
+          ]
+        },
+        {
+          "n": 372687,
+          "N": 5962992,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4103,
+          "directional_successes": 4634,
+          "scalar_power": 0.8206,
+          "directional_power": 0.9268,
+          "scalar_cp95": [
+            0.8096787729290039,
+            0.8311455616026542
+          ],
+          "directional_cp95": [
+            0.9192282245137811,
+            0.9338687930656193
+          ]
+        },
+        {
+          "n": 376138,
+          "N": 6018208,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4261,
+          "directional_successes": 4717,
+          "scalar_power": 0.8522,
+          "directional_power": 0.9434,
+          "scalar_cp95": [
+            0.8420574412770259,
+            0.8619294578312818
+          ],
+          "directional_cp95": [
+            0.9366316859475265,
+            0.9496445900334802
+          ]
+        },
+        {
+          "n": 377863,
+          "N": 6045808,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4332,
+          "directional_successes": 4750,
+          "scalar_power": 0.8664,
+          "directional_power": 0.95,
+          "scalar_cp95": [
+            0.8566556206968468,
+            0.8757143791527503
+          ],
+          "directional_cp95": [
+            0.9435910867578211,
+            0.9558767560199999
+          ]
+        },
+        {
+          "n": 379589,
+          "N": 6073424,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4381,
+          "directional_successes": 4772,
+          "scalar_power": 0.8762,
+          "directional_power": 0.9544,
+          "scalar_cp95": [
+            0.8667508333803756,
+            0.8852074657113712
+          ],
+          "directional_cp95": [
+            0.9482465319198975,
+            0.9600156015045499
+          ]
+        },
+        {
+          "n": 386491,
+          "N": 6183856,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4618,
+          "directional_successes": 4906,
+          "scalar_power": 0.9236,
+          "directional_power": 0.9812,
+          "scalar_cp95": [
+            0.91588694408682,
+            0.9308140173045745
+          ],
+          "directional_cp95": [
+            0.9770421027607336,
+            0.9847816450257316
+          ]
+        },
+        {
+          "n": 389941,
+          "N": 6239056,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4651,
+          "directional_successes": 4928,
+          "scalar_power": 0.9302,
+          "directional_power": 0.9856,
+          "scalar_cp95": [
+            0.9227827280687736,
+            0.9371100828945227
+          ],
+          "directional_cp95": [
+            0.9818995199268497,
+            0.9887162862283292
+          ]
+        },
+        {
+          "n": 391666,
+          "N": 6266656,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4681,
+          "directional_successes": 4906,
+          "scalar_power": 0.9362,
+          "directional_power": 0.9812,
+          "scalar_cp95": [
+            0.9290673727607318,
+            0.9428179672328273
+          ],
+          "directional_cp95": [
+            0.9770421027607336,
+            0.9847816450257316
+          ]
+        },
+        {
+          "n": 393392,
+          "N": 6294272,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4766,
+          "directional_successes": 4956,
+          "scalar_power": 0.9532,
+          "directional_power": 0.9912,
+          "scalar_cp95": [
+            0.9469754874213331,
+            0.9588882111972387
+          ],
+          "directional_cp95": [
+            0.9882042310495465,
+            0.9935988327805018
+          ]
+        },
+        {
+          "n": 400294,
+          "N": 6404704,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4831,
+          "directional_successes": 4967,
+          "scalar_power": 0.9662,
+          "directional_power": 0.9934,
+          "scalar_cp95": [
+            0.9608110516036865,
+            0.9710352460178305
+          ],
+          "directional_cp95": [
+            0.9907435231775159,
+            0.9954526358151474
+          ]
+        },
+        {
+          "n": 414097,
+          "N": 6625552,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4953,
+          "directional_successes": 4994,
+          "scalar_power": 0.9906,
+          "directional_power": 0.9988,
+          "scalar_cp95": [
+            0.987519391473745,
+            0.9930852887017697
+          ],
+          "directional_cp95": [
+            0.9973899486891497,
+            0.9995594978654733
+          ]
+        },
+        {
+          "n": 441704,
+          "N": 7067264,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4992,
+          "directional_successes": 5000,
+          "scalar_power": 0.9984,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9968498092369404,
+            0.9993089884473824
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        },
+        {
+          "n": 883408,
+          "N": 14134528,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 12889291,
+        "counts_in_xyzw_order": [
+          483207,
+          1187464,
+          579503,
+          1156937,
+          538957,
+          1011882,
+          720469,
+          720469,
+          1516015,
+          483207,
+          919901,
+          579503,
+          1011882,
+          538957,
+          720469,
+          720469
+        ],
+        "power_penalty": 0.14558427364334897,
+        "gap": 0.14558441227157104,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.9,
+      "alpha": 0.01,
+      "beta": 0.05,
+      "rigorous_scalar_N": 15386496,
+      "rigorous_directional_N": 15386496,
+      "monte_carlo": {
+        "scalar": {
+          "n": 448897,
+          "N": 7182352,
+          "search_bracket_N": [
+            7152304,
+            7182352
+          ],
+          "power": 0.9568,
+          "cp95": [
+            0.9538901966183769,
+            0.9595760519447976
+          ],
+          "validation": {
+            "n": 448897,
+            "N": 7182352,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19136,
+            "directional_successes": 19819,
+            "scalar_power": 0.9568,
+            "directional_power": 0.99095,
+            "scalar_cp95": [
+              0.9538901966183769,
+              0.9595760519447976
+            ],
+            "directional_cp95": [
+              0.9895386690868495,
+              0.9922156934976804
+            ]
+          }
+        },
+        "directional": {
+          "n": 431993,
+          "N": 6911888,
+          "search_bracket_N": [
+            6881840,
+            6911888
+          ],
+          "power": 0.9573,
+          "cp95": [
+            0.9544057359834668,
+            0.9600603575798187
+          ],
+          "validation": {
+            "n": 431993,
+            "N": 6911888,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17599,
+            "directional_successes": 19146,
+            "scalar_power": 0.87995,
+            "directional_power": 0.9573,
+            "scalar_cp95": [
+              0.875365227536759,
+              0.8844240036841782
+            ],
+            "directional_cp95": [
+              0.9544057359834668,
+              0.9600603575798187
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 240414,
+          "N": 3846624,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 360621,
+          "N": 5769936,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 304,
+          "directional_successes": 570,
+          "scalar_power": 0.0608,
+          "directional_power": 0.114,
+          "scalar_cp95": [
+            0.05433437274134518,
+            0.067784049247546
+          ],
+          "directional_cp95": [
+            0.10531810729109677,
+            0.12313533269645593
+          ]
+        },
+        {
+          "n": 420724,
+          "N": 6731584,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3948,
+          "directional_successes": 4563,
+          "scalar_power": 0.7896,
+          "directional_power": 0.9126,
+          "scalar_cp95": [
+            0.7780348165431661,
+            0.8008260851986382
+          ],
+          "directional_cp95": [
+            0.9044288490280697,
+            0.9202855748481424
+          ]
+        },
+        {
+          "n": 428237,
+          "N": 6851792,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4313,
+          "directional_successes": 4712,
+          "scalar_power": 0.8626,
+          "directional_power": 0.9424,
+          "scalar_cp95": [
+            0.852745779891589,
+            0.8720287481407084
+          ],
+          "directional_cp95": [
+            0.9355794625275686,
+            0.9486980798998417
+          ]
+        },
+        {
+          "n": 430115,
+          "N": 6881840,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4287,
+          "directional_successes": 4724,
+          "scalar_power": 0.8574,
+          "directional_power": 0.9448,
+          "scalar_cp95": [
+            0.847399422297666,
+            0.8669812950636633
+          ],
+          "directional_cp95": [
+            0.9381057413694204,
+            0.9509687569731106
+          ]
+        },
+        {
+          "n": 431993,
+          "N": 6911888,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4402,
+          "directional_successes": 4803,
+          "scalar_power": 0.8804,
+          "directional_power": 0.9606,
+          "scalar_cp95": [
+            0.8710829404510279,
+            0.8892703327488445
+          ],
+          "directional_cp95": [
+            0.9548320032101003,
+            0.9658219257923172
+          ]
+        },
+        {
+          "n": 435750,
+          "N": 6972000,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4504,
+          "directional_successes": 4826,
+          "scalar_power": 0.9008,
+          "directional_power": 0.9652,
+          "scalar_cp95": [
+            0.8921787259730102,
+            0.9089500129302539
+          ],
+          "directional_cp95": [
+            0.9597409109657522,
+            0.9701067686404935
+          ]
+        },
+        {
+          "n": 443263,
+          "N": 7092208,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4696,
+          "directional_successes": 4916,
+          "scalar_power": 0.9392,
+          "directional_power": 0.9832,
+          "scalar_cp95": [
+            0.932215950752454,
+            0.9456656272586548
+          ],
+          "directional_cp95": [
+            0.9792421656433098,
+            0.9865781072346397
+          ]
+        },
+        {
+          "n": 447019,
+          "N": 7152304,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4748,
+          "directional_successes": 4939,
+          "scalar_power": 0.9496,
+          "directional_power": 0.9878,
+          "scalar_cp95": [
+            0.9431685294563655,
+            0.9554998285441788
+          ],
+          "directional_cp95": [
+            0.9843558392021489,
+            0.9906554673106122
+          ]
+        },
+        {
+          "n": 448897,
+          "N": 7182352,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4762,
+          "directional_successes": 4956,
+          "scalar_power": 0.9524,
+          "directional_power": 0.9912,
+          "scalar_cp95": [
+            0.9461287121569966,
+            0.9581360264104479
+          ],
+          "directional_cp95": [
+            0.9882042310495465,
+            0.9935988327805018
+          ]
+        },
+        {
+          "n": 450776,
+          "N": 7212416,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4812,
+          "directional_successes": 4967,
+          "scalar_power": 0.9624,
+          "directional_power": 0.9934,
+          "scalar_cp95": [
+            0.9567503244914891,
+            0.9675011784120483
+          ],
+          "directional_cp95": [
+            0.9907435231775159,
+            0.9954526358151474
+          ]
+        },
+        {
+          "n": 480828,
+          "N": 7693248,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4982,
+          "directional_successes": 4996,
+          "scalar_power": 0.9964,
+          "directional_power": 0.9992,
+          "scalar_cp95": [
+            0.9943163931267218,
+            0.9978650590002344
+          ],
+          "directional_cp95": [
+            0.9979529604370788,
+            0.9997819852757505
+          ]
+        },
+        {
+          "n": 961656,
+          "N": 15386496,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 13978259,
+        "counts_in_xyzw_order": [
+          519450,
+          1289890,
+          625496,
+          1270708,
+          578198,
+          1101382,
+          777650,
+          777650,
+          1665098,
+          519450,
+          992911,
+          625496,
+          1101382,
+          578198,
+          777650,
+          777650
+        ],
+        "power_penalty": 0.14558428001888957,
+        "gap": 0.14558441227157104,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.9,
+      "alpha": 0.001,
+      "beta": 0.05,
+      "rigorous_scalar_N": 17087024,
+      "rigorous_directional_N": 17087024,
+      "monte_carlo": {
+        "scalar": {
+          "n": 521454,
+          "N": 8343264,
+          "search_bracket_N": [
+            8309888,
+            8343264
+          ],
+          "power": 0.95155,
+          "cp95": [
+            0.9484829445250078,
+            0.9544849221926568
+          ],
+          "validation": {
+            "n": 521454,
+            "N": 8343264,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19031,
+            "directional_successes": 19782,
+            "scalar_power": 0.95155,
+            "directional_power": 0.9891,
+            "scalar_cp95": [
+              0.9484829445250078,
+              0.9544849221926568
+            ],
+            "directional_cp95": [
+              0.9875626460807988,
+              0.9904925730269782
+            ]
+          }
+        },
+        "directional": {
+          "n": 502681,
+          "N": 8042896,
+          "search_bracket_N": [
+            8009536,
+            8042896
+          ],
+          "power": 0.95285,
+          "cp95": [
+            0.9498209237140389,
+            0.9557465437826898
+          ],
+          "validation": {
+            "n": 502681,
+            "N": 8042896,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17367,
+            "directional_successes": 19057,
+            "scalar_power": 0.86835,
+            "directional_power": 0.95285,
+            "scalar_cp95": [
+              0.8635855508690665,
+              0.8730070923737554
+            ],
+            "directional_cp95": [
+              0.9498209237140389,
+              0.9557465437826898
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 266985,
+          "N": 4271760,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 400477,
+          "N": 6407632,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 18,
+          "directional_successes": 43,
+          "scalar_power": 0.0036,
+          "directional_power": 0.0086,
+          "scalar_cp95": [
+            0.002134940999765632,
+            0.005683606873278174
+          ],
+          "directional_cp95": [
+            0.006230654726241814,
+            0.011566840783334711
+          ]
+        },
+        {
+          "n": 467223,
+          "N": 7475568,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 2444,
+          "directional_successes": 3262,
+          "scalar_power": 0.4888,
+          "directional_power": 0.6524,
+          "scalar_cp95": [
+            0.4748543928715142,
+            0.5027586935743491
+          ],
+          "directional_cp95": [
+            0.6390144260104964,
+            0.6656074215988385
+          ]
+        },
+        {
+          "n": 500596,
+          "N": 8009536,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4266,
+          "directional_successes": 4716,
+          "scalar_power": 0.8532,
+          "directional_power": 0.9432,
+          "scalar_cp95": [
+            0.8430844145846381,
+            0.8629012962837828
+          ],
+          "directional_cp95": [
+            0.9364211969701459,
+            0.9494553325147471
+          ]
+        },
+        {
+          "n": 502681,
+          "N": 8042896,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4343,
+          "directional_successes": 4755,
+          "scalar_power": 0.8686,
+          "directional_power": 0.951,
+          "scalar_cp95": [
+            0.8589203662110156,
+            0.8778470099073101
+          ],
+          "directional_cp95": [
+            0.9446479489427231,
+            0.9568186031590874
+          ]
+        },
+        {
+          "n": 504767,
+          "N": 8076272,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4423,
+          "directional_successes": 4791,
+          "scalar_power": 0.8846,
+          "directional_power": 0.9582,
+          "scalar_cp95": [
+            0.8754186187182305,
+            0.8933296209531736
+          ],
+          "directional_cp95": [
+            0.9522789251011332,
+            0.9635782054630063
+          ]
+        },
+        {
+          "n": 508939,
+          "N": 8143024,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4540,
+          "directional_successes": 4854,
+          "scalar_power": 0.908,
+          "directional_power": 0.9708,
+          "scalar_cp95": [
+            0.8996486914893684,
+            0.9158713262161793
+          ],
+          "directional_cp95": [
+            0.9657495559184582,
+            0.9752902468011712
+          ]
+        },
+        {
+          "n": 517283,
+          "N": 8276528,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4721,
+          "directional_successes": 4921,
+          "scalar_power": 0.9442,
+          "directional_power": 0.9842,
+          "scalar_cp95": [
+            0.9374738666428198,
+            0.9504013942212748
+          ],
+          "directional_cp95": [
+            0.9803468979673721,
+            0.9874715592192459
+          ]
+        },
+        {
+          "n": 519368,
+          "N": 8309888,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4716,
+          "directional_successes": 4920,
+          "scalar_power": 0.9432,
+          "directional_power": 0.984,
+          "scalar_cp95": [
+            0.9364211969701459,
+            0.9494553325147471
+          ],
+          "directional_cp95": [
+            0.9801256799743585,
+            0.9872931451168322
+          ]
+        },
+        {
+          "n": 521454,
+          "N": 8343264,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4776,
+          "directional_successes": 4948,
+          "scalar_power": 0.9552,
+          "directional_power": 0.9896,
+          "scalar_cp95": [
+            0.9490944997876277,
+            0.9607665864807714
+          ],
+          "directional_cp95": [
+            0.9863838968033357,
+            0.9922233013322517
+          ]
+        },
+        {
+          "n": 525626,
+          "N": 8410016,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4805,
+          "directional_successes": 4963,
+          "scalar_power": 0.961,
+          "directional_power": 0.9926,
+          "scalar_cp95": [
+            0.9552580277593639,
+            0.9661953640651814
+          ],
+          "directional_cp95": [
+            0.9898143661744159,
+            0.9947845201472822
+          ]
+        },
+        {
+          "n": 533970,
+          "N": 8543520,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4896,
+          "directional_successes": 4985,
+          "scalar_power": 0.9792,
+          "directional_power": 0.997,
+          "scalar_cp95": [
+            0.9748529988468602,
+            0.982974057419292
+          ],
+          "directional_cp95": [
+            0.9950567759686951,
+            0.9983199806250636
+          ]
+        },
+        {
+          "n": 1067939,
+          "N": 17087024,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 15458485,
+        "counts_in_xyzw_order": [
+          568968,
+          1429064,
+          688158,
+          1424413,
+          631920,
+          1222901,
+          855556,
+          855556,
+          1866508,
+          568968,
+          1092382,
+          688158,
+          1222901,
+          631920,
+          855556,
+          855556
+        ],
+        "power_penalty": 0.14558432405358104,
+        "gap": 0.14558441227157104,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.92,
+      "alpha": 0.05,
+      "beta": 0.05,
+      "rigorous_scalar_N": 3763072,
+      "rigorous_directional_N": 3763072,
+      "monte_carlo": {
+        "scalar": {
+          "n": 104733,
+          "N": 1675728,
+          "search_bracket_N": [
+            1668368,
+            1675728
+          ],
+          "power": 0.9478,
+          "cp95": [
+            0.944626624049889,
+            0.9508423896440378
+          ],
+          "validation": {
+            "n": 104733,
+            "N": 1675728,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 18956,
+            "directional_successes": 19753,
+            "scalar_power": 0.9478,
+            "directional_power": 0.98765,
+            "scalar_cp95": [
+              0.944626624049889,
+              0.9508423896440378
+            ],
+            "directional_cp95": [
+              0.986021425455934,
+              0.9891344136401168
+            ]
+          }
+        },
+        "directional": {
+          "n": 100598,
+          "N": 1609568,
+          "search_bracket_N": [
+            1602224,
+            1609568
+          ],
+          "power": 0.9541,
+          "cp95": [
+            0.9511080211094413,
+            0.9569590616557252
+          ],
+          "validation": {
+            "n": 100598,
+            "N": 1609568,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17353,
+            "directional_successes": 19082,
+            "scalar_power": 0.86765,
+            "directional_power": 0.9541,
+            "scalar_cp95": [
+              0.8628751083562706,
+              0.8723177405855693
+            ],
+            "directional_cp95": [
+              0.9511080211094413,
+              0.9569590616557252
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 58798,
+          "N": 940768,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 88197,
+          "N": 1411152,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 1168,
+          "directional_successes": 1842,
+          "scalar_power": 0.2336,
+          "directional_power": 0.3684,
+          "scalar_cp95": [
+            0.22193010489546597,
+            0.24558169644715627
+          ],
+          "directional_cp95": [
+            0.3550096875158604,
+            0.38194413071732325
+          ]
+        },
+        {
+          "n": 95546,
+          "N": 1528736,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3303,
+          "directional_successes": 4104,
+          "scalar_power": 0.6606,
+          "directional_power": 0.8208,
+          "scalar_cp95": [
+            0.6472844973358631,
+            0.6737277540725977
+          ],
+          "directional_cp95": [
+            0.8098832865827109,
+            0.8313408115994888
+          ]
+        },
+        {
+          "n": 99221,
+          "N": 1587536,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4142,
+          "directional_successes": 4669,
+          "scalar_power": 0.8284,
+          "directional_power": 0.9338,
+          "scalar_cp95": [
+            0.8176585014543074,
+            0.8387566105768072
+          ],
+          "directional_cp95": [
+            0.9265515895340478,
+            0.9405367467571245
+          ]
+        },
+        {
+          "n": 100139,
+          "N": 1602224,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4317,
+          "directional_successes": 4746,
+          "scalar_power": 0.8634,
+          "directional_power": 0.9492,
+          "scalar_cp95": [
+            0.8535686979421977,
+            0.8728048771674201
+          ],
+          "directional_cp95": [
+            0.9427460775322642,
+            0.9551227951097981
+          ]
+        },
+        {
+          "n": 100598,
+          "N": 1609568,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4367,
+          "directional_successes": 4781,
+          "scalar_power": 0.8734,
+          "directional_power": 0.9562,
+          "scalar_cp95": [
+            0.8638646686192659,
+            0.8824969771353848
+          ],
+          "directional_cp95": [
+            0.9501551618414801,
+            0.9617046110944641
+          ]
+        },
+        {
+          "n": 101058,
+          "N": 1616928,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4430,
+          "directional_successes": 4806,
+          "scalar_power": 0.886,
+          "directional_power": 0.9612,
+          "scalar_cp95": [
+            0.8768646673035441,
+            0.8946818927089032
+          ],
+          "directional_cp95": [
+            0.9554710968383696,
+            0.9663820259889181
+          ]
+        },
+        {
+          "n": 102896,
+          "N": 1646336,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4604,
+          "directional_successes": 4879,
+          "scalar_power": 0.9208,
+          "directional_power": 0.9758,
+          "scalar_cp95": [
+            0.9129664277949148,
+            0.92813797341921
+          ],
+          "directional_cp95": [
+            0.9711525679301504,
+            0.9798798298293429
+          ]
+        },
+        {
+          "n": 103814,
+          "N": 1661024,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4684,
+          "directional_successes": 4913,
+          "scalar_power": 0.9368,
+          "directional_power": 0.9826,
+          "scalar_cp95": [
+            0.9296967386977412,
+            0.9433878504332986
+          ],
+          "directional_cp95": [
+            0.9785808898408627,
+            0.9860404457592966
+          ]
+        },
+        {
+          "n": 104273,
+          "N": 1668368,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4718,
+          "directional_successes": 4936,
+          "scalar_power": 0.9436,
+          "directional_power": 0.9872,
+          "scalar_cp95": [
+            0.9368421972914054,
+            0.9498338250765406
+          ],
+          "directional_cp95": [
+            0.9836837157842171,
+            0.9901288660253199
+          ]
+        },
+        {
+          "n": 104733,
+          "N": 1675728,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4762,
+          "directional_successes": 4947,
+          "scalar_power": 0.9524,
+          "directional_power": 0.9894,
+          "scalar_cp95": [
+            0.9461287121569966,
+            0.9581360264104479
+          ],
+          "directional_cp95": [
+            0.9861576072514212,
+            0.9920500717970917
+          ]
+        },
+        {
+          "n": 106571,
+          "N": 1705136,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4844,
+          "directional_successes": 4976,
+          "scalar_power": 0.9688,
+          "directional_power": 0.9952,
+          "scalar_cp95": [
+            0.9635990043329061,
+            0.9734436526910628
+          ],
+          "directional_cp95": [
+            0.9928663468036764,
+            0.9969222009574026
+          ]
+        },
+        {
+          "n": 110246,
+          "N": 1763936,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4942,
+          "directional_successes": 4991,
+          "scalar_power": 0.9884,
+          "directional_power": 0.9982,
+          "scalar_cp95": [
+            0.9850298128059031,
+            0.9911801753068886
+          ],
+          "directional_cp95": [
+            0.9965858015073897,
+            0.9991766054138786
+          ]
+        },
+        {
+          "n": 117596,
+          "N": 1881536,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4991,
+          "directional_successes": 5000,
+          "scalar_power": 0.9982,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9965858015073897,
+            0.9991766054138786
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        },
+        {
+          "n": 235192,
+          "N": 3763072,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 3431560,
+        "counts_in_xyzw_order": [
+          128646,
+          316142,
+          154283,
+          308015,
+          143489,
+          269397,
+          191813,
+          191813,
+          403613,
+          128646,
+          244908,
+          154283,
+          269397,
+          143489,
+          191813,
+          191813
+        ],
+        "power_penalty": 0.2821521655335731,
+        "gap": 0.28215295476649516,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.92,
+      "alpha": 0.01,
+      "beta": 0.05,
+      "rigorous_scalar_N": 4096384,
+      "rigorous_directional_N": 4096384,
+      "monte_carlo": {
+        "scalar": {
+          "n": 119010,
+          "N": 1904160,
+          "search_bracket_N": [
+            1896160,
+            1904160
+          ],
+          "power": 0.9533,
+          "cp95": [
+            0.9502842122305849,
+            0.9561831168635222
+          ],
+          "validation": {
+            "n": 119010,
+            "N": 1904160,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19066,
+            "directional_successes": 19808,
+            "scalar_power": 0.9533,
+            "directional_power": 0.9904,
+            "scalar_cp95": [
+              0.9502842122305849,
+              0.9561831168635222
+            ],
+            "directional_cp95": [
+              0.9889499211172812,
+              0.9917047055708992
+            ]
+          }
+        },
+        "directional": {
+          "n": 114010,
+          "N": 1824160,
+          "search_bracket_N": [
+            1816160,
+            1824160
+          ],
+          "power": 0.94715,
+          "cp95": [
+            0.9439586580739924,
+            0.9502105537936705
+          ],
+          "validation": {
+            "n": 114010,
+            "N": 1824160,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17226,
+            "directional_successes": 18943,
+            "scalar_power": 0.8613,
+            "directional_power": 0.94715,
+            "scalar_cp95": [
+              0.856432336905008,
+              0.8660623771027023
+            ],
+            "directional_cp95": [
+              0.9439586580739924,
+              0.9502105537936705
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 64006,
+          "N": 1024096,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 96009,
+          "N": 1536144,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 294,
+          "directional_successes": 530,
+          "scalar_power": 0.0588,
+          "directional_power": 0.106,
+          "scalar_cp95": [
+            0.05243845476183733,
+            0.06568248651675893
+          ],
+          "directional_cp95": [
+            0.09759917181151899,
+            0.1148638854598874
+          ]
+        },
+        {
+          "n": 112010,
+          "N": 1792160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3990,
+          "directional_successes": 4557,
+          "scalar_power": 0.798,
+          "directional_power": 0.9114,
+          "scalar_cp95": [
+            0.7865988665586041,
+            0.809052138533283
+          ],
+          "directional_cp95": [
+            0.9031812437714812,
+            0.9191346411756579
+          ]
+        },
+        {
+          "n": 113010,
+          "N": 1808160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4138,
+          "directional_successes": 4661,
+          "scalar_power": 0.8276,
+          "directional_power": 0.9322,
+          "scalar_cp95": [
+            0.8168397132549035,
+            0.837976345149005
+          ],
+          "directional_cp95": [
+            0.9248758465233393,
+            0.9390144812983158
+          ]
+        },
+        {
+          "n": 113510,
+          "N": 1816160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4241,
+          "directional_successes": 4688,
+          "scalar_power": 0.8482,
+          "directional_power": 0.9376,
+          "scalar_cp95": [
+            0.837951082830568,
+            0.858040566715619
+          ],
+          "directional_cp95": [
+            0.930536161998115,
+            0.9441474248149133
+          ]
+        },
+        {
+          "n": 114010,
+          "N": 1824160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4314,
+          "directional_successes": 4790,
+          "scalar_power": 0.8628,
+          "directional_power": 0.958,
+          "scalar_cp95": [
+            0.8529514992021002,
+            0.8722227906180642
+          ],
+          "directional_cp95": [
+            0.9520663978475092,
+            0.9633909979476075
+          ]
+        },
+        {
+          "n": 116010,
+          "N": 1856160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4527,
+          "directional_successes": 4872,
+          "scalar_power": 0.9054,
+          "directional_power": 0.9744,
+          "scalar_cp95": [
+            0.8969495699656195,
+            0.9133736015955372
+          ],
+          "directional_cp95": [
+            0.9696354985280277,
+            0.9785990182680884
+          ]
+        },
+        {
+          "n": 118010,
+          "N": 1888160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4689,
+          "directional_successes": 4932,
+          "scalar_power": 0.9378,
+          "directional_power": 0.9864,
+          "scalar_cp95": [
+            0.9307460663792526,
+            0.9443372696413086
+          ],
+          "directional_cp95": [
+            0.9827902143329161,
+            0.9894240090120604
+          ]
+        },
+        {
+          "n": 118510,
+          "N": 1896160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4706,
+          "directional_successes": 4935,
+          "scalar_power": 0.9412,
+          "directional_power": 0.987,
+          "scalar_cp95": [
+            0.9343175134832411,
+            0.9475615452381627
+          ],
+          "directional_cp95": [
+            0.9834600636833597,
+            0.9899529344982387
+          ]
+        },
+        {
+          "n": 119010,
+          "N": 1904160,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4793,
+          "directional_successes": 4959,
+          "scalar_power": 0.9586,
+          "directional_power": 0.9918,
+          "scalar_cp95": [
+            0.9527040829743254,
+            0.9639525164338862
+          ],
+          "directional_cp95": [
+            0.988892055012251,
+            0.9941092963264455
+          ]
+        },
+        {
+          "n": 120011,
+          "N": 1920176,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4828,
+          "directional_successes": 4972,
+          "scalar_power": 0.9656,
+          "directional_power": 0.9944,
+          "scalar_cp95": [
+            0.9601688304490069,
+            0.9704782974862759
+          ],
+          "directional_cp95": [
+            0.9919165367013648,
+            0.9962757107338437
+          ]
+        },
+        {
+          "n": 128012,
+          "N": 2048192,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4975,
+          "directional_successes": 4996,
+          "scalar_power": 0.995,
+          "directional_power": 0.9992,
+          "scalar_cp95": [
+            0.9926278040832291,
+            0.9967617282306545
+          ],
+          "directional_cp95": [
+            0.9979529604370788,
+            0.9997819852757505
+          ]
+        },
+        {
+          "n": 256024,
+          "N": 4096384,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 3721478,
+        "counts_in_xyzw_order": [
+          138295,
+          343411,
+          166528,
+          338305,
+          153936,
+          293224,
+          207037,
+          207036,
+          443304,
+          138295,
+          264346,
+          166528,
+          293224,
+          153936,
+          207036,
+          207037
+        ],
+        "power_penalty": 0.2821521606560937,
+        "gap": 0.28215295476649516,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.92,
+      "alpha": 0.001,
+      "beta": 0.05,
+      "rigorous_scalar_N": 4549120,
+      "rigorous_directional_N": 4549120,
+      "monte_carlo": {
+        "scalar": {
+          "n": 138827,
+          "N": 2221232,
+          "search_bracket_N": [
+            2212352,
+            2221232
+          ],
+          "power": 0.955,
+          "cp95": [
+            0.9520350952537565,
+            0.9578317099464136
+          ],
+          "validation": {
+            "n": 138827,
+            "N": 2221232,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19100,
+            "directional_successes": 19823,
+            "scalar_power": 0.955,
+            "directional_power": 0.99115,
+            "scalar_cp95": [
+              0.9520350952537565,
+              0.9578317099464136
+            ],
+            "directional_cp95": [
+              0.9897530576360056,
+              0.9924012065514237
+            ]
+          }
+        },
+        "directional": {
+          "n": 133275,
+          "N": 2132400,
+          "search_bracket_N": [
+            2123504,
+            2132400
+          ],
+          "power": 0.94915,
+          "cp95": [
+            0.9460143652809526,
+            0.9521542362447573
+          ],
+          "validation": {
+            "n": 133275,
+            "N": 2132400,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17286,
+            "directional_successes": 18983,
+            "scalar_power": 0.8643,
+            "directional_power": 0.94915,
+            "scalar_cp95": [
+              0.859475732152262,
+              0.8690181009229851
+            ],
+            "directional_cp95": [
+              0.9460143652809526,
+              0.9521542362447573
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 71080,
+          "N": 1137280,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 106620,
+          "N": 1705920,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 13,
+          "directional_successes": 31,
+          "scalar_power": 0.0026,
+          "directional_power": 0.0062,
+          "scalar_cp95": [
+            0.0013850942144161184,
+            0.004441975325562257
+          ],
+          "directional_cp95": [
+            0.004216372335748808,
+            0.008788955853157115
+          ]
+        },
+        {
+          "n": 124390,
+          "N": 1990240,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 2557,
+          "directional_successes": 3394,
+          "scalar_power": 0.5114,
+          "directional_power": 0.6788,
+          "scalar_cp95": [
+            0.49744131483667514,
+            0.5253453650297948
+          ],
+          "directional_cp95": [
+            0.6656558097292412,
+            0.6917351358881678
+          ]
+        },
+        {
+          "n": 128832,
+          "N": 2061312,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3559,
+          "directional_successes": 4290,
+          "scalar_power": 0.7118,
+          "directional_power": 0.858,
+          "scalar_cp95": [
+            0.6990246818436772,
+            0.7243276028446447
+          ],
+          "directional_cp95": [
+            0.8480160825592772,
+            0.8675639210486885
+          ]
+        },
+        {
+          "n": 131053,
+          "N": 2096848,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4036,
+          "directional_successes": 4599,
+          "scalar_power": 0.8072,
+          "directional_power": 0.9198,
+          "scalar_cp95": [
+            0.7959872146315499,
+            0.8180529417281882
+          ],
+          "directional_cp95": [
+            0.9119240597834017,
+            0.9271815676274632
+          ]
+        },
+        {
+          "n": 132164,
+          "N": 2114624,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4190,
+          "directional_successes": 4668,
+          "scalar_power": 0.838,
+          "directional_power": 0.9336,
+          "scalar_cp95": [
+            0.8274905401374036,
+            0.8481132061957759
+          ],
+          "directional_cp95": [
+            0.9263420595548506,
+            0.9403465259317406
+          ]
+        },
+        {
+          "n": 132719,
+          "N": 2123504,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4275,
+          "directional_successes": 4743,
+          "scalar_power": 0.855,
+          "directional_power": 0.9486,
+          "scalar_cp95": [
+            0.8449333607046433,
+            0.8646502106719878
+          ],
+          "directional_cp95": [
+            0.9421125946701809,
+            0.9545570488688407
+          ]
+        },
+        {
+          "n": 133275,
+          "N": 2132400,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4357,
+          "directional_successes": 4796,
+          "scalar_power": 0.8714,
+          "directional_power": 0.9592,
+          "scalar_cp95": [
+            0.8618040277271665,
+            0.8805600066867169
+          ],
+          "directional_cp95": [
+            0.9533420817877973,
+            0.9645137191097904
+          ]
+        },
+        {
+          "n": 137717,
+          "N": 2203472,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4736,
+          "directional_successes": 4937,
+          "scalar_power": 0.9472,
+          "directional_power": 0.9874,
+          "scalar_cp95": [
+            0.9406353583156628,
+            0.9532360791979626
+          ],
+          "directional_cp95": [
+            0.9839075594003357,
+            0.9903046017870321
+          ]
+        },
+        {
+          "n": 138272,
+          "N": 2212352,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4749,
+          "directional_successes": 4941,
+          "scalar_power": 0.9498,
+          "directional_power": 0.9882,
+          "scalar_cp95": [
+            0.9433797948607482,
+            0.955688305601798
+          ],
+          "directional_cp95": [
+            0.9848049409769337,
+            0.9910054917224156
+          ]
+        },
+        {
+          "n": 138827,
+          "N": 2221232,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4778,
+          "directional_successes": 4960,
+          "scalar_power": 0.9556,
+          "directional_power": 0.992,
+          "scalar_cp95": [
+            0.9495186697818564,
+            0.9611418917515228
+          ],
+          "directional_cp95": [
+            0.9891220473023177,
+            0.9942787088322255
+          ]
+        },
+        {
+          "n": 139938,
+          "N": 2239008,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4831,
+          "directional_successes": 4975,
+          "scalar_power": 0.9662,
+          "directional_power": 0.995,
+          "scalar_cp95": [
+            0.9608110516036865,
+            0.9710352460178305
+          ],
+          "directional_cp95": [
+            0.9926278040832291,
+            0.9967617282306545
+          ]
+        },
+        {
+          "n": 142160,
+          "N": 2274560,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4897,
+          "directional_successes": 4981,
+          "scalar_power": 0.9794,
+          "directional_power": 0.9962,
+          "scalar_cp95": [
+            0.9750714619248115,
+            0.9831552698342697
+          ],
+          "directional_cp95": [
+            0.9940721626928436,
+            0.997710648616123
+          ]
+        },
+        {
+          "n": 284320,
+          "N": 4549120,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 4115566,
+        "counts_in_xyzw_order": [
+          151479,
+          380464,
+          183211,
+          379226,
+          168238,
+          325577,
+          227778,
+          227778,
+          496926,
+          151479,
+          290828,
+          183211,
+          325577,
+          168238,
+          227778,
+          227778
+        ],
+        "power_penalty": 0.28215218436167955,
+        "gap": 0.28215295476649516,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.95,
+      "alpha": 0.05,
+      "beta": 0.05,
+      "rigorous_scalar_N": 1263120,
+      "rigorous_directional_N": 1263120,
+      "monte_carlo": {
+        "scalar": {
+          "n": 35001,
+          "N": 560016,
+          "search_bracket_N": [
+            557552,
+            560016
+          ],
+          "power": 0.9512,
+          "cp95": [
+            0.9481228212515335,
+            0.9541451527996377
+          ],
+          "validation": {
+            "n": 35001,
+            "N": 560016,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19024,
+            "directional_successes": 19790,
+            "scalar_power": 0.9512,
+            "directional_power": 0.9895,
+            "scalar_cp95": [
+              0.9481228212515335,
+              0.9541451527996377
+            ],
+            "directional_cp95": [
+              0.9879888996680151,
+              0.9908661413726405
+            ]
+          }
+        },
+        "directional": {
+          "n": 33613,
+          "N": 537808,
+          "search_bracket_N": [
+            535344,
+            537808
+          ],
+          "power": 0.9547,
+          "cp95": [
+            0.9517260360230867,
+            0.9575408617524264
+          ],
+          "validation": {
+            "n": 33613,
+            "N": 537808,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17344,
+            "directional_successes": 19094,
+            "scalar_power": 0.8672,
+            "directional_power": 0.9547,
+            "scalar_cp95": [
+              0.8624184183581782,
+              0.8718745628077433
+            ],
+            "directional_cp95": [
+              0.9517260360230867,
+              0.9575408617524264
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 19737,
+          "N": 315792,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 29605,
+          "N": 473680,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 1109,
+          "directional_successes": 1807,
+          "scalar_power": 0.2218,
+          "directional_power": 0.3614,
+          "scalar_cp95": [
+            0.21034933765356476,
+            0.23357634124912477
+          ],
+          "directional_cp95": [
+            0.348068206670054,
+            0.3748937998393675
+          ]
+        },
+        {
+          "n": 32072,
+          "N": 513152,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3299,
+          "directional_successes": 4136,
+          "scalar_power": 0.6598,
+          "directional_power": 0.8272,
+          "scalar_cp95": [
+            0.6464774692687212,
+            0.6729357184343374
+          ],
+          "directional_cp95": [
+            0.816430349996817,
+            0.8375861815514531
+          ]
+        },
+        {
+          "n": 33305,
+          "N": 532880,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4228,
+          "directional_successes": 4721,
+          "scalar_power": 0.8456,
+          "directional_power": 0.9442,
+          "scalar_cp95": [
+            0.8352832396016723,
+            0.8555114956539891
+          ],
+          "directional_cp95": [
+            0.9374738666428198,
+            0.9504013942212748
+          ]
+        },
+        {
+          "n": 33459,
+          "N": 535344,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4236,
+          "directional_successes": 4718,
+          "scalar_power": 0.8472,
+          "directional_power": 0.9436,
+          "scalar_cp95": [
+            0.8369248706441352,
+            0.8570679659016331
+          ],
+          "directional_cp95": [
+            0.9368421972914054,
+            0.9498338250765406
+          ]
+        },
+        {
+          "n": 33613,
+          "N": 537808,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4349,
+          "directional_successes": 4779,
+          "scalar_power": 0.8698,
+          "directional_power": 0.9558,
+          "scalar_cp95": [
+            0.860156046697949,
+            0.8790098975989554
+          ],
+          "directional_cp95": [
+            0.9497308019890486,
+            0.9613294968800616
+          ]
+        },
+        {
+          "n": 33922,
+          "N": 542752,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4434,
+          "directional_successes": 4825,
+          "scalar_power": 0.8868,
+          "directional_power": 0.965,
+          "scalar_cp95": [
+            0.8776911699011887,
+            0.8954544298795692
+          ],
+          "directional_cp95": [
+            0.9595270184766229,
+            0.9699209364194994
+          ]
+        },
+        {
+          "n": 34539,
+          "N": 552624,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4650,
+          "directional_successes": 4924,
+          "scalar_power": 0.93,
+          "directional_power": 0.9848,
+          "scalar_cp95": [
+            0.9225735091545028,
+            0.9369195497568455
+          ],
+          "directional_cp95": [
+            0.9810114072664338,
+            0.9880059306839765
+          ]
+        },
+        {
+          "n": 34847,
+          "N": 557552,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4699,
+          "directional_successes": 4945,
+          "scalar_power": 0.9398,
+          "directional_power": 0.989,
+          "scalar_cp95": [
+            0.9328462028242983,
+            0.9462346203957297
+          ],
+          "directional_cp95": [
+            0.9857057783310094,
+            0.9917028425900103
+          ]
+        },
+        {
+          "n": 35001,
+          "N": 560016,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4756,
+          "directional_successes": 4943,
+          "scalar_power": 0.9512,
+          "directional_power": 0.9886,
+          "scalar_cp95": [
+            0.9448594030028126,
+            0.9570068905027309
+          ],
+          "directional_cp95": [
+            0.9852549058015432,
+            0.9913546323124656
+          ]
+        },
+        {
+          "n": 35155,
+          "N": 562480,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4763,
+          "directional_successes": 4960,
+          "scalar_power": 0.9526,
+          "directional_power": 0.992,
+          "scalar_cp95": [
+            0.9463403626908546,
+            0.9583241161446739
+          ],
+          "directional_cp95": [
+            0.9891220473023177,
+            0.9942787088322255
+          ]
+        },
+        {
+          "n": 35772,
+          "N": 572352,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4863,
+          "directional_successes": 4982,
+          "scalar_power": 0.9726,
+          "directional_power": 0.9964,
+          "scalar_cp95": [
+            0.9676899663860802,
+            0.9769472198846165
+          ],
+          "directional_cp95": [
+            0.9943163931267218,
+            0.9978650590002344
+          ]
+        },
+        {
+          "n": 37006,
+          "N": 592096,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4962,
+          "directional_successes": 4995,
+          "scalar_power": 0.9924,
+          "directional_power": 0.999,
+          "scalar_cp95": [
+            0.9895831880966003,
+            0.9946163364271685
+          ],
+          "directional_cp95": [
+            0.9976678894088544,
+            0.9996752255252221
+          ]
+        },
+        {
+          "n": 39473,
+          "N": 631568,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4995,
+          "directional_successes": 5000,
+          "scalar_power": 0.999,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9976678894088544,
+            0.9996752255252221
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        },
+        {
+          "n": 78945,
+          "N": 1263120,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 1151859,
+        "counts_in_xyzw_order": [
+          43183,
+          106118,
+          51788,
+          103390,
+          48165,
+          90427,
+          64385,
+          64385,
+          135478,
+          43183,
+          82207,
+          51788,
+          90427,
+          48165,
+          64385,
+          64385
+        ],
+        "power_penalty": 0.4870012644619651,
+        "gap": 0.48700576850888044,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.95,
+      "alpha": 0.01,
+      "beta": 0.05,
+      "rigorous_scalar_N": 1375008,
+      "rigorous_directional_N": 1375008,
+      "monte_carlo": {
+        "scalar": {
+          "n": 39611,
+          "N": 633776,
+          "search_bracket_N": [
+            631088,
+            633776
+          ],
+          "power": 0.9488,
+          "cp95": [
+            0.9456545242909095,
+            0.9518141841699541
+          ],
+          "validation": {
+            "n": 39611,
+            "N": 633776,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 18976,
+            "directional_successes": 19796,
+            "scalar_power": 0.9488,
+            "directional_power": 0.9898,
+            "scalar_cp95": [
+              0.9456545242909095,
+              0.9518141841699541
+            ],
+            "directional_cp95": [
+              0.9883089299093746,
+              0.9911459752410061
+            ]
+          }
+        },
+        "directional": {
+          "n": 38101,
+          "N": 609616,
+          "search_bracket_N": [
+            606928,
+            609616
+          ],
+          "power": 0.947,
+          "cp95": [
+            0.9438045307033163,
+            0.950064726871979
+          ],
+          "validation": {
+            "n": 38101,
+            "N": 609616,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17134,
+            "directional_successes": 18940,
+            "scalar_power": 0.8567,
+            "directional_power": 0.947,
+            "scalar_cp95": [
+              0.8517672568739052,
+              0.861528807242082
+            ],
+            "directional_cp95": [
+              0.9438045307033163,
+              0.950064726871979
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 21485,
+          "N": 343760,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 32227,
+          "N": 515632,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 236,
+          "directional_successes": 516,
+          "scalar_power": 0.0472,
+          "directional_power": 0.1032,
+          "scalar_cp95": [
+            0.04148782302921224,
+            0.05344795803619186
+          ],
+          "directional_cp95": [
+            0.09490106274369431,
+            0.1119653690537018
+          ]
+        },
+        {
+          "n": 37598,
+          "N": 601568,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4041,
+          "directional_successes": 4611,
+          "scalar_power": 0.8082,
+          "directional_power": 0.9222,
+          "scalar_cp95": [
+            0.7970082530945399,
+            0.8190307234050014
+          ],
+          "directional_cp95": [
+            0.9144263336742432,
+            0.9294763488508353
+          ]
+        },
+        {
+          "n": 37933,
+          "N": 606928,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4200,
+          "directional_successes": 4712,
+          "scalar_power": 0.84,
+          "directional_power": 0.9424,
+          "scalar_cp95": [
+            0.8295404568517956,
+            0.850060919347067
+          ],
+          "directional_cp95": [
+            0.9355794625275686,
+            0.9486980798998417
+          ]
+        },
+        {
+          "n": 38101,
+          "N": 609616,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4271,
+          "directional_successes": 4752,
+          "scalar_power": 0.8542,
+          "directional_power": 0.9504,
+          "scalar_cp95": [
+            0.8441115439531542,
+            0.8638729784146634
+          ],
+          "directional_cp95": [
+            0.9440137506322747,
+            0.9562535763300933
+          ]
+        },
+        {
+          "n": 38269,
+          "N": 612304,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4416,
+          "directional_successes": 4810,
+          "scalar_power": 0.8832,
+          "directional_power": 0.962,
+          "scalar_cp95": [
+            0.8739729856614933,
+            0.8919769327429052
+          ],
+          "directional_cp95": [
+            0.9563237584435118,
+            0.9671282855905038
+          ]
+        },
+        {
+          "n": 38940,
+          "N": 623040,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4580,
+          "directional_successes": 4890,
+          "scalar_power": 0.916,
+          "directional_power": 0.978,
+          "scalar_cp95": [
+            0.9079661573598956,
+            0.9235441193348585
+          ],
+          "directional_cp95": [
+            0.9735441550932952,
+            0.9818848222017167
+          ]
+        },
+        {
+          "n": 39275,
+          "N": 628400,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4681,
+          "directional_successes": 4927,
+          "scalar_power": 0.9362,
+          "directional_power": 0.9854,
+          "scalar_cp95": [
+            0.9290673727607318,
+            0.9428179672328273
+          ],
+          "directional_cp95": [
+            0.9816772578460234,
+            0.9885389357716236
+          ]
+        },
+        {
+          "n": 39443,
+          "N": 631088,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4675,
+          "directional_successes": 4925,
+          "scalar_power": 0.935,
+          "directional_power": 0.985,
+          "scalar_cp95": [
+            0.9278091493805452,
+            0.9416776901597563
+          ],
+          "directional_cp95": [
+            0.981233204575836,
+            0.9881837548405311
+          ]
+        },
+        {
+          "n": 39611,
+          "N": 633776,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4756,
+          "directional_successes": 4946,
+          "scalar_power": 0.9512,
+          "directional_power": 0.9892,
+          "scalar_cp95": [
+            0.9448594030028126,
+            0.9570068905027309
+          ],
+          "directional_cp95": [
+            0.9859315700281176,
+            0.9918765831813596
+          ]
+        },
+        {
+          "n": 40283,
+          "N": 644528,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4830,
+          "directional_successes": 4964,
+          "scalar_power": 0.966,
+          "directional_power": 0.9928,
+          "scalar_cp95": [
+            0.9605969317819393,
+            0.9708496429923708
+          ],
+          "directional_cp95": [
+            0.9900459707215482,
+            0.9949522611288919
+          ]
+        },
+        {
+          "n": 42969,
+          "N": 687504,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4985,
+          "directional_successes": 4999,
+          "scalar_power": 0.997,
+          "directional_power": 0.9998,
+          "scalar_cp95": [
+            0.9950567759686951,
+            0.9983199806250636
+          ],
+          "directional_cp95": [
+            0.998886180619666,
+            0.999994936451223
+          ]
+        },
+        {
+          "n": 85938,
+          "N": 1375008,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 1249171,
+        "counts_in_xyzw_order": [
+          46421,
+          115271,
+          55898,
+          113557,
+          51671,
+          98425,
+          69495,
+          69495,
+          148801,
+          46421,
+          88732,
+          55898,
+          98425,
+          51671,
+          69495,
+          69495
+        ],
+        "power_penalty": 0.48700146957961554,
+        "gap": 0.48700576850888044,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.95,
+      "alpha": 0.001,
+      "beta": 0.05,
+      "rigorous_scalar_N": 1526976,
+      "rigorous_directional_N": 1526976,
+      "monte_carlo": {
+        "scalar": {
+          "n": 46226,
+          "N": 739616,
+          "search_bracket_N": [
+            736624,
+            739616
+          ],
+          "power": 0.95105,
+          "cp95": [
+            0.9479684957063113,
+            0.9539995243261647
+          ],
+          "validation": {
+            "n": 46226,
+            "N": 739616,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19021,
+            "directional_successes": 19802,
+            "scalar_power": 0.95105,
+            "directional_power": 0.9901,
+            "scalar_cp95": [
+              0.9479684957063113,
+              0.9539995243261647
+            ],
+            "directional_cp95": [
+              0.9886292657923768,
+              0.9914255012961101
+            ]
+          }
+        },
+        "directional": {
+          "n": 44735,
+          "N": 715760,
+          "search_bracket_N": [
+            712768,
+            715760
+          ],
+          "power": 0.9594,
+          "cp95": [
+            0.9565721653014341,
+            0.9620932753061633
+          ],
+          "validation": {
+            "n": 44735,
+            "N": 715760,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17480,
+            "directional_successes": 19188,
+            "scalar_power": 0.874,
+            "directional_power": 0.9594,
+            "scalar_cp95": [
+              0.8693214704531103,
+              0.8785695117083552
+            ],
+            "directional_cp95": [
+              0.9565721653014341,
+              0.9620932753061633
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 23859,
+          "N": 381744,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 35788,
+          "N": 572608,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 13,
+          "directional_successes": 33,
+          "scalar_power": 0.0026,
+          "directional_power": 0.0066,
+          "scalar_cp95": [
+            0.0013850942144161184,
+            0.004441975325562257
+          ],
+          "directional_cp95": [
+            0.004547364184852603,
+            0.009256476822484042
+          ]
+        },
+        {
+          "n": 41753,
+          "N": 668048,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 2527,
+          "directional_successes": 3464,
+          "scalar_power": 0.5054,
+          "directional_power": 0.6928,
+          "scalar_cp95": [
+            0.4914420271157434,
+            0.519351663359293
+          ],
+          "directional_cp95": [
+            0.6798028735761763,
+            0.7055716755810598
+          ]
+        },
+        {
+          "n": 43244,
+          "N": 691904,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3612,
+          "directional_successes": 4323,
+          "scalar_power": 0.7224,
+          "directional_power": 0.8646,
+          "scalar_cp95": [
+            0.7097600238124597,
+            0.7347798326521493
+          ],
+          "directional_cp95": [
+            0.8548032801948465,
+            0.8739688651559586
+          ]
+        },
+        {
+          "n": 43989,
+          "N": 703824,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4030,
+          "directional_successes": 4622,
+          "scalar_power": 0.806,
+          "directional_power": 0.9244,
+          "scalar_cp95": [
+            0.7947621172072429,
+            0.8168794548106084
+          ],
+          "directional_cp95": [
+            0.9167219017344677,
+            0.9315780750116532
+          ]
+        },
+        {
+          "n": 44362,
+          "N": 709792,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4209,
+          "directional_successes": 4715,
+          "scalar_power": 0.8418,
+          "directional_power": 0.943,
+          "scalar_cp95": [
+            0.8313858618907443,
+            0.8518133804678342
+          ],
+          "directional_cp95": [
+            0.9362107302486464,
+            0.9492660526319027
+          ]
+        },
+        {
+          "n": 44548,
+          "N": 712768,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4301,
+          "directional_successes": 4734,
+          "scalar_power": 0.8602,
+          "directional_power": 0.9468,
+          "scalar_cp95": [
+            0.8502776735384563,
+            0.869699712093748
+          ],
+          "directional_cp95": [
+            0.9402135148049221,
+            0.9528584340882206
+          ]
+        },
+        {
+          "n": 44735,
+          "N": 715760,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4348,
+          "directional_successes": 4788,
+          "scalar_power": 0.8696,
+          "directional_power": 0.9576,
+          "scalar_cp95": [
+            0.8599500818850168,
+            0.8788161010835609
+          ],
+          "directional_cp95": [
+            0.951641445538019,
+            0.9630164800385546
+          ]
+        },
+        {
+          "n": 45480,
+          "N": 727680,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4605,
+          "directional_successes": 4898,
+          "scalar_power": 0.921,
+          "directional_power": 0.9796,
+          "scalar_cp95": [
+            0.9131749432952676,
+            0.9283292125374721
+          ],
+          "directional_cp95": [
+            0.9752900205929557,
+            0.9833363853409139
+          ]
+        },
+        {
+          "n": 45853,
+          "N": 733648,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4691,
+          "directional_successes": 4927,
+          "scalar_power": 0.9382,
+          "directional_power": 0.9854,
+          "scalar_cp95": [
+            0.9311659340199698,
+            0.9447169001553563
+          ],
+          "directional_cp95": [
+            0.9816772578460234,
+            0.9885389357716236
+          ]
+        },
+        {
+          "n": 46039,
+          "N": 736624,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4685,
+          "directional_successes": 4932,
+          "scalar_power": 0.937,
+          "directional_power": 0.9864,
+          "scalar_cp95": [
+            0.9299065655617736,
+            0.9435777731162087
+          ],
+          "directional_cp95": [
+            0.9827902143329161,
+            0.9894240090120604
+          ]
+        },
+        {
+          "n": 46226,
+          "N": 739616,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4753,
+          "directional_successes": 4938,
+          "scalar_power": 0.9506,
+          "directional_power": 0.9876,
+          "scalar_cp95": [
+            0.944225122914525,
+            0.9564419459141532
+          ],
+          "directional_cp95": [
+            0.984131598993185,
+            0.9904801371542773
+          ]
+        },
+        {
+          "n": 47718,
+          "N": 763488,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4918,
+          "directional_successes": 4991,
+          "scalar_power": 0.9836,
+          "directional_power": 0.9982,
+          "scalar_cp95": [
+            0.9796836561406844,
+            0.9869358974669399
+          ],
+          "directional_cp95": [
+            0.9965858015073897,
+            0.9991766054138786
+          ]
+        },
+        {
+          "n": 95436,
+          "N": 1526976,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 1381449,
+        "counts_in_xyzw_order": [
+          50846,
+          127708,
+          61498,
+          127292,
+          56472,
+          109284,
+          76457,
+          76457,
+          166800,
+          50846,
+          97621,
+          61498,
+          109284,
+          56472,
+          76457,
+          76457
+        ],
+        "power_penalty": 0.4870021497378882,
+        "gap": 0.48700576850888044,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.98,
+      "alpha": 0.05,
+      "beta": 0.05,
+      "rigorous_scalar_N": 625872,
+      "rigorous_directional_N": 625872,
+      "monte_carlo": {
+        "scalar": {
+          "n": 17266,
+          "N": 276256,
+          "search_bracket_N": [
+            275040,
+            276256
+          ],
+          "power": 0.9522,
+          "cp95": [
+            0.9491518588368268,
+            0.9551158083812963
+          ],
+          "validation": {
+            "n": 17266,
+            "N": 276256,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19044,
+            "directional_successes": 19809,
+            "scalar_power": 0.9522,
+            "directional_power": 0.99045,
+            "scalar_cp95": [
+              0.9491518588368268,
+              0.9551158083812963
+            ],
+            "directional_cp95": [
+              0.9890033957562522,
+              0.9917512072918131
+            ]
+          }
+        },
+        "directional": {
+          "n": 16578,
+          "N": 265248,
+          "search_bracket_N": [
+            264032,
+            265248
+          ],
+          "power": 0.95945,
+          "cp95": [
+            0.9566237705737708,
+            0.962141654446683
+          ],
+          "validation": {
+            "n": 16578,
+            "N": 265248,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17337,
+            "directional_successes": 19189,
+            "scalar_power": 0.86685,
+            "directional_power": 0.95945,
+            "scalar_cp95": [
+              0.8620632274359206,
+              0.8715298565650564
+            ],
+            "directional_cp95": [
+              0.9566237705737708,
+              0.962141654446683
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 9780,
+          "N": 156480,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 14669,
+          "N": 234704,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 1099,
+          "directional_successes": 1813,
+          "scalar_power": 0.2198,
+          "directional_power": 0.3626,
+          "scalar_cp95": [
+            0.20838780867270304,
+            0.2315402235873427
+          ],
+          "directional_cp95": [
+            0.34925795844546287,
+            0.37610264428394913
+          ]
+        },
+        {
+          "n": 15891,
+          "N": 254256,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3440,
+          "directional_successes": 4252,
+          "scalar_power": 0.688,
+          "directional_power": 0.8504,
+          "scalar_cp95": [
+            0.6749509202049314,
+            0.70082925138539
+          ],
+          "directional_cp95": [
+            0.8402092784373671,
+            0.8601797588595497
+          ]
+        },
+        {
+          "n": 16502,
+          "N": 264032,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4247,
+          "directional_successes": 4749,
+          "scalar_power": 0.8494,
+          "directional_power": 0.9498,
+          "scalar_cp95": [
+            0.8391827352139131,
+            0.8592074896157036
+          ],
+          "directional_cp95": [
+            0.9433797948607482,
+            0.955688305601798
+          ]
+        },
+        {
+          "n": 16578,
+          "N": 265248,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4328,
+          "directional_successes": 4782,
+          "scalar_power": 0.8656,
+          "directional_power": 0.9564,
+          "scalar_cp95": [
+            0.8558322885720078,
+            0.8749386649632546
+          ],
+          "directional_cp95": [
+            0.9503673899007686,
+            0.9618921197617288
+          ]
+        },
+        {
+          "n": 16655,
+          "N": 266480,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4393,
+          "directional_successes": 4827,
+          "scalar_power": 0.8786,
+          "directional_power": 0.9654,
+          "scalar_cp95": [
+            0.8692258952241515,
+            0.887529532826411
+          ],
+          "directional_cp95": [
+            0.9599548481657422,
+            0.9702925557886173
+          ]
+        },
+        {
+          "n": 16808,
+          "N": 268928,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4505,
+          "directional_successes": 4881,
+          "scalar_power": 0.901,
+          "directional_power": 0.9762,
+          "scalar_cp95": [
+            0.8923860375993332,
+            0.9091424595597417
+          ],
+          "directional_cp95": [
+            0.9715866837984581,
+            0.9802451008013935
+          ]
+        },
+        {
+          "n": 17114,
+          "N": 273824,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4707,
+          "directional_successes": 4940,
+          "scalar_power": 0.9414,
+          "directional_power": 0.988,
+          "scalar_cp95": [
+            0.934527784725236,
+            0.9477510215339141
+          ],
+          "directional_cp95": [
+            0.9845802848546346,
+            0.9908305872414447
+          ]
+        },
+        {
+          "n": 17190,
+          "N": 275040,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4732,
+          "directional_successes": 4948,
+          "scalar_power": 0.9464,
+          "directional_power": 0.9896,
+          "scalar_cp95": [
+            0.93979176891857,
+            0.952480690845375
+          ],
+          "directional_cp95": [
+            0.9863838968033357,
+            0.9922233013322517
+          ]
+        },
+        {
+          "n": 17266,
+          "N": 276256,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4772,
+          "directional_successes": 4953,
+          "scalar_power": 0.9544,
+          "directional_power": 0.9906,
+          "scalar_cp95": [
+            0.9482465319198975,
+            0.9600156015045499
+          ],
+          "directional_cp95": [
+            0.987519391473745,
+            0.9930852887017697
+          ]
+        },
+        {
+          "n": 17419,
+          "N": 278704,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4802,
+          "directional_successes": 4961,
+          "scalar_power": 0.9604,
+          "directional_power": 0.9922,
+          "scalar_cp95": [
+            0.954619047188908,
+            0.9656351500009146
+          ],
+          "directional_cp95": [
+            0.9893524202228299,
+            0.994447727259495
+          ]
+        },
+        {
+          "n": 17725,
+          "N": 283600,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4882,
+          "directional_successes": 4981,
+          "scalar_power": 0.9764,
+          "directional_power": 0.9962,
+          "scalar_cp95": [
+            0.9718038574750503,
+            0.9804276191690955
+          ],
+          "directional_cp95": [
+            0.9940721626928436,
+            0.997710648616123
+          ]
+        },
+        {
+          "n": 18336,
+          "N": 293376,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4972,
+          "directional_successes": 4997,
+          "scalar_power": 0.9944,
+          "directional_power": 0.9994,
+          "scalar_cp95": [
+            0.9919165367013648,
+            0.9962757107338437
+          ],
+          "directional_cp95": [
+            0.998247556396604,
+            0.9998762484795307
+          ]
+        },
+        {
+          "n": 19559,
+          "N": 312944,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4995,
+          "directional_successes": 5000,
+          "scalar_power": 0.999,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9976678894088544,
+            0.9996752255252221
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        },
+        {
+          "n": 39117,
+          "N": 625872,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 570744,
+        "counts_in_xyzw_order": [
+          21397,
+          52581,
+          25661,
+          51229,
+          23866,
+          44806,
+          31903,
+          31903,
+          67129,
+          21397,
+          40733,
+          25661,
+          44806,
+          23866,
+          31903,
+          31903
+        ],
+        "power_penalty": 0.6918457658508811,
+        "gap": 0.6918585822512657,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.98,
+      "alpha": 0.01,
+      "beta": 0.05,
+      "rigorous_scalar_N": 681296,
+      "rigorous_directional_N": 681296,
+      "monte_carlo": {
+        "scalar": {
+          "n": 19543,
+          "N": 312688,
+          "search_bracket_N": [
+            311360,
+            312688
+          ],
+          "power": 0.949,
+          "cp95": [
+            0.9458601428409666,
+            0.9520085045207989
+          ],
+          "validation": {
+            "n": 19543,
+            "N": 312688,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 18980,
+            "directional_successes": 19807,
+            "scalar_power": 0.949,
+            "directional_power": 0.99035,
+            "scalar_cp95": [
+              0.9458601428409666,
+              0.9520085045207989
+            ],
+            "directional_cp95": [
+              0.9888964557623453,
+              0.9916581944958937
+            ]
+          }
+        },
+        "directional": {
+          "n": 18795,
+          "N": 300720,
+          "search_bracket_N": [
+            299392,
+            300720
+          ],
+          "power": 0.949,
+          "cp95": [
+            0.9458601428409666,
+            0.9520085045207989
+          ],
+          "validation": {
+            "n": 18795,
+            "N": 300720,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17064,
+            "directional_successes": 18980,
+            "scalar_power": 0.8532,
+            "directional_power": 0.949,
+            "scalar_cp95": [
+              0.8482188846345003,
+              0.8580782062401646
+            ],
+            "directional_cp95": [
+              0.9458601428409666,
+              0.9520085045207989
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 10646,
+          "N": 170336,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 15968,
+          "N": 255488,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 222,
+          "directional_successes": 466,
+          "scalar_power": 0.0444,
+          "directional_power": 0.0932,
+          "scalar_cp95": [
+            0.03885810824847722,
+            0.05048133021814359
+          ],
+          "directional_cp95": [
+            0.0852812330268615,
+            0.10159729297146519
+          ]
+        },
+        {
+          "n": 18629,
+          "N": 298064,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4081,
+          "directional_successes": 4654,
+          "scalar_power": 0.8162,
+          "directional_power": 0.9308,
+          "scalar_cp95": [
+            0.8051807011496839,
+            0.826848831499351
+          ],
+          "directional_cp95": [
+            0.9234104852441475,
+            0.937681581482229
+          ]
+        },
+        {
+          "n": 18712,
+          "N": 299392,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4203,
+          "directional_successes": 4720,
+          "scalar_power": 0.8406,
+          "directional_power": 0.944,
+          "scalar_cp95": [
+            0.8301555410062829,
+            0.8506451239892344
+          ],
+          "directional_cp95": [
+            0.9372632875259862,
+            0.9502122272844775
+          ]
+        },
+        {
+          "n": 18795,
+          "N": 300720,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4261,
+          "directional_successes": 4751,
+          "scalar_power": 0.8522,
+          "directional_power": 0.9502,
+          "scalar_cp95": [
+            0.8420574412770259,
+            0.8619294578312818
+          ],
+          "directional_cp95": [
+            0.9438024052977705,
+            0.956065179647148
+          ]
+        },
+        {
+          "n": 18961,
+          "N": 303376,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4434,
+          "directional_successes": 4843,
+          "scalar_power": 0.8868,
+          "directional_power": 0.9686,
+          "scalar_cp95": [
+            0.8776911699011887,
+            0.8954544298795692
+          ],
+          "directional_cp95": [
+            0.963384245332866,
+            0.9732586943845599
+          ]
+        },
+        {
+          "n": 19294,
+          "N": 308704,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4615,
+          "directional_successes": 4908,
+          "scalar_power": 0.923,
+          "directional_power": 0.9816,
+          "scalar_cp95": [
+            0.9152608808048637,
+            0.9302408185216037
+          ],
+          "directional_cp95": [
+            0.9774811833973209,
+            0.9851418841438733
+          ]
+        },
+        {
+          "n": 19460,
+          "N": 311360,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4736,
+          "directional_successes": 4943,
+          "scalar_power": 0.9472,
+          "directional_power": 0.9886,
+          "scalar_cp95": [
+            0.9406353583156628,
+            0.9532360791979626
+          ],
+          "directional_cp95": [
+            0.9852549058015432,
+            0.9913546323124656
+          ]
+        },
+        {
+          "n": 19543,
+          "N": 312688,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4759,
+          "directional_successes": 4949,
+          "scalar_power": 0.9518,
+          "directional_power": 0.9898,
+          "scalar_cp95": [
+            0.94549393128551,
+            0.9575715854809007
+          ],
+          "directional_cp95": [
+            0.98661044580932,
+            0.9923962643385379
+          ]
+        },
+        {
+          "n": 19627,
+          "N": 314032,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4764,
+          "directional_successes": 4963,
+          "scalar_power": 0.9528,
+          "directional_power": 0.9926,
+          "scalar_cp95": [
+            0.9465520419638082,
+            0.9585121769707877
+          ],
+          "directional_cp95": [
+            0.9898143661744159,
+            0.9947845201472822
+          ]
+        },
+        {
+          "n": 19960,
+          "N": 319360,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4856,
+          "directional_successes": 4979,
+          "scalar_power": 0.9712,
+          "directional_power": 0.9958,
+          "scalar_cp95": [
+            0.9661803398494988,
+            0.9756588855982726
+          ],
+          "directional_cp95": [
+            0.9935869824515773,
+            0.9973983108738131
+          ]
+        },
+        {
+          "n": 21291,
+          "N": 340656,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4983,
+          "directional_successes": 5000,
+          "scalar_power": 0.9966,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9945618340255118,
+            0.9980181655785948
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        },
+        {
+          "n": 42581,
+          "N": 681296,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 618963,
+        "counts_in_xyzw_order": [
+          23002,
+          57116,
+          27698,
+          56267,
+          25603,
+          48769,
+          34435,
+          34435,
+          73730,
+          23002,
+          43966,
+          27698,
+          48769,
+          25603,
+          34435,
+          34435
+        ],
+        "power_penalty": 0.6918468503962074,
+        "gap": 0.6918585822512657,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 0.98,
+      "alpha": 0.001,
+      "beta": 0.05,
+      "rigorous_scalar_N": 756592,
+      "rigorous_directional_N": 756592,
+      "monte_carlo": {
+        "scalar": {
+          "n": 22812,
+          "N": 364992,
+          "search_bracket_N": [
+            363520,
+            364992
+          ],
+          "power": 0.9507,
+          "cp95": [
+            0.947608432853101,
+            0.9536596944259141
+          ],
+          "validation": {
+            "n": 22812,
+            "N": 364992,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19014,
+            "directional_successes": 19816,
+            "scalar_power": 0.9507,
+            "directional_power": 0.9908,
+            "scalar_cp95": [
+              0.947608432853101,
+              0.9536596944259141
+            ],
+            "directional_cp95": [
+              0.989377984350331,
+              0.9920764511765703
+            ]
+          }
+        },
+        "directional": {
+          "n": 21981,
+          "N": 351696,
+          "search_bracket_N": [
+            350208,
+            351696
+          ],
+          "power": 0.9513,
+          "cp95": [
+            0.9482257092713245,
+            0.9542422341194133
+          ],
+          "validation": {
+            "n": 21981,
+            "N": 351696,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17060,
+            "directional_successes": 19026,
+            "scalar_power": 0.853,
+            "directional_power": 0.9513,
+            "scalar_cp95": [
+              0.8480161496877631,
+              0.857880999846446
+            ],
+            "directional_cp95": [
+              0.9482257092713245,
+              0.9542422341194133
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 11822,
+          "N": 189152,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 17733,
+          "N": 283728,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 10,
+          "directional_successes": 28,
+          "scalar_power": 0.002,
+          "directional_power": 0.0056,
+          "scalar_cp95": [
+            0.0009594813177485524,
+            0.0036749854808604205
+          ],
+          "directional_cp95": [
+            0.0037242892661563365,
+            0.008083463298635194
+          ]
+        },
+        {
+          "n": 20688,
+          "N": 331008,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 2634,
+          "directional_successes": 3485,
+          "scalar_power": 0.5268,
+          "directional_power": 0.697,
+          "scalar_cp95": [
+            0.5128486293834493,
+            0.540720056270959
+          ],
+          "directional_cp95": [
+            0.6840496648875622,
+            0.7097199639240914
+          ]
+        },
+        {
+          "n": 21427,
+          "N": 342832,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3715,
+          "directional_successes": 4425,
+          "scalar_power": 0.743,
+          "directional_power": 0.885,
+          "scalar_cp95": [
+            0.7306481182312168,
+            0.7550675683401792
+          ],
+          "directional_cp95": [
+            0.8758317327683176,
+            0.8937160270962277
+          ]
+        },
+        {
+          "n": 21796,
+          "N": 348736,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4142,
+          "directional_successes": 4694,
+          "scalar_power": 0.8284,
+          "directional_power": 0.9388,
+          "scalar_cp95": [
+            0.8176585014543074,
+            0.8387566105768072
+          ],
+          "directional_cp95": [
+            0.931795884013111,
+            0.9452861967331564
+          ]
+        },
+        {
+          "n": 21888,
+          "N": 350208,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4188,
+          "directional_successes": 4724,
+          "scalar_power": 0.8376,
+          "directional_power": 0.9448,
+          "scalar_cp95": [
+            0.8270806234542964,
+            0.8477235968069472
+          ],
+          "directional_cp95": [
+            0.9381057413694204,
+            0.9509687569731106
+          ]
+        },
+        {
+          "n": 21981,
+          "N": 351696,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4312,
+          "directional_successes": 4761,
+          "scalar_power": 0.8624,
+          "directional_power": 0.9522,
+          "scalar_cp95": [
+            0.852540067361715,
+            0.8718346988704316
+          ],
+          "directional_cp95": [
+            0.9459170901909028,
+            0.9579479079411851
+          ]
+        },
+        {
+          "n": 22166,
+          "N": 354656,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4431,
+          "directional_successes": 4855,
+          "scalar_power": 0.8862,
+          "directional_power": 0.971,
+          "scalar_cp95": [
+            0.8770712799796612,
+            0.8948750400042839
+          ],
+          "directional_cp95": [
+            0.9659649188000016,
+            0.9754745955674211
+          ]
+        },
+        {
+          "n": 22535,
+          "N": 360560,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4634,
+          "directional_successes": 4910,
+          "scalar_power": 0.9268,
+          "directional_power": 0.982,
+          "scalar_cp95": [
+            0.9192282245137811,
+            0.9338687930656193
+          ],
+          "directional_cp95": [
+            0.9779207148863369,
+            0.9855016654445259
+          ]
+        },
+        {
+          "n": 22720,
+          "N": 363520,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4708,
+          "directional_successes": 4942,
+          "scalar_power": 0.9416,
+          "directional_power": 0.9884,
+          "scalar_cp95": [
+            0.9347380772693171,
+            0.9479404764273549
+          ],
+          "directional_cp95": [
+            0.9850298128059031,
+            0.9911801753068886
+          ]
+        },
+        {
+          "n": 22812,
+          "N": 364992,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4781,
+          "directional_successes": 4951,
+          "scalar_power": 0.9562,
+          "directional_power": 0.9902,
+          "scalar_cp95": [
+            0.9501551618414801,
+            0.9617046110944641
+          ],
+          "directional_cp95": [
+            0.9870643524340381,
+            0.9927413591101278
+          ]
+        },
+        {
+          "n": 22905,
+          "N": 366480,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4792,
+          "directional_successes": 4963,
+          "scalar_power": 0.9584,
+          "directional_power": 0.9926,
+          "scalar_cp95": [
+            0.9524914867312692,
+            0.9637653783714821
+          ],
+          "directional_cp95": [
+            0.9898143661744159,
+            0.9947845201472822
+          ]
+        },
+        {
+          "n": 23644,
+          "N": 378304,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4932,
+          "directional_successes": 4993,
+          "scalar_power": 0.9864,
+          "directional_power": 0.9986,
+          "scalar_cp95": [
+            0.9827902143329161,
+            0.9894240090120604
+          ],
+          "directional_cp95": [
+            0.9971176056471966,
+            0.9994369479757105
+          ]
+        },
+        {
+          "n": 47287,
+          "N": 756592,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 684505,
+        "counts_in_xyzw_order": [
+          25195,
+          63279,
+          30472,
+          63073,
+          27982,
+          54150,
+          37884,
+          37884,
+          82648,
+          25195,
+          48371,
+          30472,
+          54150,
+          27982,
+          37884,
+          37884
+        ],
+        "power_penalty": 0.6918486777369233,
+        "gap": 0.6918585822512657,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 1.0,
+      "alpha": 0.05,
+      "beta": 0.05,
+      "rigorous_scalar_N": 436528,
+      "rigorous_directional_N": 436528,
+      "monte_carlo": {
+        "scalar": {
+          "n": 11989,
+          "N": 191824,
+          "search_bracket_N": [
+            190976,
+            191824
+          ],
+          "power": 0.95075,
+          "cp95": [
+            0.9476598678359747,
+            0.9537082441257788
+          ],
+          "validation": {
+            "n": 11989,
+            "N": 191824,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19015,
+            "directional_successes": 19809,
+            "scalar_power": 0.95075,
+            "directional_power": 0.99045,
+            "scalar_cp95": [
+              0.9476598678359747,
+              0.9537082441257788
+            ],
+            "directional_cp95": [
+              0.9890033957562522,
+              0.9917512072918131
+            ]
+          }
+        },
+        "directional": {
+          "n": 11509,
+          "N": 184144,
+          "search_bracket_N": [
+            183280,
+            184144
+          ],
+          "power": 0.9564,
+          "cp95": [
+            0.9534778393185657,
+            0.9591885331228951
+          ],
+          "validation": {
+            "n": 11509,
+            "N": 184144,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17267,
+            "directional_successes": 19128,
+            "scalar_power": 0.86335,
+            "directional_power": 0.9564,
+            "scalar_cp95": [
+              0.8585119073828009,
+              0.8680822046923338
+            ],
+            "directional_cp95": [
+              0.9534778393185657,
+              0.9591885331228951
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 6821,
+          "N": 109136,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 10231,
+          "N": 163696,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 1135,
+          "directional_successes": 1903,
+          "scalar_power": 0.227,
+          "directional_power": 0.3806,
+          "scalar_cp95": [
+            0.21545111245099902,
+            0.23886844943092808
+          ],
+          "directional_cp95": [
+            0.3671149051684803,
+            0.3942246444580937
+          ]
+        },
+        {
+          "n": 11083,
+          "N": 177328,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3441,
+          "directional_successes": 4287,
+          "scalar_power": 0.6882,
+          "directional_power": 0.8574,
+          "scalar_cp95": [
+            0.6751530527620979,
+            0.7010268845771294
+          ],
+          "directional_cp95": [
+            0.847399422297666,
+            0.8669812950636633
+          ]
+        },
+        {
+          "n": 11296,
+          "N": 180736,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3953,
+          "directional_successes": 4570,
+          "scalar_power": 0.7906,
+          "directional_power": 0.914,
+          "scalar_cp95": [
+            0.7790539617729219,
+            0.801805762203037
+          ],
+          "directional_cp95": [
+            0.9058849473775185,
+            0.921627770208145
+          ]
+        },
+        {
+          "n": 11402,
+          "N": 182432,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4124,
+          "directional_successes": 4698,
+          "scalar_power": 0.8248,
+          "directional_power": 0.9396,
+          "scalar_cp95": [
+            0.813974598700101,
+            0.8352447711359372
+          ],
+          "directional_cp95": [
+            0.9326360984137522,
+            0.9460449764960791
+          ]
+        },
+        {
+          "n": 11455,
+          "N": 183280,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4187,
+          "directional_successes": 4712,
+          "scalar_power": 0.8374,
+          "directional_power": 0.9424,
+          "scalar_cp95": [
+            0.8268756733913493,
+            0.8475287838217406
+          ],
+          "directional_cp95": [
+            0.9355794625275686,
+            0.9486980798998417
+          ]
+        },
+        {
+          "n": 11509,
+          "N": 184144,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4328,
+          "directional_successes": 4818,
+          "scalar_power": 0.8656,
+          "directional_power": 0.9636,
+          "scalar_cp95": [
+            0.8558322885720078,
+            0.8749386649632546
+          ],
+          "directional_cp95": [
+            0.9580309927522467,
+            0.9686188794510908
+          ]
+        },
+        {
+          "n": 11936,
+          "N": 190976,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4691,
+          "directional_successes": 4950,
+          "scalar_power": 0.9382,
+          "directional_power": 0.99,
+          "scalar_cp95": [
+            0.9311659340199698,
+            0.9447169001553563
+          ],
+          "directional_cp95": [
+            0.9868372617397987,
+            0.9925689530005899
+          ]
+        },
+        {
+          "n": 11989,
+          "N": 191824,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4764,
+          "directional_successes": 4948,
+          "scalar_power": 0.9528,
+          "directional_power": 0.9896,
+          "scalar_cp95": [
+            0.9465520419638082,
+            0.9585121769707877
+          ],
+          "directional_cp95": [
+            0.9863838968033357,
+            0.9922233013322517
+          ]
+        },
+        {
+          "n": 12042,
+          "N": 192672,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4817,
+          "directional_successes": 4971,
+          "scalar_power": 0.9634,
+          "directional_power": 0.9942,
+          "scalar_cp95": [
+            0.9578174451527143,
+            0.9684326996191867
+          ],
+          "directional_cp95": [
+            0.9916807743112749,
+            0.9961123099271048
+          ]
+        },
+        {
+          "n": 12149,
+          "N": 194384,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4838,
+          "directional_successes": 4979,
+          "scalar_power": 0.9676,
+          "directional_power": 0.9958,
+          "scalar_cp95": [
+            0.9623112187725389,
+            0.9723331275581393
+          ],
+          "directional_cp95": [
+            0.9935869824515773,
+            0.9973983108738131
+          ]
+        },
+        {
+          "n": 12362,
+          "N": 197792,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4910,
+          "directional_successes": 4990,
+          "scalar_power": 0.982,
+          "directional_power": 0.998,
+          "scalar_cp95": [
+            0.9779207148863369,
+            0.9855016654445259
+          ],
+          "directional_cp95": [
+            0.9963250145191396,
+            0.9990405186822514
+          ]
+        },
+        {
+          "n": 12789,
+          "N": 204624,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4954,
+          "directional_successes": 4999,
+          "scalar_power": 0.9908,
+          "directional_power": 0.9998,
+          "scalar_cp95": [
+            0.9877473575886936,
+            0.9932567935348036
+          ],
+          "directional_cp95": [
+            0.998886180619666,
+            0.999994936451223
+          ]
+        },
+        {
+          "n": 13642,
+          "N": 218272,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4995,
+          "directional_successes": 4999,
+          "scalar_power": 0.999,
+          "directional_power": 0.9998,
+          "scalar_cp95": [
+            0.9976678894088544,
+            0.9996752255252221
+          ],
+          "directional_cp95": [
+            0.998886180619666,
+            0.999994936451223
+          ]
+        },
+        {
+          "n": 27283,
+          "N": 436528,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 398085,
+        "counts_in_xyzw_order": [
+          14924,
+          36674,
+          17898,
+          35731,
+          16646,
+          31252,
+          22252,
+          22252,
+          46821,
+          14924,
+          28411,
+          17898,
+          31252,
+          16646,
+          22252,
+          22252
+        ],
+        "power_penalty": 0.8284042168024313,
+        "gap": 0.8284271247461898,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 1.0,
+      "alpha": 0.01,
+      "beta": 0.05,
+      "rigorous_scalar_N": 475184,
+      "rigorous_directional_N": 475184,
+      "monte_carlo": {
+        "scalar": {
+          "n": 13631,
+          "N": 218096,
+          "search_bracket_N": [
+            217168,
+            218096
+          ],
+          "power": 0.9526,
+          "cp95": [
+            0.9495635730638816,
+            0.9555039712755017
+          ],
+          "validation": {
+            "n": 13631,
+            "N": 218096,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19052,
+            "directional_successes": 19856,
+            "scalar_power": 0.9526,
+            "directional_power": 0.9928,
+            "scalar_cp95": [
+              0.9495635730638816,
+              0.9555039712755017
+            ],
+            "directional_cp95": [
+              0.9915287425451265,
+              0.9939246490765395
+            ]
+          }
+        },
+        "directional": {
+          "n": 13109,
+          "N": 209744,
+          "search_bracket_N": [
+            208816,
+            209744
+          ],
+          "power": 0.958,
+          "cp95": [
+            0.9551276673227154,
+            0.9607382089480493
+          ],
+          "validation": {
+            "n": 13109,
+            "N": 209744,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17246,
+            "directional_successes": 19160,
+            "scalar_power": 0.8623,
+            "directional_power": 0.958,
+            "scalar_cp95": [
+              0.857446717083977,
+              0.8670477033182971
+            ],
+            "directional_cp95": [
+              0.9551276673227154,
+              0.9607382089480493
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 7425,
+          "N": 118800,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 11137,
+          "N": 178192,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 209,
+          "directional_successes": 421,
+          "scalar_power": 0.0418,
+          "directional_power": 0.0842,
+          "scalar_cp95": [
+            0.036421794536993665,
+            0.04772107489886676
+          ],
+          "directional_cp95": [
+            0.07664745781023827,
+            0.09224202122397668
+          ]
+        },
+        {
+          "n": 12993,
+          "N": 207888,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4134,
+          "directional_successes": 4724,
+          "scalar_power": 0.8268,
+          "directional_power": 0.9448,
+          "scalar_cp95": [
+            0.8160210072245409,
+            0.8371959974402831
+          ],
+          "directional_cp95": [
+            0.9381057413694204,
+            0.9509687569731106
+          ]
+        },
+        {
+          "n": 13051,
+          "N": 208816,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4227,
+          "directional_successes": 4727,
+          "scalar_power": 0.8454,
+          "directional_power": 0.9454,
+          "scalar_cp95": [
+            0.8350780622160757,
+            0.8553169103366025
+          ],
+          "directional_cp95": [
+            0.9387378246203056,
+            0.95153591015548
+          ]
+        },
+        {
+          "n": 13109,
+          "N": 209744,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4290,
+          "directional_successes": 4797,
+          "scalar_power": 0.858,
+          "directional_power": 0.9594,
+          "scalar_cp95": [
+            0.8480160825592772,
+            0.8675639210486885
+          ],
+          "directional_cp95": [
+            0.9535548189038867,
+            0.9647007153382194
+          ]
+        },
+        {
+          "n": 13225,
+          "N": 211600,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4454,
+          "directional_successes": 4853,
+          "scalar_power": 0.8908,
+          "directional_power": 0.9706,
+          "scalar_cp95": [
+            0.881825796083233,
+            0.8993149976698831
+          ],
+          "directional_cp95": [
+            0.9655342506293241,
+            0.9751058398846006
+          ]
+        },
+        {
+          "n": 13457,
+          "N": 215312,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4618,
+          "directional_successes": 4927,
+          "scalar_power": 0.9236,
+          "directional_power": 0.9854,
+          "scalar_cp95": [
+            0.91588694408682,
+            0.9308140173045745
+          ],
+          "directional_cp95": [
+            0.9816772578460234,
+            0.9885389357716236
+          ]
+        },
+        {
+          "n": 13573,
+          "N": 217168,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4736,
+          "directional_successes": 4950,
+          "scalar_power": 0.9472,
+          "directional_power": 0.99,
+          "scalar_cp95": [
+            0.9406353583156628,
+            0.9532360791979626
+          ],
+          "directional_cp95": [
+            0.9868372617397987,
+            0.9925689530005899
+          ]
+        },
+        {
+          "n": 13631,
+          "N": 218096,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4804,
+          "directional_successes": 4964,
+          "scalar_power": 0.9608,
+          "directional_power": 0.9928,
+          "scalar_cp95": [
+            0.9550449966423424,
+            0.9660086639061043
+          ],
+          "directional_cp95": [
+            0.9900459707215482,
+            0.9949522611288919
+          ]
+        },
+        {
+          "n": 13689,
+          "N": 219024,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4815,
+          "directional_successes": 4970,
+          "scalar_power": 0.963,
+          "directional_power": 0.994,
+          "scalar_cp95": [
+            0.9573904743807,
+            0.9680602145735299
+          ],
+          "directional_cp95": [
+            0.9914456198653134,
+            0.9959482717213054
+          ]
+        },
+        {
+          "n": 13921,
+          "N": 222736,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4855,
+          "directional_successes": 4986,
+          "scalar_power": 0.971,
+          "directional_power": 0.9972,
+          "scalar_cp95": [
+            0.9659649188000016,
+            0.9754745955674211
+          ],
+          "directional_cp95": [
+            0.9953065340106569,
+            0.9984683946845891
+          ]
+        },
+        {
+          "n": 14850,
+          "N": 237600,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4993,
+          "directional_successes": 5000,
+          "scalar_power": 0.9986,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9971176056471966,
+            0.9994369479757105
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        },
+        {
+          "n": 29699,
+          "N": 475184,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 431719,
+        "counts_in_xyzw_order": [
+          16044,
+          39837,
+          19319,
+          39245,
+          17858,
+          34016,
+          24018,
+          24018,
+          51425,
+          16044,
+          30666,
+          19319,
+          34016,
+          17858,
+          24018,
+          24018
+        ],
+        "power_penalty": 0.8284017050174831,
+        "gap": 0.8284271247461898,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    },
+    {
+      "visibility": 1.0,
+      "alpha": 0.001,
+      "beta": 0.05,
+      "rigorous_scalar_N": 527712,
+      "rigorous_directional_N": 527712,
+      "monte_carlo": {
+        "scalar": {
+          "n": 15910,
+          "N": 254560,
+          "search_bracket_N": [
+            253536,
+            254560
+          ],
+          "power": 0.95715,
+          "cp95": [
+            0.9542510632641596,
+            0.9599150768170853
+          ],
+          "validation": {
+            "n": 15910,
+            "N": 254560,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 19143,
+            "directional_successes": 19837,
+            "scalar_power": 0.95715,
+            "directional_power": 0.99185,
+            "scalar_cp95": [
+              0.9542510632641596,
+              0.9599150768170853
+            ],
+            "directional_cp95": [
+              0.9905047758396575,
+              0.9930491326156561
+            ]
+          }
+        },
+        "directional": {
+          "n": 15266,
+          "N": 244256,
+          "search_bracket_N": [
+            243232,
+            244256
+          ],
+          "power": 0.9516,
+          "cp95": [
+            0.9485343941923703,
+            0.9545334571868842
+          ],
+          "validation": {
+            "n": 15266,
+            "N": 244256,
+            "trials": 20000,
+            "stream": 1,
+            "scalar_successes": 17061,
+            "directional_successes": 19032,
+            "scalar_power": 0.85305,
+            "directional_power": 0.9516,
+            "scalar_cp95": [
+              0.8480668331317472,
+              0.8579303017376987
+            ],
+            "directional_cp95": [
+              0.9485343941923703,
+              0.9545334571868842
+            ]
+          }
+        }
+      },
+      "search_points": [
+        {
+          "n": 8246,
+          "N": 131936,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 0,
+          "directional_successes": 0,
+          "scalar_power": 0.0,
+          "directional_power": 0.0,
+          "scalar_cp95": [
+            0.0,
+            0.000737503801108105
+          ],
+          "directional_cp95": [
+            0.0,
+            0.000737503801108105
+          ]
+        },
+        {
+          "n": 12368,
+          "N": 197888,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 7,
+          "directional_successes": 13,
+          "scalar_power": 0.0014,
+          "directional_power": 0.0026,
+          "scalar_cp95": [
+            0.0005630520242895752,
+            0.00288239435280333
+          ],
+          "directional_cp95": [
+            0.0013850942144161184,
+            0.004441975325562257
+          ]
+        },
+        {
+          "n": 14429,
+          "N": 230864,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 2574,
+          "directional_successes": 3533,
+          "scalar_power": 0.5148,
+          "directional_power": 0.7066,
+          "scalar_cp95": [
+            0.5008417972359187,
+            0.5287409099301347
+          ],
+          "directional_cp95": [
+            0.693761366419863,
+            0.7191970132192897
+          ]
+        },
+        {
+          "n": 14944,
+          "N": 239104,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 3788,
+          "directional_successes": 4493,
+          "scalar_power": 0.7576,
+          "directional_power": 0.8986,
+          "scalar_cp95": [
+            0.7454734805459677,
+            0.7694250600652977
+          ],
+          "directional_cp95": [
+            0.889898975175244,
+            0.9068324211333882
+          ]
+        },
+        {
+          "n": 15202,
+          "N": 243232,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4179,
+          "directional_successes": 4720,
+          "scalar_power": 0.8358,
+          "directional_power": 0.944,
+          "scalar_cp95": [
+            0.8252362704979694,
+            0.8459700820406818
+          ],
+          "directional_cp95": [
+            0.9372632875259862,
+            0.9502122272844775
+          ]
+        },
+        {
+          "n": 15266,
+          "N": 244256,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4234,
+          "directional_successes": 4761,
+          "scalar_power": 0.8468,
+          "directional_power": 0.9522,
+          "scalar_cp95": [
+            0.8365144274256019,
+            0.8566788838536863
+          ],
+          "directional_cp95": [
+            0.9459170901909028,
+            0.9579479079411851
+          ]
+        },
+        {
+          "n": 15331,
+          "N": 245296,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4301,
+          "directional_successes": 4789,
+          "scalar_power": 0.8602,
+          "directional_power": 0.9578,
+          "scalar_cp95": [
+            0.8502776735384563,
+            0.869699712093748
+          ],
+          "directional_cp95": [
+            0.951853904736769,
+            0.9632037560616088
+          ]
+        },
+        {
+          "n": 15460,
+          "N": 247360,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4486,
+          "directional_successes": 4852,
+          "scalar_power": 0.8972,
+          "directional_power": 0.9704,
+          "scalar_cp95": [
+            0.8884488602639249,
+            0.9054842254728451
+          ],
+          "directional_cp95": [
+            0.9653190023667217,
+            0.9749213753928963
+          ]
+        },
+        {
+          "n": 15717,
+          "N": 251472,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4670,
+          "directional_successes": 4922,
+          "scalar_power": 0.934,
+          "directional_power": 0.9844,
+          "scalar_cp95": [
+            0.9267611374799439,
+            0.9407269495415846
+          ],
+          "directional_cp95": [
+            0.9805682567363968,
+            0.9876498300129272
+          ]
+        },
+        {
+          "n": 15846,
+          "N": 253536,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4744,
+          "directional_successes": 4943,
+          "scalar_power": 0.9488,
+          "directional_power": 0.9886,
+          "scalar_cp95": [
+            0.9423237298130984,
+            0.954745656900488
+          ],
+          "directional_cp95": [
+            0.9852549058015432,
+            0.9913546323124656
+          ]
+        },
+        {
+          "n": 15910,
+          "N": 254560,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4774,
+          "directional_successes": 4963,
+          "scalar_power": 0.9548,
+          "directional_power": 0.9926,
+          "scalar_cp95": [
+            0.9486704543558926,
+            0.960391155870584
+          ],
+          "directional_cp95": [
+            0.9898143661744159,
+            0.9947845201472822
+          ]
+        },
+        {
+          "n": 15975,
+          "N": 255600,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4800,
+          "directional_successes": 4974,
+          "scalar_power": 0.96,
+          "directional_power": 0.9948,
+          "scalar_cp95": [
+            0.9541932463017685,
+            0.9652614864763357
+          ],
+          "directional_cp95": [
+            0.9923900152969014,
+            0.9966004593376688
+          ]
+        },
+        {
+          "n": 16491,
+          "N": 263856,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 4934,
+          "directional_successes": 4994,
+          "scalar_power": 0.9868,
+          "directional_power": 0.9988,
+          "scalar_cp95": [
+            0.983236598804788,
+            0.9897768116575989
+          ],
+          "directional_cp95": [
+            0.9973899486891497,
+            0.9995594978654733
+          ]
+        },
+        {
+          "n": 32982,
+          "N": 527712,
+          "trials": 5000,
+          "stream": 0,
+          "scalar_successes": 5000,
+          "directional_successes": 5000,
+          "scalar_power": 1.0,
+          "directional_power": 1.0,
+          "scalar_cp95": [
+            0.9992624961988918,
+            1.0
+          ],
+          "directional_cp95": [
+            0.9992624961988918,
+            1.0
+          ]
+        }
+      ],
+      "optimized_allocation": {
+        "N": 477430,
+        "counts_in_xyzw_order": [
+          17573,
+          44135,
+          21254,
+          43992,
+          19517,
+          37768,
+          26424,
+          26424,
+          57645,
+          17573,
+          33738,
+          21254,
+          37768,
+          19517,
+          26424,
+          26424
+        ],
+        "power_penalty": 0.8284085713732544,
+        "gap": 0.8284271247461898,
+        "status": "numerically optimized feasible sufficient bound, not proved optimal"
+      }
+    }
+  ],
+  "near_threshold": [
+    {
+      "offset": 0.01,
+      "N": 69940384
+    },
+    {
+      "offset": 0.001,
+      "N": 6994037616
+    },
+    {
+      "offset": 0.0001,
+      "N": 699403760432
+    }
+  ]
+}

@@ -335,3 +335,20 @@ Steven W. Jones — stevenwarejones@gmail.com
 
 Corrections, refutations and pointers to prior art are all welcome, and a refutation is
 worth more to me than agreement.
+
+## Shot budget (i.i.d. estimate)
+
+The [analysis](threadB/SHOT_BUDGET.md) and [results table](threadB/SHOT_BUDGET_RESULTS.md)
+separate rigorous sufficient budgets for 95% power from seeded Monte Carlo
+crossing estimates. All 16 settings are sampled; empirical TV fluctuations and
+shared correlator samples are included. At p=.90 and α=.01, the equal-allocation
+sufficient bound is 15,386,496 runs; the scalar and directional Monte Carlo
+estimates are 7,182,352 and 6,911,888 runs, respectively, with validation
+uncertainty reported in the table. These are conditional on the stated i.i.d.
+model, not laboratory guarantees.
+
+Reproduce with `python3 threadB/shot_budget.py --study`; CI runs `--check`.
+This does not cover memory effects, detection / fair-sampling and postselection,
+settings randomization, unknown-frame timing (the delay cover), or systematic
+errors and calibration. No loophole-free claim is made. A memory-robust
+test-martingale or prediction-based-ratio analysis is future work.

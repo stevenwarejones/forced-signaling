@@ -131,7 +131,7 @@ Propositions 1–2 Lean port are this repository's
 | Lemma 2: only {B,C} and {B,C,D} can carry a signal | (analytic) + reproduce_extra.py (FULL) | proof is one line -- any recipient set omitting B or C is fixed by the reproduced ABD/ACD families, which are no-signaling; the FULL script confirms it by LP, maximising a SINGLE-OUTCOME probability difference (not TV, which is not linear): five subsets give exactly 0; {B,C} reaches 0.323 and {B,C,D} 0.213, certifying compatible models with TV >= 0.323 and 0.213 (a singleton is an event, so TV >= max_o |dp(o)|) |
 | Prop 2: co-located layout has zero accessible signaling FOR EVERY compatible model | (analytic) | needs BOTH conditions to fail: C_full from J_c^+(K_D) subset J_c^+(K_A); C_BC from the early parties lying on segment BC, which makes the two "closer to B/C than to the sender" half-spaces disjoint. The second is an explicit geometric HYPOTHESIS, not a consequence of co-location alone |
 | Prop 2: separated 4-site example is collectible both ways | (analytic, exact rationals) | margins 1/20 and 3/5 at c=1, v=4; arithmetic stated in the text |
-| Prop 2: four-site restoration (12 km line) | (analytic) | early parties outboard at +/-6 km, blind pair inboard at +/-5 km, 100 ns stagger; all pairs c-spacelike, both records collectible with ~3 us margin. AN EXAMPLE AT v=1e4 c (where the inclusions hold with 12-300x margin), valid down to kappa > 400.28 in the laboratory frame and kappa > 863.35 under the worst aligned boost -- it does NOT cover the whole c < v <= 1e4 c region; see the open item below. Collectibility is a LIGHT-cone condition, hence Lorentz invariant, so it adds no burden to the delay cover and its margin is ~70x the +/-42 ns delay span |
+| Prop 2: four-site restoration (12 km line) | (analytic) | early parties outboard at +/-6 km, blind pair inboard at +/-5 km, 100 ns stagger; all pairs c-spacelike, both records collectible with ~3 us margin. AN EXAMPLE AT v=1e4 c (where the inclusions hold with 12-300x margin), valid above the exact early-inclusion threshold 12000/(c·100 ns), approximately 400.28, in the laboratory frame. The 863.35 worst-boost value concerns A-to-D inclusion only: the fixed B/C events additionally require kappa·abs(beta) <= 1 (abs(beta) <= 1e-4 at kappa=1e4). It does NOT provide the advertised unknown-frame coverage or cover the whole c < v <= 1e4 c region; see the open item below. Collectibility is a LIGHT-cone condition, hence Lorentz invariant, so it adds no burden to the delay cover and its margin is ~70x the +/-42 ns delay span |
 | Obs: support of the optimal dual | verify_Sigma.py | exact; all nonzero dual entries lie in comparisons {5,7,12,14} (A-changes at w=1 with z=1, D-changes at x=1 with z=0, both y), including all four of their total-variation rows, and all 36 nonzero entries equal 1/8 (the inequality dual is 1/8 times a 0/1 vector). The restriction holds for EVERY optimal dual, by optimality rather than feasibility: the twelve non-core TV rows are slack by exactly (sqrt2-1)/2 in the certified primal (checked exactly), so complementary slackness zeroes their multipliers, and the slack-column coupling lam[r1]+lam[r2] <= lam[TV] zeroes the associated absolute-value multipliers. A merely FEASIBLE dual can carry non-core weight (all equality multipliers zero, 1/8 on one non-core TV row, objective 0). The reduced statement is two-sided and both sides come from objects already certified here: dropping the twelve other TV constraints enlarges the primal feasible set (so the exhibited model still applies) and the dual carries no weight on them (so it stays dual feasible), giving Sigma over the four comparisons = (sqrt2-1)/4 exactly. This is complementary slackness at Q_LC4, NOT a bound: deleting constraints can only DECREASE Sigma, so an UPPER bound proved for the four-comparison restriction does not transfer to the full program (lower bounds do transfer). Whether the support has this shape at other behaviors is not established here |
 | Thm 4: 24-vertex inequality | reproduce_theorem4.py | exhaustive (finite proof step) |
 | Thm 4: 400 random constrained distances | reproduce_theorem4.py (seed 3) | covered; compared against max{0,(S-2)/8} -- 376 of the 400 have S<2, where the max is what makes the claim true |
@@ -182,8 +182,8 @@ delta_A + delta_D = (sqrt(2)-1)/2 with the other direction exactly zero.
   delta_A and delta_D where the scalar test needs one bound on their maximum; that
   statistical cost is not priced here.
 - The four-site restoration is an example AT v=1e4 c, valid down to v ~ 8.6e2 c
-  (kappa > 400.28 in the laboratory frame, kappa > 863.35 under the worst aligned
-  boost). It does NOT inherit Theorem 7's coverage of the whole c < v <= 1e4 c region:
+  (laboratory threshold approximately 400.28; the 863.35 worst-boost early
+  inclusion threshold additionally needs kappa·|beta| <= 1 for B/C blindness). It does NOT inherit Theorem 7's coverage of the whole c < v <= 1e4 c region:
   collectibility forces tau < L/c while the v-inclusion forces tau > L/(kappa c), so a
   fixed early geometry covers only kappa > L/(c tau). Programming the early stagger to
   cover the full range is NOT worked out here.
@@ -211,3 +211,13 @@ delta_A + delta_D = (sqrt(2)-1)/2 with the other direction exactly zero.
 - Whether the encoded conditionally-local optimization fully captures the intended
   finite-speed physical interpretation is a modelling question for specialist assessment,
   not something any certificate here settles.
+
+## Shot-budget analysis
+
+| Claim | Status | Reproduction |
+|---|---|---|
+| Scalar and directional shot budgets for 95% power under equal setting allocation | **numerical estimate (i.i.d.)**: rigorous-under-stated-assumptions sufficient formula and separately labeled Monte Carlo crossing estimates with uncertainty | `python3 threadB/shot_budget.py --study`; fast CI gate `--check` |
+
+See `threadB/SHOT_BUDGET.md` for the concentration inequalities, primary
+citations, 38-event error allocation, empirical-TV correction and excluded
+loopholes. This row is not a Lean theorem; full Monte Carlo is excluded from CI.
