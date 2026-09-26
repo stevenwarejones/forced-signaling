@@ -121,6 +121,20 @@ VERDICT: CERTIFICATES VALID: Sigma_HIC(Q_LC4) = (sqrt2-1)/4 exactly
 pip install numpy scipy sympy
 ```
 
+### Continuous integration
+
+The [Verify workflow](.github/workflows/ci.yml) runs on every pull request and
+on pushes to `main`. It runs all four exact certificate verifiers, the regression
+gates (including tampered-certificate rejection), the Theorem 4 reproduction,
+and the package's SHA-256 checks. A failed check fails the job, which also checks
+that verification leaves tracked files unchanged. Reproduce the same checks
+locally with Python 3.12:
+
+```bash
+python3 -m pip install -r requirements-ci.txt
+sh scripts/check.sh
+```
+
 ## Formal verification in Lean
 
 The proofs live in [`ontology-separation` at `c10474e9b45cca2ea260eec2d9f348a12cf62677`](https://github.com/stevenwarejones/ontology-separation/tree/c10474e9b45cca2ea260eec2d9f348a12cf62677)

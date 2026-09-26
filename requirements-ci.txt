@@ -1,0 +1,4 @@
+# Python 3.12 verification environment; also usable for local CI reproduction.
+numpy==2.3.5
+scipy==1.17.0
+sympy==1.14.0
