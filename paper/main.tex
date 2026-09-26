@@ -20,8 +20,11 @@
 \newcommand{\ceil}{\tfrac{\sqrt2-1}{4}}
 
 \title{\textbf{The signaling cost of finite-speed hidden influences}}
-\author{Steven W. Jones\thanks{stevenwarejones@gmail.com. Drafted with substantial assistance from Claude (Anthropic) and Codex (OpenAI); see the Statement on AI use. \textbf{Draft v1.14 --- machine-verified but not yet independently checked by a domain expert. Not for submission in current form.}}}
-\date{August 15, 2026}
+\author{Steven W. Jones\thanks{stevenwarejones@gmail.com. Drafted with substantial assistance from Claude (Anthropic) and Codex (OpenAI); see the Statement on AI use. Theorems 1--2, Corollary 1, Proposition 1,
+the invisible models used in Proposition 2, and the white-noise curve are
+kernel-checked in Lean for the stated finite model class; spacetime
+interpretation and finite-sample inference are not. \textbf{Draft v1.15 --- machine-verified but not yet independently checked by a domain expert. Not for submission in current form.}}}
+\date{September 25, 2026}
 
 \begin{document}
 \maketitle
@@ -142,6 +145,26 @@ $\;\Sig(Q_{LC4}) = \dfrac{\sqrt2-1}{4} = 0.103553\ldots$ exactly.
 \begin{proof}[Proof (machine-verified)]
 Upper bound: an explicit conditionally-local model with weights in $\mathbb{Q}(\sqrt2)$ reproduces all $128$ no-blind-pair marginal values of $Q_{LC4}$ (themselves elements of $\mathbb{Q}(\sqrt2)$, computed symbolically from the state) and achieves $\Dsig=(\sqrt2-1)/4$; all equalities, inequalities and nonnegativity verified in exact arithmetic. Lower bound: an explicit dual vector over $\mathbb{Q}(\sqrt2)$ is exactly feasible with objective value $(\sqrt2-1)/4$. Certificates accompany the manuscript.
 \end{proof}
+
+\paragraph{Exact white-noise curve (Lean-verified).}
+For $\rho_p=p|LC_4\rangle\!\langle LC_4|+(1-p)I/16$, $0\le p\le1$, with
+the same measurements, the minimum over matching finite stochastic
+conditional-local models is
+\begin{equation}
+\Sigma(p)=\max\!\left\{0,\frac{p(4+2\sqrt2)-6}{8}\right\}.
+\label{eq:noisecurve}
+\end{equation}
+The pinned Lean development in Ref.~\cite{LeanVerification} proves both the
+lower bound and attainment at every visibility, using exact zero-signaling
+models at $p=0$ and at $p_*=3-3\sqrt2/2$, the LC4 model at $p=1$, and convex
+interpolation. The threshold $p_*\simeq0.8786797$ is the already known
+$S_4$ white-noise tolerance of Ref.~\cite{Li2026}; the certified statement here
+is exact tightness throughout the visibility range, not a new threshold.
+At $p=0.90$ the minimum is $(9\sqrt2-12)/40\simeq0.0181981$; at $p=0.95$
+it is $(19\sqrt2-22)/80\simeq0.0608757$. Thus 90\% visibility requires
+operational-signaling bounds below about 1.8\%, roughly at the 1\% level,
+together with a valid witness lower bound. These are expectation-level minima,
+not finite-sample confidence bounds or a completed experimental protocol.
 
 An independent audit of the exported optimal model verified additionally that it exhibits no backward early-side signaling ($P(a|x,w)$ is $w$-independent), so the exact upper construction admits a forward factorization $A \to D \to \{B,C\}$ compatible with the stated causal ordering.
 
@@ -369,7 +392,15 @@ If a finite cone exists, scanning $\rho$ maps it: the boundary of \eqref{eq:blin
 
 \emph{Measurement events.} Condition \eqref{eq:blind} needs an operational definition of when a measurement happens; we follow Refs.~\cite{Salart2008,Zbinden2001} in using irreversible detection, and finite detection duration is absorbed into the jitter budget. A sharper treatment would strengthen the design.
 
-\emph{Positioning.} The $\rho$-dependence of frame coverage is implicit in Ref.~\cite{Salart2008}, and Ref.~\cite{Bancal2012} contains multi-configuration unknown-frame constructions; Theorem~\ref{thm:cover}'s claim is the \emph{optimal finite} cover with matching lower bound. The quantifier underlying $\Sig$ is due to Ref.~\cite{Brito2018}. The quantitative ``influence needed for Bell violations'' lineage begins with Hall's ontic-level signaling relaxations \cite{Hall2010}---which already resolve signaling \emph{by direction}, defining one-way strengths $S_{1\to2}$ and $S_{2\to1}$ separately, and are the direct ancestor of Proposition~\ref{prop:directional}; the differences are that Hall's measures are conditioned on the hidden variable while $\delta_A,\delta_D$ are operational, and that Hall combines the two directions as a maximum, where the certificate here yields an \emph{additive} bound; since the quantities and model classes differ this is a strengthening of \emph{our own} scalar relaxation, not of Hall's theorem---together with the auxiliary-communication facet inequalities of Bacon and Toner \cite{BaconToner2003} (the formal ancestor of Theorem~\ref{thm:K8}'s witness-plus-signaling form; direction-dependent versions appear in Ref.~\cite{MaxwellChitambar2014}, with communication measured in bits rather than total variation), and the communication-cost results of Refs.~\cite{Pironio2003,TonerBacon2003}. The closest relative of Theorem~\ref{prop:approx} is the interventionist causal-influence bound $\min\mathrm{ACE} = \max\{0,(S-2)/2\}$ of Ringbauer \emph{et al.}~\cite{Ringbauer2016} (instrumental-scenario cousin: Ref.~\cite{Gachechiladze2020}), which quantifies an interventional (do-conditional) effect in a bipartite one-way causal model, with no marginal constraints and no spacetime structure; $\Sig$ is by contrast operational (observed distributions), marginal-constrained, and anchored in the blind-pair arrangement where, by Refs.~\cite{Bancal2012,Scarani2014}, the forced signaling is superluminal. Our claims of novelty are confined to: the operational interpretation (steering-coupled lift) of that quantifier as forced signaling; Theorems~\ref{thm:K8}--\ref{thm:reduction}, with exact certificates for Theorems~\ref{thm:K8}--\ref{thm:exact}; the directional resolution of Proposition~\ref{prop:directional}, whose inequality is a corollary of the Theorem~\ref{thm:K8} certificate and whose one-sided tightness carries its own two certificates; the accessible-signaling criterion for $Q_{LC4}$ under the stated single-trial direct-collection restrictions (Lemma~\ref{lem:pinned}, Proposition~\ref{prop:access}) together with its explicit attaining models; the adversarial record of Conjecture~\ref{conj:tight} including parallel flatness; and the experimental architecture of Sec.~\ref{sec:experiment}.
+\emph{Positioning.} The $\rho$-dependence of frame coverage is implicit in Ref.~\cite{Salart2008}, and Ref.~\cite{Bancal2012} contains multi-configuration unknown-frame constructions; Theorem~\ref{thm:cover}'s claim is the \emph{optimal finite} cover with matching lower bound. The quantifier underlying $\Sig$ is due to Ref.~\cite{Brito2018}. The quantitative ``influence needed for Bell violations'' lineage begins with Hall's ontic-level signaling relaxations \cite{Hall2010}---which already resolve signaling \emph{by direction}, defining one-way strengths $S_{1\to2}$ and $S_{2\to1}$ separately, and are the direct ancestor of Proposition~\ref{prop:directional}; the differences are that Hall's measures are conditioned on the hidden variable while $\delta_A,\delta_D$ are operational, and that Hall combines the two directions as a maximum, where the certificate here yields an \emph{additive} bound; since the quantities and model classes differ this is a strengthening of \emph{our own} scalar relaxation, not of Hall's theorem---together with the auxiliary-communication facet inequalities of Bacon and Toner \cite{BaconToner2003} (the formal ancestor of Theorem~\ref{thm:K8}'s witness-plus-signaling form; direction-dependent versions appear in Ref.~\cite{MaxwellChitambar2014}, with communication measured in bits rather than total variation), and the communication-cost results of Refs.~\cite{Pironio2003,TonerBacon2003}. The closest relative of Theorem~\ref{prop:approx} is the interventionist causal-influence bound $\min\mathrm{ACE} = \max\{0,(S-2)/2\}$ of Ringbauer \emph{et al.}~\cite{Ringbauer2016} (instrumental-scenario cousin: Ref.~\cite{Gachechiladze2020}), which quantifies an interventional (do-conditional) effect in a bipartite one-way causal model, with no marginal constraints and no spacetime structure; $\Sig$ is by contrast operational (observed distributions), marginal-constrained, and anchored in the blind-pair arrangement where, by Refs.~\cite{Bancal2012,Scarani2014}, the forced signaling is superluminal. Related quantitative relaxations include Hall's general framework for relaxed
+Bell inequalities \cite{Hall2011}, Ghadimi's bounds with parameter dependence
+\cite{Ghadimi2021}, and the relaxation of absoluteness of observed events in
+extended Wigner-friend scenarios by Moreno, Nery, Duarte and Chaves
+\cite{Moreno2022}. These works motivate comparison of precisely stated
+assumptions and distance conventions; they do not identify an ontic parameter
+with the operational marginal TV used here. No novelty or priority claim is
+made in this memorandum. The results and certificates are presented for expert
+assessment against that literature.
 
 \emph{What a violation would mean.} Under measurement independence, fair sampling, and the realized spacetime arrangement: every finite-$v$ hidden-influence model with $(v,\boldsymbol\beta)$ in the covered region either fails to reproduce the observed correlations or exhibits the measured signaling deficit; by Refs.~\cite{Bancal2012,Scarani2014}, surviving finite-$v$ models support operational superluminal communication \emph{in suitable arrangements}. That is a statement about the model class, not about the layout realized here: by Lemma~\ref{lem:pinned} only recipient sets containing the whole blind pair can carry a signal at all, and in the co-located arrangement no such set is collectible, so by Proposition~\ref{prop:access} \emph{every} compatible model has zero accessible signaling there. The exclusion does not, by itself, establish a communication protocol in this layout. The exclusion is statistical and stands regardless; the communication reading requires the separated four-site layout given in Sec.~\ref{sec:experiment}. It would not distinguish interpretations that never posited finite-speed mechanisms.
 
@@ -378,7 +409,19 @@ If a finite cone exists, scanning $\rho$ maps it: the boundary of \eqref{eq:blin
 Three problems are left sharply posed. (1) Prove Conjecture~\ref{conj:tight} via a steering-moment (SOS) certificate over jointly-extendible assemblages; the reduction of Theorem~\ref{thm:reduction} localizes exactly what must be bounded, and the tripartite-binary coincidence of Ref.~\cite{Barnea2013} settles the single-early-party case at $\Sig=0$. (2) Determine $\sup_Q\Sig$ beyond binary blind pairs, beginning with a qutrit lock architecture compatible with order-$3$ stabilizer cancellation. (3) Run the experiment: three sites, one $10$\,km baseline, sixteen programmed delays (fourteen in the zero-jitter idealization) cycled under the timestamped protocol, source and timing technology that exists today. Fourteen years after the theorem that made finite-speed causal explanations testable in principle, no fundamentally new capability separates them from being tested in practice.
 
 \section*{Statement on AI use and verification status}
-This manuscript, including all theorems, computations, certificates and the experimental design, was produced by Claude (Anthropic Claude Fable 5) in an iterative human-directed session, with adversarial cross-checking against a second AI system, Codex (OpenAI), whose contributions included the delay-scan idea, the $K$-optimality question, the correction of an error in our completion analysis, the positivity argument completing Theorem~\ref{prop:approx}, the sliced restatement of Theorem~\ref{thm:reduction}, the drift analysis underlying the timestamped protocol, and the detection of a non-extendible-assemblage error in a consequence paragraph of Theorem~\ref{thm:reduction} (corrected in v1.6, with the affected numerical claim and its driver withdrawn). Numerical claims were generated by linear programs and elementary numerical routines (cover geometry, Monte Carlo, event budgets, figures) whose code accompanies the manuscript, with per-claim coverage inventoried in the manifest; Theorems~\ref{thm:K8} and \ref{thm:exact} carry exact-arithmetic certificates, with independent standalone verifiers for both Theorem~\ref{thm:K8} and Theorem~\ref{thm:exact}, file hashes covering the manuscript, scripts, figures and certificates, and a manifest with reproduction commands; circulated copies of this PDF must be accompanied by that package, without which the certificate claims cannot be assessed. \textbf{No claim has been verified by a human domain expert, and by that standard this document is a research memorandum, not a submission.} Known open items: the Barnea transcription discrepancy of Sec.~\ref{sec:beyond}; the exact relation between input-maximized and input-averaged normalizations beyond the extremal points; literature priority of the parallel-flatness observation (a targeted sweep found nothing, but a systematic citation-graph pass over the citers of Refs.~\cite{Bancal2012,Brito2018}, and a re-search for contemporaneous preprints on Ref.~\cite{Li2026}, are recommended immediately before any posting); verified quotations for the positioning statements regarding Refs.~\cite{Salart2008,Bancal2012}; and complete script coverage of the numerical record (the manifest lists which claims are regenerable from the package and which are not yet). The listed author assumes responsibility upon any submission; arXiv and COPE policies do not permit AI systems as authors. The authors of Refs.~\cite{Li2026,Brito2018,Barnea2013} have not been consulted; contacting them before submission is strongly recommended.
+This manuscript, including all theorems, computations, certificates and the experimental design, was produced by Claude (Anthropic Claude Fable 5) in an iterative human-directed session, with adversarial cross-checking against a second AI system, Codex (OpenAI), whose contributions included the delay-scan idea, the $K$-optimality question, the correction of an error in our completion analysis, the positivity argument completing Theorem~\ref{prop:approx}, the sliced restatement of Theorem~\ref{thm:reduction}, the drift analysis underlying the timestamped protocol, and the detection of a non-extendible-assemblage error in a consequence paragraph of Theorem~\ref{thm:reduction} (corrected in v1.6, with the affected numerical claim and its driver withdrawn). Numerical claims were generated by linear programs and elementary numerical routines (cover geometry, Monte Carlo, event budgets, figures) whose code accompanies the manuscript, with per-claim coverage inventoried in the manifest; Theorems~\ref{thm:K8} and \ref{thm:exact} carry exact-arithmetic certificates, with independent standalone verifiers for both Theorem~\ref{thm:K8} and Theorem~\ref{thm:exact}, file hashes covering the manuscript, scripts, figures and certificates, and a manifest with reproduction commands; circulated copies of this PDF must be accompanied by that package, without which the certificate claims cannot be assessed. Theorems~\ref{thm:K8}--\ref{thm:exact}, Corollary~\ref{cor:opt}
+over all 512 completions, Proposition~\ref{prop:directional}, the three
+pairwise-invisible attaining models used in Proposition~\ref{prop:access},
+and Eq.~\eqref{eq:noisecurve} are also kernel-checked in Lean~4 in the
+pinned development of Ref.~\cite{LeanVerification}. Its formal class is
+finite stochastic conditional-local hidden-influence models, including the
+proved determinization bridge; extension to infinite or measure-theoretic
+hidden spaces is not formalized. This does not verify the finite-speed
+physical interpretation, Lemma~\ref{lem:pinned}, collectibility or
+Proposition~\ref{prop:access}'s layout criterion, or finite-sample inference.
+The package manifest lists each numbered claim's verification status and the
+pinned theorem names, including analytic and numerical claims outside Lean.
+\textbf{No claim has been verified by a human domain expert, and by that standard this document is a research memorandum, not a submission.} Known open items: the Barnea transcription discrepancy of Sec.~\ref{sec:beyond}; the exact relation between input-maximized and input-averaged normalizations beyond the extremal points; literature priority of the parallel-flatness observation (a targeted sweep found nothing, but a systematic citation-graph pass over the citers of Refs.~\cite{Bancal2012,Brito2018}, and a re-search for contemporaneous preprints on Ref.~\cite{Li2026}, are recommended immediately before any posting); verified quotations for the positioning statements regarding Refs.~\cite{Salart2008,Bancal2012}; and complete script coverage of the numerical record (the manifest lists which claims are regenerable from the package and which are not yet). The listed author assumes responsibility upon any submission; arXiv and COPE policies do not permit AI systems as authors. The authors of Refs.~\cite{Li2026,Brito2018,Barnea2013} have not been consulted; contacting them before submission is strongly recommended.
 
 \begin{thebibliography}{99}
 \bibitem{Hensen2015} B. Hensen \emph{et al.}, Nature \textbf{526}, 682 (2015).
@@ -408,6 +451,16 @@ This manuscript, including all theorems, computations, certificates and the expe
 \bibitem{Weilenmann2024} M. Weilenmann, Nat. Commun. \textbf{16}, 269 (2025).
 \bibitem{Ramanathan2026} R. Ramanathan, Xie Sicheng, M. Eckstein, and P. Horodecki, arXiv:2608.20247 (2026).
 \bibitem{Zbinden2001} H. Zbinden, J. Brendel, N. Gisin, and W. Tittel, Phys. Rev. A \textbf{63}, 022111 (2001).
+\bibitem{Hall2011} M. J. W. Hall, ``Relaxed Bell inequalities and Kochen-Specker theorems,'' Phys. Rev. A \textbf{84}, 022102 (2011), arXiv:1102.4467.
+\bibitem{Ghadimi2021} M. Ghadimi, ``Parameter dependence and Bell nonlocality,'' Phys. Rev. A \textbf{104}, 032205 (2021), arXiv:2102.06920.
+\bibitem{Moreno2022} G. Moreno, R. Nery, C. Duarte, and R. Chaves, ``Events in quantum mechanics are maximally non-absolute,'' Quantum \textbf{6}, 785 (2022), doi:10.22331/q-2022-08-24-785.
+\bibitem{LeanVerification} S. W. Jones, \emph{Ontology Separation}, Lean~4
+formalization, merged revision
+\href{https://github.com/stevenwarejones/ontology-separation/tree/c10474e9b45cca2ea260eec2d9f348a12cf62677}{\texttt{c10474e9b45c}}
+(September 25, 2026). Full commit:
+\nolinkurl{c10474e9b45cca2ea260eec2d9f348a12cf62677}.
+Pinned source links, theorem names, and reproduction commands are in the
+accompanying package's README and \texttt{MANIFEST.md}.
 \end{thebibliography}
 
 \end{document}
