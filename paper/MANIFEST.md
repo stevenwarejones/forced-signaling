@@ -211,3 +211,13 @@ delta_A + delta_D = (sqrt(2)-1)/2 with the other direction exactly zero.
 - Whether the encoded conditionally-local optimization fully captures the intended
   finite-speed physical interpretation is a modelling question for specialist assessment,
   not something any certificate here settles.
+
+## Shot-budget analysis
+
+| Claim | Status | Reproduction |
+|---|---|---|
+| Scalar and directional shot budgets for 95% power under equal setting allocation | **numerical estimate (i.i.d.)**: rigorous-under-stated-assumptions sufficient formula and separately labeled Monte Carlo crossing estimates with uncertainty | `python3 threadB/shot_budget.py --study`; fast CI gate `--check` |
+
+See `threadB/SHOT_BUDGET.md` for the concentration inequalities, primary
+citations, 38-event error allocation, empirical-TV correction and excluded
+loopholes. This row is not a Lean theorem; full Monte Carlo is excluded from CI.

@@ -170,12 +170,45 @@ def study(p,alpha,trials=5000,validation_trials=20000):
         require(hi<=bound,'estimated crossing exceeds sufficient bound')
     return {'visibility':p,'alpha':alpha,'beta':BETA,'rigorous_scalar_N':16*bound,
             'rigorous_directional_N':16*bound,'monte_carlo':estimates,
-            'search_points':[observations[n] for n in sorted(observations)]}
+            'search_points':[observations[n] for n in sorted(observations)],
+            'optimized_allocation':optimized_allocation(p,alpha)}
+
+def optimized_allocation(p,alpha):
+    """Numerically optimized feasible scalar guarantee; no global-optimality claim."""
+    from scipy.optimize import minimize
+    weights=np.zeros(16)
+    for c,setting,_ in TERMS:weights[SETTINGS.index(setting)]+=abs(c)
+    ta,ea=radii(1,alpha);tb,eb=radii(1,BETA);cs=ta+tb;ce=ea+eb
+    pairs=[(i,i+8) for i in range(8)]+[(2*i,2*i+1) for i in range(8)]
+    scale=8*(cs+ce)
+    def constraints(v):
+        return np.array([scale-cs*np.dot(weights,v[:16])-4*ce*v[16]]+
+                        [v[16]-v[i]-v[j] for i,j in pairs])
+    res=minimize(lambda v:np.sum(v[:16]**-2),np.r_[np.ones(16),2.],
+                 method='SLSQP',bounds=[(.1,10)]*16+[(.2,20)],
+                 constraints={'type':'ineq','fun':constraints},
+                 options={'ftol':1e-11,'maxiter':1000})
+    require(res.success,'allocation optimizer failed: '+res.message)
+    gap=p*SQUANTUM-6
+    counts=np.ceil((scale/gap/res.x[:16])**2*(1+1e-9)).astype(np.int64)+1
+    def penalty(ns):
+        x=1/np.sqrt(ns)
+        return float(cs*np.dot(weights,x)+4*ce*max(x[i]+x[j] for i,j in pairs))
+    require(penalty(counts)<gap,'rounded nonuniform allocation failed the rigorous condition')
+    require(int(counts.sum())<=16*sufficient_n(p,alpha),'allocation failed to improve baseline')
+    return {'N':int(counts.sum()),'counts_in_xyzw_order':counts.tolist(),
+            'power_penalty':penalty(counts),'gap':gap,
+            'status':'numerically optimized feasible sufficient bound, not proved optimal'}
 
 def check():
     verified=cross_check()
     require(sum(abs(c) for c,_,_ in TERMS)==8,'coefficient sum')
     require(len({s for _,s,_ in TERMS})==5,'six terms share five settings')
+    null=np.zeros((1,16,16),dtype=np.int64);null[:,:,0]=1000000
+    require(not any(bool(x[0]) for x in decisions(null,1000000,.01)),
+            'deterministic local no-signal null must not reject')
+    require(all(bool(x[0]) for x in decisions(probabilities(1)[None,:,:]*1000000,1000000,.01)),
+            'ideal quantum frequencies must reject at sufficient size')
     for p,want in { .90:.0181980515339464,.95:.0608757210636100,1.:.1035533905932738 }.items():
         require(abs(max(0,(p*SQUANTUM-6)/8)-want)<2e-14,'STOP: Sigma curve mismatch')
     for a in ALPHAS:
@@ -194,6 +227,15 @@ def check():
         for row in obj['rows']:
             n=sufficient_n(row['visibility'],row['alpha'])
             require(row['rigorous_scalar_N']==16*n,'stale analytic result')
+            opt=row['optimized_allocation'];ns=np.array(opt['counts_in_xyzw_order'])
+            require(ns.shape==(16,) and np.all(ns>0) and np.all(ns==np.floor(ns)), 'invalid allocation')
+            weights=np.zeros(16)
+            for c,setting,_ in TERMS:weights[SETTINGS.index(setting)]+=abs(c)
+            ta,ea=radii(1,row['alpha']);tb,eb=radii(1,BETA);x=1/np.sqrt(ns)
+            pairs=[(i,i+8) for i in range(8)]+[(2*i,2*i+1) for i in range(8)]
+            penalty=(ta+tb)*np.dot(weights,x)+4*(ea+eb)*max(x[i]+x[j] for i,j in pairs)
+            require(penalty<row['visibility']*SQUANTUM-6 and int(ns.sum())==opt['N']<=16*n,
+                    'stored nonuniform allocation fails the sufficient condition')
             for test in ('scalar','directional'):
                 e=row['monte_carlo'][test]
                 require(e['N']<=16*n,'MC estimate exceeds sufficient bound')
@@ -223,6 +265,11 @@ def render_table(obj):
         f"Seed {SEED}; {obj['search_trials']:,} trials per search point; {obj['validation_trials']:,} independent validation trials per crossing.",
         'Intervals are pointwise Monte Carlo uncertainty, not simultaneous guarantees or experimental significance bounds.',
         'Full brackets, counts, environment: `data/shot_budget_results.json`.','']
+    lines+=['## Optional nonuniform allocation','',
+        'Numerically optimized feasible sufficient budgets for both tests. The condition is checked after rounding every setting count upward. Global optimality is not claimed; no nonuniform Monte Carlo study is claimed.','',
+        '| p | α | Sufficient total N |','|---|---|---:|']
+    for r in obj['rows']:lines.append(f"| {r['visibility']:.2f} | {r['alpha']:g} | {r['optimized_allocation']['N']:,} |")
+    lines+=['','All 16 positive integer setting counts are recorded in the JSON in lexicographic (x,y,z,w) order.','']
     return '\n'.join(lines)
 
 def main():
