@@ -307,6 +307,11 @@ earlier snapshot; the draft version on the title page of `paper/main.pdf` is aut
 for the manuscript in this tree. Cite the archived release you actually used, and check
 the Zenodo record's "versions" list for the newest one.
 
+At the v1.15 release, update `CITATION.cff`'s version, release date, DOI and
+archived-release identifier, and replace the README's DOI badge and citation
+above with the new Zenodo version record. Remove the working-tree notice once
+the tagged snapshot has been archived; until then, retain the v1.10 metadata.
+
 Note that this is an unrefereed research memorandum whose claims have not been checked
 by a human expert, and it should be cited as such.
 

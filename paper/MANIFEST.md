@@ -71,8 +71,9 @@ below are pinned to it, and declaration names have the prefix
 `OntologySeparation.`. The model class is finite stochastic conditional-local;
 the extension to infinite hidden spaces and its finite-speed physical
 interpretation are not kernel-checked. Values are expectation-level minima,
-not finite-sample confidence bounds. No human expert has reviewed them and no
-novelty or priority claim is made.
+not finite-sample confidence bounds. No human expert has reviewed them.
+Verification alone establishes no novelty or priority; the manuscript's
+contributions remain subject to expert assessment.
 
 Each numbered assertion has **one** primary verification label. Where a proof
 has a checked ingredient but an analytic conclusion, the overall assertion
