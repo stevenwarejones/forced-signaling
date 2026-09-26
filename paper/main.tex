@@ -71,6 +71,11 @@ the minimum over all behaviors $P$ that (i) satisfy conditional locality \eqref{
 
 $\Sig(Q)$ is computable by a linear program: with deterministic response functions $\beta,\gamma$ for the blind pair, the model is a weight vector $t^{s}_{o,\beta,\gamma}\ge0$ \cite{Li2026}, the marginal constraints are linear equalities, and $\Dsig$ is linearized with slack variables. $\Sig(Q)=0$ iff $Q$'s no-blind-pair marginals admit an exactly no-signaling conditionally-local model; $\Sig(Q)>0$ quantifies the Bancal dilemma: any finite-$v$ explanation of $Q$ must produce at least $\Sig(Q)$ of operational signaling, which, in the spacetime arrangements of Refs.~\cite{Bancal2012,Barnea2013,Scarani2014}, is superluminal communication.
 
+The general strategy of minimizing a causal relaxation by linear programming,
+with dual bounds on observed data, was developed by Chaves \emph{et al.}~\cite{Chaves2015}.
+Here the objective is operational marginal TV and the constraints fix the
+no-blind-pair marginals.
+
 \emph{Scope of the model class.} Definition~\ref{def:sigma} quantifies over exactly the conditioned $v$-causal class of Refs.~\cite{Bancal2012,Barnea2013,Li2026}: hidden variables may be conditioned on all early data (Eq.~\eqref{eq:CL}), measurement independence holds, and no mechanism beyond finite-speed influences is available. Whether every physically imaginable finite-speed mechanism reduces to this class is an interpretive question we do not settle; our exactness claims are claims about this class, which is the one for which the signaling theorems of Refs.~\cite{Bancal2012,Scarani2014} are established. We flag this bridge as the single point most deserving of adversarial expert scrutiny.
 
 Three remarks. (1) The definition assumes measurement independence and no postselection, as does the entire framework \cite{Li2026}. (2) $\Sig$ is witness-independent: the LP tests membership in the full projected hidden-influence polytope, which is stronger than any finite witness set. (3) $\Sig$ manifestly depends only on the no-blind-pair data; Theorem~\ref{thm:reduction} will sharpen this considerably.
@@ -392,7 +397,29 @@ If a finite cone exists, scanning $\rho$ maps it: the boundary of \eqref{eq:blin
 
 \emph{Measurement events.} Condition \eqref{eq:blind} needs an operational definition of when a measurement happens; we follow Refs.~\cite{Salart2008,Zbinden2001} in using irreversible detection, and finite detection duration is absorbed into the jitter budget. A sharper treatment would strengthen the design.
 
-\emph{Positioning.} The $\rho$-dependence of frame coverage is implicit in Ref.~\cite{Salart2008}, and Ref.~\cite{Bancal2012} contains multi-configuration unknown-frame constructions; Theorem~\ref{thm:cover}'s claim is the \emph{optimal finite} cover with matching lower bound. The quantifier underlying $\Sig$ is due to Ref.~\cite{Brito2018}. The quantitative ``influence needed for Bell violations'' lineage begins with Hall's ontic-level signaling relaxations \cite{Hall2010}---which already resolve signaling \emph{by direction}, defining one-way strengths $S_{1\to2}$ and $S_{2\to1}$ separately, and are the direct ancestor of Proposition~\ref{prop:directional}; the differences are that Hall's measures are conditioned on the hidden variable while $\delta_A,\delta_D$ are operational, and that Hall combines the two directions as a maximum, where the certificate here yields an \emph{additive} bound; since the quantities and model classes differ this is a strengthening of \emph{our own} scalar relaxation, not of Hall's theorem---together with the auxiliary-communication facet inequalities of Bacon and Toner \cite{BaconToner2003} (the formal ancestor of Theorem~\ref{thm:K8}'s witness-plus-signaling form; direction-dependent versions appear in Ref.~\cite{MaxwellChitambar2014}, with communication measured in bits rather than total variation), and the communication-cost results of Refs.~\cite{Pironio2003,TonerBacon2003}. The closest relative of Theorem~\ref{prop:approx} is the interventionist causal-influence bound $\min\mathrm{ACE} = \max\{0,(S-2)/2\}$ of Ringbauer \emph{et al.}~\cite{Ringbauer2016} (instrumental-scenario cousin: Ref.~\cite{Gachechiladze2020}), which quantifies an interventional (do-conditional) effect in a bipartite one-way causal model, with no marginal constraints and no spacetime structure; $\Sig$ is by contrast operational (observed distributions), marginal-constrained, and anchored in the blind-pair arrangement where, by Refs.~\cite{Bancal2012,Scarani2014}, the forced signaling is superluminal. Related quantitative relaxations include Hall's general framework for relaxed
+\emph{Positioning.} The $\rho$-dependence of frame coverage is implicit in Ref.~\cite{Salart2008}, and Ref.~\cite{Bancal2012} contains multi-configuration unknown-frame constructions; Theorem~\ref{thm:cover}'s claim is the \emph{optimal finite} cover with matching lower bound. The quantifier underlying $\Sig$ is due to Ref.~\cite{Brito2018}. The quantitative ``influence needed for Bell violations'' lineage begins with Hall's ontic-level signaling relaxations \cite{Hall2010}---which already resolve signaling \emph{by direction}, defining one-way strengths $S_{1\to2}$ and $S_{2\to1}$ separately, and are the direct ancestor of Proposition~\ref{prop:directional}; the differences are that Hall's measures are conditioned on the hidden variable while $\delta_A,\delta_D$ are operational, and that Hall combines the two directions as a maximum, where the certificate here yields an \emph{additive} bound; since the quantities and model classes differ this is a strengthening of \emph{our own} scalar relaxation, not of Hall's theorem---together with the auxiliary-communication facet inequalities of Bacon and Toner \cite{BaconToner2003} (the formal ancestor of Theorem~\ref{thm:K8}'s witness-plus-signaling form; direction-dependent versions appear in Ref.~\cite{MaxwellChitambar2014}, with communication measured in bits rather than total variation), and the communication-cost results of Refs.~\cite{Pironio2003,TonerBacon2003}. Chaves, Kueng, Brask and Gross \cite{Chaves2015} give a general causal-model
+LP framework for minimizing relaxations of Bell assumptions and deriving dual
+bounds from linear observations. Their direct-influence measure averages
+absolute intervention-induced probability changes over the hidden variable;
+$\Dsig$ instead takes TV between observable recipient marginals after hidden
+variables have been averaged out. These operations need not agree. Their
+\href{https://link.aps.org/accepted/10.1103/PhysRevLett.114.140403}{PRL accepted manuscript}
+(20 March 2015), Eq.~(7), distinguishes outcome from setting influence:
+$\tfrac12\min C_{A\to B}=\min C_{X\to B}=\max\{0,I_{\mathrm{CH}}\}$,
+where, on no-signaling binary behaviors, $I_{\mathrm{CH}}=(S-2)/4$ for the
+corresponding CHSH orientation; the maximum includes relabelings.
+The earlier arXiv:1411.4648v1 omits the factor $1/2$.
+A related comparison for Theorem~\ref{prop:approx} is Ringbauer
+\emph{et al.}~\cite{Ringbauer2016}, whose Eq.~(4) gives
+$\mathrm{ACE}_{A\to B}\ge\max\{0,(S-2)/2\}$, with the maximum over CHSH
+relabelings. Their ACE is experimentally accessible through interventions
+without access to the hidden variable (instrumental-scenario cousin:
+Ref.~\cite{Gachechiladze2020}); it is distinct both from the hidden-variable
+measure above and from observed signaling under setting changes. Our
+optimization fixes the no-blind-pair marginals in the conditional-local class,
+and the superluminal interpretation uses the spacetime arrangements of
+Refs.~\cite{Bancal2012,Scarani2014}.
+Related quantitative relaxations include Hall's general framework for relaxed
 Bell inequalities \cite{Hall2011}, Ghadimi's bounds with parameter dependence
 \cite{Ghadimi2021}, and the relaxation of absoluteness of observed events in
 extended Wigner-friend scenarios by Moreno, Nery, Duarte and Chaves
@@ -450,6 +477,7 @@ pinned theorem names, including analytic and numerical claims outside Lean.
 \bibitem{TonerBacon2003} B. F. Toner and D. Bacon, Phys. Rev. Lett. \textbf{91}, 187904 (2003).
 \bibitem{Hall2010} M. J. W. Hall, Phys. Rev. A \textbf{82}, 062117 (2010).
 \bibitem{BaconToner2003} D. Bacon and B. F. Toner, Phys. Rev. Lett. \textbf{90}, 157904 (2003).
+\bibitem{Chaves2015} R. Chaves, R. Kueng, J. B. Brask, and D. Gross, ``Unifying framework for relaxations of the causal assumptions in Bell's theorem,'' Phys. Rev. Lett. \textbf{114}, 140403 (2015), \href{https://doi.org/10.1103/PhysRevLett.114.140403}{doi:10.1103/PhysRevLett.114.140403}, arXiv:1411.4648.
 \bibitem{Ringbauer2016} M. Ringbauer, C. Giarmatzi, R. Chaves, F. Costa, A. G. White, and A. Fedrizzi, Sci. Adv. \textbf{2}, e1600162 (2016).
 \bibitem{Gachechiladze2020} M. Gachechiladze, N. Miklin, and R. Chaves, Phys. Rev. Lett. \textbf{125}, 230401 (2020).
 \bibitem{Slussarenko2023} L. Santamaria Amato \emph{et al.}, Sci. Rep. \textbf{13}, 8201 (2023).
